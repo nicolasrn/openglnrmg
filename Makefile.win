@@ -1,0 +1,45 @@
+# Project: Project1
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe -D__DEBUG__
+CC   = gcc.exe -D__DEBUG__
+WINDRES = windres.exe
+RES  = 
+OBJ  = PetitTrain.o ModuleManipulateur.o ModuleCouleurs.o ModuleMenus.o ModuleReshape.o ModuleCylindres.o $(RES)
+LINKOBJ  = PetitTrain.o ModuleManipulateur.o ModuleCouleurs.o ModuleMenus.o ModuleReshape.o ModuleCylindres.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" -lglu32  -lglut32  -lglut -lopengl32  -lwinmm  -lgdi32  -g3 
+INCS =  -I"C:/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include" 
+BIN  = brasrobotCPP.exe
+CXXFLAGS = $(CXXINCS)   -g3
+CFLAGS = $(INCS)   -g3
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before brasrobotCPP.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "brasrobotCPP.exe" $(LIBS)
+
+PetitTrain.o: PetitTrain.cpp
+	$(CPP) -c PetitTrain.cpp -o PetitTrain.o $(CXXFLAGS)
+
+ModuleManipulateur.o: ModuleManipulateur.cpp
+	$(CPP) -c ModuleManipulateur.cpp -o ModuleManipulateur.o $(CXXFLAGS)
+
+ModuleCouleurs.o: ModuleCouleurs.cpp
+	$(CPP) -c ModuleCouleurs.cpp -o ModuleCouleurs.o $(CXXFLAGS)
+
+ModuleMenus.o: ModuleMenus.cpp
+	$(CPP) -c ModuleMenus.cpp -o ModuleMenus.o $(CXXFLAGS)
+
+ModuleReshape.o: ModuleReshape.cpp
+	$(CPP) -c ModuleReshape.cpp -o ModuleReshape.o $(CXXFLAGS)
+
+ModuleCylindres.o: ModuleCylindres.cpp
+	$(CPP) -c ModuleCylindres.cpp -o ModuleCylindres.o $(CXXFLAGS)
