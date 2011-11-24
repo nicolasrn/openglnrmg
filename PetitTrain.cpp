@@ -196,6 +196,51 @@ void display(void) {
                      glScalef(2,1,0.05);
                      glutSolidCube(1.0);  
                  glPopMatrix();
+                 
+                 //les pinions
+               glBegin(GL_POLYGON);
+                  glColor4fv(couleurRose());
+                  glVertex3f(1.4,1.9, 0.8);//sommet
+                  
+                  glColor4fv(couleurRose());
+                  glVertex3f(1.4,2.35, 0);
+                  
+                  glColor4fv(couleurRose());
+                  glVertex3f(1.4,1.9, -0.8);//sommet           
+               glEnd();
+               
+               glBegin(GL_POLYGON);
+                  glColor4fv(couleurJaune());
+                  glVertex3f(1.2,1.9, 0.8);//sommet
+                  
+                  glColor4fv(couleurJaune());
+                  glVertex3f(1.2,2.35, 0);
+                  
+                  glColor4fv(couleurJaune());
+                  glVertex3f(1.2,1.9, -0.8);//sommet  
+               glEnd();
+               
+               glBegin(GL_POLYGON);
+                  glColor4fv(couleurVert());
+                  glVertex3f(0,1.9, 0.8);//sommet
+                  
+                  glColor4fv(couleurVert());
+                  glVertex3f(0,2.35, 0);
+                  
+                  glColor4fv(couleurVert());
+                  glVertex3f(0,1.9, -0.8);//sommet  
+               glEnd();
+               
+               glBegin(GL_POLYGON);
+                  glColor4fv(couleurRose());
+                  glVertex3f(-0.2,1.9, 0.8);//sommet
+                  
+                  glColor4fv(couleurRose());
+                  glVertex3f(-0.2,2.35, 0);
+                  
+                  glColor4fv(couleurRose());
+                  glVertex3f(-0.2,1.9, -0.8);//sommet  
+               glEnd();
 
                  
       
