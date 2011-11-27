@@ -11,6 +11,7 @@
 #include "ModuleMenus.h"
 #include "ModuleReshape.h"
 #include "ModuleCylindres.h"
+#include "ModuleRoue.h"
 
 
 static float anglex = 0.0F ;
@@ -527,126 +528,34 @@ void display(void) {
       //création des roues
                  //roue 1
                   glPushMatrix();
-                     glColor4fv(couleurNoir());
-                     glTranslatef(0.78, -0.65, 1);
-                     glRotatef(90, 0, 0, 1);
-                     gluDisk(param,0.2,0.6,20,1);
+                     glTranslatef(0.78, -0.65, 0.83);
+                     Roue(couleurNoir(), couleurVert(), couleurRouge());
                  glPopMatrix();
-                 
-                 glPushMatrix();
-                     glColor4fv(couleurVert());
-                     glTranslatef(0.78, -0.65, 0.84);
-                     glRotatef(90, 0, 0, 1);
-                     gluDisk(param,0.2,0.6,20,1);
-                 glPopMatrix();
-                 
-                 glPushMatrix();
-                     glColor4fv(couleurRouge());
-                     glTranslatef(0.78, -0.65, 0.92);
-                     glRotatef(90, 1, 0, 0);
-                     solidCylindre(0.6,0.16,20,10);
-                  glPopMatrix();
-                  
-                  glPushMatrix();
-                     glColor4fv(couleurJaune());
-                     glTranslatef(0.78, -0.65, 0.92);
-                     glRotatef(90, 1, 0, 0);
-                     solidCylindre(0.2,0.16,20,10);
-                  glPopMatrix();
                   
                   //roue2
-                  
                   glPushMatrix();
-                     glColor4fv(couleurNoir());
-                     glTranslatef(-0.5, -0.65, 1);
-                     glRotatef(90, 0, 0, 1);
-                     gluDisk(param,0.2,0.6,20,1);
+                     glTranslatef(-0.55, -0.65, 0.83);
+                     Roue(couleurNoir(), couleurVert(), couleurRouge());
                  glPopMatrix();
-                 
-                 glPushMatrix();
-                     glColor4fv(couleurVert());
-                     glTranslatef(-0.5, -0.65, 0.84);
-                     glRotatef(90, 0, 0, 1);
-                     gluDisk(param,0.2,0.6,20,1);
-                 glPopMatrix();
-                 
-                 glPushMatrix();
-                     glColor4fv(couleurRouge());
-                     glTranslatef(-0.5, -0.65, 0.92);
-                     glRotatef(90, 1, 0, 0);
-                     solidCylindre(0.6,0.16,20,10);
-                  glPopMatrix();
-                  
-                  glPushMatrix();
-                     glColor4fv(couleurJaune());
-                     glTranslatef(-0.5, -0.65, 0.92);
-                     glRotatef(90, 1, 0, 0);
-                     solidCylindre(0.2,0.16,20,10);
-                  glPopMatrix();
                  
                  //roue 3
                   glPushMatrix();
-                     glColor4fv(couleurNoir());
-                     glTranslatef(0.78, -0.65, -1);
-                     glRotatef(90, 0, 0, 1);
-                     gluDisk(param,0.2,0.6,20,1);
+                     glTranslatef(0.78, -0.65, -0.99);
+                     Roue(couleurNoir(), couleurVert(), couleurRouge());
                  glPopMatrix();
                  
-                 glPushMatrix();
-                     glColor4fv(couleurVert());
-                     glTranslatef(0.78, -0.65, -0.84);
-                     glRotatef(90, 0, 0, 1);
-                     gluDisk(param,0.2,0.6,20,1);
-                 glPopMatrix();
-                 
-                 glPushMatrix();
-                     glColor4fv(couleurRouge());
-                     glTranslatef(0.78, -0.65, -0.92);
-                     glRotatef(90, 1, 0, 0);
-                     solidCylindre(0.6,0.16,20,10);
-                  glPopMatrix();
-                  
-                  glPushMatrix();
-                     glColor4fv(couleurJaune());
-                     glTranslatef(0.78, -0.65, -0.92);
-                     glRotatef(90, 1, 0, 0);
-                     solidCylindre(0.2,0.16,20,10);
-                  glPopMatrix();
                   
                   //roue4
-                  
                   glPushMatrix();
-                     glColor4fv(couleurNoir());
-                     glTranslatef(-0.5, -0.65, -1);
-                     glRotatef(90, 0, 0, 1);
-                     gluDisk(param,0.2,0.6,20,1);
+                     glTranslatef(-0.55, -0.65, -0.99);
+                     Roue(couleurNoir(), couleurVert(), couleurRouge());
                  glPopMatrix();
                  
-                 glPushMatrix();
-                     glColor4fv(couleurVert());
-                     glTranslatef(-0.5, -0.65, -0.84);
-                     glRotatef(90, 0, 0, 1);
-                     gluDisk(param,0.2,0.6,20,1);
-                 glPopMatrix();
-                 
-                 glPushMatrix();
-                     glColor4fv(couleurRouge());
-                     glTranslatef(-0.5, -0.65, -0.92);
-                     glRotatef(90, 1, 0, 0);
-                     solidCylindre(0.6,0.16,20,10);
-                  glPopMatrix();
-                  
-                  glPushMatrix();
-                     glColor4fv(couleurJaune());
-                     glTranslatef(-0.5, -0.65, -0.92);
-                     glRotatef(90, 1, 0, 0);
-                     solidCylindre(0.2,0.16,20,10);
-                  glPopMatrix();
                   
                   //axe roues avant
                   glPushMatrix();
                      glColor4fv(couleurRose());
-                     glTranslatef(-0.5, -0.65, 0);
+                     glTranslatef(-0.55, -0.65, 0);
                      glRotatef(90, 1, 0, 0);
                      solidCylindre(0.2,2,20,10);
                  glPopMatrix();
