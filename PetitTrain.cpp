@@ -388,8 +388,8 @@ void display(void) {
                  //création du sol
                  glPushMatrix();
                      glColor4fv(couleurGrisClair());
-                     glTranslatef(0.65, -0.475, 0);
-                     glScalef(1.3,0.05,1.4);
+                     glTranslatef(0.6, -0.475, 0);
+                     glScalef(1.4,0.05,1.4);
                      glutSolidCube(1.0);  
                  glPopMatrix();
                  
@@ -575,6 +575,171 @@ void display(void) {
                      glScalef(3.2,0.4,0.4);
                      glutSolidCube(1.0);  
                  glPopMatrix();
+                 
+                 //axe roues droite
+                 
+                     //attache roue1
+                     glPushMatrix();
+                             glColor4fv(couleurBrun());
+                             glTranslatef(1.31, -0.56, 0.99);
+                             glRotatef(90, 1, 0, 0);
+                             solidCylindre(0.06,0.3,20,10);       
+                      glPopMatrix();
+                      
+                      glPushMatrix();
+                             glColor4fv(couleurRouge());
+                             glTranslatef(1.31, -0.56, 0.85);
+                             gluDisk(param,0,0.06,20,1);
+                       glPopMatrix();
+                       
+                     //attache roue 2 
+                     glPushMatrix();
+                             glColor4fv(couleurBrun());
+                             glTranslatef(-0.02, -0.56, 0.99);
+                             glRotatef(90, 1, 0, 0);
+                             solidCylindre(0.06,0.3,20,10);       
+                      glPopMatrix();
+                      
+                      glPushMatrix();
+                             glColor4fv(couleurRouge());
+                             glTranslatef(-0.02, -0.56, 0.85);
+                             gluDisk(param,0,0.06,20,1);
+                       glPopMatrix();
+                       
+                       //axe entre roue 1 et roue2
+                       glPushMatrix();
+                             glColor4fv(couleurJaune());
+                             glTranslatef(0.65, -0.56, 1.06);
+                             glScalef(1.5,0.14,0.1);
+                             glutSolidCube(1.0);
+                       glPopMatrix();
+                       
+                       glPushMatrix();
+                         glColor4fv(couleurJaune());
+                         glTranslatef(-0.02, -0.56, 1.07);
+                         glScalef(1,1,0.5);
+                         gluSphere(param,0.15,20,20);
+                      glPopMatrix();
+                      
+                      glPushMatrix();
+                         glColor4fv(couleurJaune());
+                         glTranslatef(1.3, -0.56, 1.07);
+                         glScalef(1,1,0.5);
+                         gluSphere(param,0.15,20,20);
+                      glPopMatrix();
+                       
+                       glPushMatrix();
+                             glColor4fv(couleurGrisFonce());
+                             glTranslatef(-0.02, -0.56, 1.15);
+                             glRotatef(90, 0, 0, 1);
+                             glScalef(0.13,0.13,1);
+                             glutSolidTorus(0.2,0.4,2,6);
+                       glPopMatrix();
+                       
+                       glPushMatrix();
+                             glColor4fv(couleurNoir());
+                             glTranslatef(-0.02, -0.56, 1.13);
+                             glRotatef(90, 1, 0, 0);
+                             solidCylindre(0.08,0.045,6,10);       
+                      glPopMatrix();
+                      
+                      glPushMatrix();
+                             glColor4fv(couleurGrisFonce());
+                             glTranslatef(1.3, -0.56, 1.15);
+                             glRotatef(90, 0, 0, 1);
+                             glScalef(0.13,0.13,1);
+                             glutSolidTorus(0.2,0.4,2,6);
+                       glPopMatrix();
+                       
+                       glPushMatrix();
+                             glColor4fv(couleurNoir());
+                             glTranslatef(1.3, -0.56, 1.13);
+                             glRotatef(90, 1, 0, 0);
+                             solidCylindre(0.08,0.045,6,10);       
+                      glPopMatrix();
+                      
+                       //axe roues gauche
+                 
+                     //attache roue3
+                     glPushMatrix();
+                             glColor4fv(couleurBrun());
+                             glTranslatef(1.31, -0.56, -0.99);
+                             glRotatef(90, 1, 0, 0);
+                             solidCylindre(0.06,0.3,20,10);       
+                      glPopMatrix();
+                      
+                      glPushMatrix();
+                             glColor4fv(couleurRouge());
+                             glTranslatef(1.31, -0.56, -0.85);
+                             gluDisk(param,0,0.06,20,1);
+                       glPopMatrix();
+                       
+                     //attache roue 4 
+                     glPushMatrix();
+                             glColor4fv(couleurBrun());
+                             glTranslatef(-0.02, -0.56, -0.99);
+                             glRotatef(90, 1, 0, 0);
+                             solidCylindre(0.06,0.3,20,10);       
+                      glPopMatrix();
+                      
+                      glPushMatrix();
+                             glColor4fv(couleurRouge());
+                             glTranslatef(-0.02, -0.56, -0.85);
+                             gluDisk(param,0,0.06,20,1);
+                       glPopMatrix();
+                       
+                       //axe entre roue 1 et roue2
+                       glPushMatrix();
+                             glColor4fv(couleurJaune());
+                             glTranslatef(0.65, -0.56, -1.06);
+                             glScalef(1.5,0.14,0.1);
+                             glutSolidCube(1.0);
+                       glPopMatrix();
+                       
+                       glPushMatrix();
+                         glColor4fv(couleurJaune());
+                         glTranslatef(-0.02, -0.56, -1.07);
+                         glScalef(1,1,0.5);
+                         gluSphere(param,0.15,20,20);
+                      glPopMatrix();
+                      
+                      glPushMatrix();
+                         glColor4fv(couleurJaune());
+                         glTranslatef(1.3, -0.56, -1.07);
+                         glScalef(1,1,0.5);
+                         gluSphere(param,0.15,20,20);
+                      glPopMatrix();
+                       
+                       glPushMatrix();
+                             glColor4fv(couleurGrisFonce());
+                             glTranslatef(-0.02, -0.56, -1.15);
+                             glRotatef(90, 0, 0, 1);
+                             glScalef(0.13,0.13,1);
+                             glutSolidTorus(0.2,0.4,2,6);
+                       glPopMatrix();
+                       
+                       glPushMatrix();
+                             glColor4fv(couleurNoir());
+                             glTranslatef(-0.02, -0.56, -1.13);
+                             glRotatef(90, 1, 0, 0);
+                             solidCylindre(0.08,0.045,6,10);       
+                      glPopMatrix();
+                      
+                      glPushMatrix();
+                             glColor4fv(couleurGrisFonce());
+                             glTranslatef(1.3, -0.56, -1.15);
+                             glRotatef(90, 0, 0, 1);
+                             glScalef(0.13,0.13,1);
+                             glutSolidTorus(0.2,0.4,2,6);
+                       glPopMatrix();
+                       
+                       glPushMatrix();
+                             glColor4fv(couleurNoir());
+                             glTranslatef(1.3, -0.56, -1.13);
+                             glRotatef(90, 1, 0, 0);
+                             solidCylindre(0.08,0.045,6,10);       
+                      glPopMatrix(); 
+                       
                  
                  //pointe
                  //fixation
