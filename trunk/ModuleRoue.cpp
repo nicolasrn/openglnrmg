@@ -32,17 +32,52 @@ void Roue(float* couleur1, float* couleur2, float* couleur3) {
   glPopMatrix();
   
   glPushMatrix();
+         glColor4fv(couleur2);
+         glTranslatef(0, 0, 0.08);
+         glRotatef(90, 1, 0, 0);
+         solidCylindre(0.59,0.16,20,10);       
+  glPopMatrix();
+  
+  glPushMatrix();
          glColor4fv(couleur3);
          glTranslatef(0, 0, 0);
          glRotatef(90, 0, 0, 1);         
-         gluDisk(param,0.6,0.65,20,1);      
+         gluDisk(param,0.59,0.65,20,1);      
   glPopMatrix();
   
   glPushMatrix();
          glColor4fv(couleur3);
          glTranslatef(0, 0, 0.16);
          glRotatef(90, 0, 0, 1);
-         gluDisk(param,0.6,0.65,20,1);              
+         gluDisk(param,0.59,0.65,20,1);              
+  glPopMatrix();
+  
+  glPushMatrix();
+         glColor4fv(couleur2);
+         glTranslatef(0, 0, 0.08);
+         glRotatef(90, 1, 0, 0);
+         solidCylindre(0.19,0.16,20,10);       
+  glPopMatrix();
+  
+  glPushMatrix();
+         glColor4fv(couleur2);
+         glTranslatef(0, 0, 0.08);
+         glRotatef(90, 1, 0, 0);
+         solidCylindre(0.24,0.16,20,10);       
+  glPopMatrix();
+  
+  glPushMatrix();
+         glColor4fv(couleur3);
+         glTranslatef(0, 0, 0);
+         glRotatef(90, 0, 0, 1);         
+         gluDisk(param,0.19,0.24,20,1);      
+  glPopMatrix();
+  
+  glPushMatrix();
+         glColor4fv(couleur3);
+         glTranslatef(0, 0, 0.16);
+         glRotatef(90, 0, 0, 1);
+         gluDisk(param,0.19,0.24,20,1);              
   glPopMatrix();
   
   glPopMatrix();
