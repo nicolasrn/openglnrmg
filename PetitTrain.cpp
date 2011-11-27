@@ -4,6 +4,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+#include <math.h> 
 
 
 #include "ModuleCouleurs.h"
@@ -16,7 +17,44 @@
 
 static float anglex = 0.0F ;
 static float angley = 0.0F ;
-  
+static int az = 0 ;
+static float PI = 3.14159265;
+static float monCosinus[360];
+static float monSinus[360];
+
+void trigo()
+{
+     for (int i = 0; i<=360; i++)
+     {
+         monCosinus[i] = cos(i*PI/180);
+         monSinus[i] = sin(i* PI/180);
+     }
+}
+
+void tournerRoue()
+{
+     if (az>0 && az<90)
+     {
+        glTranslatef((0.55 * monCosinus[az])-0.55, 0.55*monSinus[az], 0);
+     }     
+        
+     if(az>=90 && az<180)
+     {
+         glTranslatef((0.55*monCosinus[az])-0.55,  (0.55*monSinus[az]), 0);
+     }
+         
+     if(az>=180 && az<270)
+     {
+         glTranslatef( (0.55*monCosinus[az])-0.55 , (0.55*monSinus[az]), 0);
+     }
+         
+     if (az>=270 && az<360)
+     {
+        glTranslatef((0.55*monCosinus[az])-0.55, (0.55*monSinus[az]), 0);
+     }
+     
+}
+
 void display(void) { 
   glClear(GL_COLOR_BUFFER_BIT);
   glColor4fv(couleurNoir());
@@ -529,18 +567,21 @@ void display(void) {
                  //roue 1
                   glPushMatrix();
                      glTranslatef(0.78, -0.65, 0.83);
+                     glRotatef(az,0.0,0.0,1.0);
                      Roue(couleurNoir(), couleurVert(), couleurRouge());
                  glPopMatrix();
                   
                   //roue2
                   glPushMatrix();
                      glTranslatef(-0.55, -0.65, 0.83);
+                     glRotatef(az,0.0,0.0,1.0);
                      Roue(couleurNoir(), couleurVert(), couleurRouge());
                  glPopMatrix();
                  
                  //roue 3
                   glPushMatrix();
                      glTranslatef(0.78, -0.65, -0.99);
+                     glRotatef(az,0.0,0.0,1.0);
                      Roue(couleurNoir(), couleurVert(), couleurRouge());
                  glPopMatrix();
                  
@@ -548,6 +589,7 @@ void display(void) {
                   //roue4
                   glPushMatrix();
                      glTranslatef(-0.55, -0.65, -0.99);
+                     glRotatef(az,0.0,0.0,1.0);
                      Roue(couleurNoir(), couleurVert(), couleurRouge());
                  glPopMatrix();
                  
@@ -576,8 +618,10 @@ void display(void) {
                      glutSolidCube(1.0);  
                  glPopMatrix();
                  
-                 //axe roues droite
+                 //axe roues droite////////////////////////////////////////////////////////////////////////////////
                  
+                 glPushMatrix();
+                      tournerRoue();
                      //attache roue1
                      glPushMatrix();
                              glColor4fv(couleurBrun());
@@ -738,7 +782,10 @@ void display(void) {
                              glTranslatef(1.3, -0.56, -1.13);
                              glRotatef(90, 1, 0, 0);
                              solidCylindre(0.08,0.045,6,10);       
-                      glPopMatrix(); 
+                      glPopMatrix();
+                      
+                  glPopMatrix();
+                  /////////////////////////////////////////////////////////////////////////// 
                        
                  
                  //pointe
@@ -912,7 +959,21 @@ void special(int key,int x,int y) {
   glutPostRedisplay() ;
 }
 
+void clavier(unsigned char touche,int x,int y)
+{
+  switch (touche)
+    {
+    case 'a':
+      az = (az+ 5)%360;
+      glutPostRedisplay() ;
+      break;
+    case 'q' : /*la touche 'q' permet de quitter le programme */
+    exit(0);
+    
+   }
+}
 int main(int argc,char **argv) {
+  trigo();
   glutInit(&argc,argv);
   glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH);
   glutInitWindowSize(500,500); 
@@ -929,9 +990,14 @@ int main(int argc,char **argv) {
   glutReshapeFunc(reshapePerspectiveBasique);
   glutKeyboardFunc(keyBasique);
   glutSpecialFunc(special);
+  
   glutMotionFunc(motionBasique);
   glutMouseFunc(sourisBasique);
   glutDisplayFunc(display);
+  
+  //pour faire tounrer les roues
+  glutKeyboardFunc(clavier);
+  
   glutMainLoop();
   return(0);
 }
