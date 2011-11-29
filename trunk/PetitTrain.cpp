@@ -6,13 +6,15 @@
 #include <GL/glut.h>
 #include <math.h> 
 
-
+#include <iostream>
 #include "ModuleCouleurs.h"
 #include "ModuleManipulateur.h"
 #include "ModuleMenus.h"
 #include "ModuleReshape.h"
 #include "ModuleCylindres.h"
 #include "ModuleRoue.h"
+
+using namespace std;
 
 
 static float anglex = 0.0F ;
@@ -22,7 +24,8 @@ static int a = 0 ;
 static float PI = 3.14;//159265;
 static float monCosinus[360];
 static float monSinus[360];
-static int angleCloche = 0;
+static int angleCloche = 3;
+static int tempcompt = 1;
 
 void trigo()
 {
@@ -114,7 +117,9 @@ void display(void) {
       
       //création de la cloche
       glPushMatrix();
-          glTranslatef(1.05, 1.4, 0);//decalage du centre de rotation
+      glRotatef(90, 0, 1, 0);
+       
+          glTranslatef(2.1, 1.4, -1.05);//decalage du centre de rotation
           glRotatef(angleCloche, 1, 0, 0); //mouvement de va et vient de la cloche
           glTranslatef(-1.05, -1.4, 0);//remise en place du centre
           
@@ -703,7 +708,7 @@ void display(void) {
                                  glTranslatef(0.7, 0, 1.15);
                                  glRotatef(90, 0, 0, 1);
                                  glScalef(0.13,0.13,1);
-                                 glutSolidTorus(0.2,0.4,2,6);
+                                 glutSolidTorus(0.2,0.45,2,6);
                            glPopMatrix();
                            
                            glPushMatrix();
@@ -718,7 +723,7 @@ void display(void) {
                                  glTranslatef(-0.6, 0, 1.15);
                                  glRotatef(90, 0, 0, 1);
                                  glScalef(0.13,0.13,1);
-                                 glutSolidTorus(0.2,0.4,2,6);
+                                 glutSolidTorus(0.2,0.45,2,6);
                            glPopMatrix();
                            
                            glPushMatrix();
@@ -735,7 +740,7 @@ void display(void) {
                      tournerRoue();
                      glTranslatef(0.06, -0.1, 0);     
                            
-                           //axe entre roue 1 et roue2
+                           //axe entre roue 2 et roue 3
                            glPushMatrix();
                                  glColor4fv(couleurJaune());
                                  glTranslatef(0, 0, -1.06);
@@ -762,7 +767,7 @@ void display(void) {
                                  glTranslatef(0.7, 0, -1.15);
                                  glRotatef(90, 0, 0, 1);
                                  glScalef(0.13,0.13,1);
-                                 glutSolidTorus(0.2,0.4,2,6);
+                                 glutSolidTorus(0.2,0.45,2,6);
                            glPopMatrix();
                            
                            glPushMatrix();
@@ -777,7 +782,7 @@ void display(void) {
                                  glTranslatef(-0.6, 0, -1.15);
                                  glRotatef(90, 0, 0, 1);
                                  glScalef(0.13,0.13,1);
-                                 glutSolidTorus(0.2,0.4,2,6);
+                                 glutSolidTorus(0.2,0.45,2,6);
                            glPopMatrix();
                            
                            glPushMatrix();
@@ -964,6 +969,7 @@ void special(int key,int x,int y) {
 
 void clavier(unsigned char touche,int x,int y)
 {
+
      switch (touche)
      {
      case 'a':
@@ -972,8 +978,40 @@ void clavier(unsigned char touche,int x,int y)
           glutPostRedisplay() ;
           break;
      case 'b':
-         angleCloche = (angleCloche+5) % 360;
+          
+          if(tempcompt<16)
+          {
+               angleCloche ++ ;
+               cout<<angleCloche<<endl;
+               tempcompt= tempcompt +1;
+               
+          }
+          if(tempcompt>=16 && tempcompt<49)
+          {
+               angleCloche -- ;
+               cout<<angleCloche<<endl;
+               tempcompt= tempcompt +1;
+          }
+          if(tempcompt>=49)
+          {
+               angleCloche ++ ;
+               cout<<angleCloche<<endl;
+               tempcompt= tempcompt +1;
+          }
+          if(tempcompt==68)
+          {
+             tempcompt=1;
+             angleCloche=4;
+             cout<<"ici"<<endl;
+          }
+          
+          if (angleCloche==18 || angleCloche==-15)
+          {
+                              //faire sonner cloche
+          }
+          
          glutPostRedisplay();
+         
          break;  
      case 'q' : /*la touche 'q' permet de quitter le programme */
           exit(0);
