@@ -22,6 +22,7 @@ static int a = 0 ;
 static float PI = 3.14;//159265;
 static float monCosinus[360];
 static float monSinus[360];
+static int angleCloche = 0;
 
 void trigo()
 {
@@ -113,31 +114,36 @@ void display(void) {
       
       //création de la cloche
       glPushMatrix();
-         glColor4fv(couleurVert());
-         glTranslatef(-1.05, 1, 0);
-         glRotatef(-90, 1, 0, 0);         
-         gluCylinder(param,0.2,0.1,0.3,20,1);
+          glTranslatef(1.05, 1.4, 0);//decalage du centre de rotation
+          glRotatef(angleCloche, 1, 0, 0); //mouvement de va et vient de la cloche
+          glTranslatef(-1.05, -1.4, 0);//remise en place du centre
+          
+          glPushMatrix();
+             glColor4fv(couleurVert());
+             glTranslatef(-1.05, 1, 0);
+             glRotatef(-90, 1, 0, 0);     
+             gluCylinder(param,0.2,0.1,0.3,20,1);
+          glPopMatrix();
+          
+          glPushMatrix();
+             glColor4fv(couleurRouge());
+             glTranslatef(-1.05, 1, 0);
+             glRotatef(-90, 1, 0, 0);             
+             gluCylinder(param,0.25,0.2,0.05,20,1);
+          glPopMatrix();
+          
+          glPushMatrix();
+             glColor4fv(couleurRouge());
+             glTranslatef(-1.05, 1.3, 0);
+             gluSphere(param,0.1,20,20);
+          glPopMatrix();
+          
+          glPushMatrix();
+             glColor4fv(couleurVert());
+             glTranslatef(-1.05, 1.4, 0);
+             gluSphere(param,0.07,20,20);
+          glPopMatrix();
       glPopMatrix();
-      
-      glPushMatrix();
-         glColor4fv(couleurRouge());
-         glTranslatef(-1.05, 1, 0);
-         glRotatef(-90, 1, 0, 0);         
-         gluCylinder(param,0.25,0.2,0.05,20,1);
-      glPopMatrix();
-      
-      glPushMatrix();
-         glColor4fv(couleurRouge());
-         glTranslatef(-1.05, 1.3, 0);
-         gluSphere(param,0.1,20,20);
-      glPopMatrix();
-      
-      glPushMatrix();
-         glColor4fv(couleurVert());
-         glTranslatef(-1.05, 1.4, 0);
-         gluSphere(param,0.07,20,20);
-      glPopMatrix();
-      
       //création de l'accroche cloche
       glPushMatrix();
          glColor4fv(couleurBleu());
@@ -958,18 +964,22 @@ void special(int key,int x,int y) {
 
 void clavier(unsigned char touche,int x,int y)
 {
-  switch (touche)
-    {
-    case 'a':
-      az = (az+ 5)%360;
-      a = a+5;
-      glutPostRedisplay() ;
-      break;
-    case 'q' : /*la touche 'q' permet de quitter le programme */
-    exit(0);
-    
-   }
+     switch (touche)
+     {
+     case 'a':
+          az = (az+ 5)%360;
+          a = a+5;
+          glutPostRedisplay() ;
+          break;
+     case 'b':
+         angleCloche = (angleCloche+5) % 360;
+         glutPostRedisplay();
+         break;  
+     case 'q' : /*la touche 'q' permet de quitter le programme */
+          exit(0);
+     }
 }
+
 int main(int argc,char **argv) {
   trigo();
   glutInit(&argc,argv);
