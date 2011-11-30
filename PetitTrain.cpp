@@ -12,7 +12,6 @@
 #include <Mmsystem.h>
 #include <conio.h>
 
-
 #include "ModuleCouleurs.h"
 #include "ModuleManipulateur.h"
 #include "ModuleMenus.h"
@@ -43,7 +42,7 @@ void monte()
 
 void descend()
 {
-      up = 0.0;
+      up = 0;
       glutPostRedisplay() ;
 }
 
@@ -1104,13 +1103,24 @@ void clavier(unsigned char touche,int x,int y)
          
          break;  
      case 't':
+          
+          //l'image n'a pas le temps de s'afficher qu'on lui redemande de se rafraichir
+          //(le calcul est trop rapide pour pallier ce problème)
           monte();
           
           PlaySound(TEXT("tchou tchou.wav"), NULL, SND_FILENAME|SND_ASYNC);
-          //
+          
+          //option n°1
+          //le problème du sleep est qu'il met tout le thread courant en attente
+          //donc le rafraichissement de l'image est aussi mis en pause
+          //il faudrait un thread qui gère la monté au temps 'T' et le lancement de la musique avec
+          //et un autre thread qui se lancerait au temps 'T+1(ou 2)'
           //Sleep(2000);
           //descend();
           
+          //option numero 2
+          //utiliser la méthode Lanuel projet c++ L3
+          //avec un delta t pour faire du rafraichissement mais risque de ne pas mieux tourner ... :'(
           
           break;
      case 'q' : /*la touche 'q' permet de quitter le programme */
@@ -1132,7 +1142,7 @@ int main(int argc,char **argv) {
   
   creationMenuBasique();
   setParametresPerspectiveBasique(65.0F,1.0F,1.0F,20.0F,0.0F,0.0F,-5.0F);
-  setManipulateurDistance(5.0F);
+  setManipulateurDistance(10.0F);
   glutReshapeFunc(reshapePerspectiveBasique);
   glutKeyboardFunc(keyBasique);
   glutSpecialFunc(special);
