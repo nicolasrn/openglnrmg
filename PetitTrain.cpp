@@ -5,27 +5,47 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include <math.h> 
-
 #include <iostream>
+#include <windows.h> 
+
+
+#include <Mmsystem.h>
+#include <conio.h>
+
+
 #include "ModuleCouleurs.h"
 #include "ModuleManipulateur.h"
 #include "ModuleMenus.h"
 #include "ModuleReshape.h"
 #include "ModuleCylindres.h"
 #include "ModuleRoue.h"
+//#include "ModuleSon.h"
 
 using namespace std;
 
 
 static float anglex = 0.0F ;
 static float angley = 0.0F ;
+static float up = 0.0F ;
 static int az = 6 ;
 static int a = 0 ;
 static float PI = 3.14;//159265;
 static float monCosinus[360];
 static float monSinus[360];
-static int angleCloche = 3;
+static int angleCloche = 4;
 static int tempcompt = 1;
+
+void monte()
+{
+      up = 0.03;
+      glutPostRedisplay() ;
+}
+
+void descend()
+{
+      up = 0.0;
+      glutPostRedisplay() ;
+}
 
 void trigo()
 {
@@ -209,25 +229,99 @@ void display(void) {
       glPopMatrix();
       
       glPushMatrix();
-         glColor4fv(couleurRose());
-         glTranslatef(-0.52, 1, 0);
-         glRotatef(-90, 1, 0, 0);         
-         gluCylinder(param,0.25,0.2,0.12,20,1);
+      
+          glTranslatef(0, up, 0);
+      
+          glPushMatrix();
+             glColor4fv(couleurRose());
+             glTranslatef(-0.52, 1, 0);
+             glRotatef(-90, 1, 0, 0);         
+             gluCylinder(param,0.25,0.2,0.12,20,1);
+          glPopMatrix();
+          
+          glPushMatrix();
+             glColor4fv(couleurCyan());
+             glTranslatef(-0.52, 1.12, 0);
+             glRotatef(-90, 1, 0, 0);         
+             gluCylinder(param,0.2,0.05,0.05,20,1);
+          glPopMatrix();
+          
+          glPushMatrix();
+             glColor4fv(couleurBleu());
+             glTranslatef(-0.52, 1.15, 0);
+             gluSphere(param,0.05,20,20);
+          glPopMatrix();
       glPopMatrix();
       
-      glPushMatrix();
-         glColor4fv(couleurCyan());
-         glTranslatef(-0.52, 1.12, 0);
-         glRotatef(-90, 1, 0, 0);         
-         gluCylinder(param,0.2,0.05,0.05,20,1);
-      glPopMatrix();
-      
-      glPushMatrix();
-         glColor4fv(couleurBleu());
-         glTranslatef(-0.52, 1.15, 0);
-         gluSphere(param,0.05,20,20);
-      glPopMatrix();
-      
+      //phares
+              //droit
+              glPushMatrix();
+                 glColor4fv(couleurCyan());
+                 glTranslatef(-1.6, -0.4, 0.65);
+                 glRotatef(90, 0, 0, 1);
+                 solidCylindre(0.21,0.51,20,10);
+              glPopMatrix();
+              
+              glPushMatrix();
+                 glColor4fv(couleurVert());
+                 glTranslatef(-1.833, -0.4, 0.675);
+                 glRotatef(-90, 0, 1, 0);  
+                 gluCylinder(param,0.2,0.3,0.2,20,1);
+              glPopMatrix();
+              
+              glPushMatrix();
+                 glColor4fv(couleurJaune());
+                 glTranslatef(-1.245, -0.4, 0.668);
+                 glRotatef(-90, 0, 1, 0);  
+                 gluCylinder(param,0.0,0.22,0.1,20,1);
+              glPopMatrix();
+              
+              glPushMatrix();
+                 glColor4fv(couleurVert());
+                 glTranslatef(-1.3, -0.4, 0.668);
+                 gluSphere(param,0.1,20,20);
+              glPopMatrix();
+              
+              glPushMatrix();
+                 glColor4fv(couleurJaune());
+                 glTranslatef(-1.92, -0.4, 0.672);
+                 gluSphere(param,0.21,20,20);
+              glPopMatrix();
+              
+      //gauche
+              glPushMatrix();
+                 glColor4fv(couleurCyan());
+                 glTranslatef(-1.6, -0.4, -0.65);
+                 glRotatef(90, 0, 0, 1);
+                 solidCylindre(0.21,0.51,20,10);
+              glPopMatrix();
+              
+              glPushMatrix();
+                 glColor4fv(couleurVert());
+                 glTranslatef(-1.833, -0.4, -0.675);
+                 glRotatef(-90, 0, 1, 0);  
+                 gluCylinder(param,0.2,0.3,0.2,20,1);
+              glPopMatrix();
+              
+              glPushMatrix();
+                 glColor4fv(couleurJaune());
+                 glTranslatef(-1.245, -0.4, -0.668);
+                 glRotatef(-90, 0, 1, 0);  
+                 gluCylinder(param,0.0,0.22,0.1,20,1);
+              glPopMatrix();
+              
+              glPushMatrix();
+                 glColor4fv(couleurVert());
+                 glTranslatef(-1.3, -0.4, -0.668);
+                 gluSphere(param,0.1,20,20);
+              glPopMatrix();
+              
+              glPushMatrix();
+                 glColor4fv(couleurJaune());
+                 glTranslatef(-1.92, -0.4, -0.672);
+                 gluSphere(param,0.21,20,20);
+              glPopMatrix();
+              
       
       //création de la cabine
                  //création du côté
@@ -982,37 +1076,43 @@ void clavier(unsigned char touche,int x,int y)
           if(tempcompt<16)
           {
                angleCloche ++ ;
-               cout<<angleCloche<<endl;
                tempcompt= tempcompt +1;
                
           }
           if(tempcompt>=16 && tempcompt<49)
           {
                angleCloche -- ;
-               cout<<angleCloche<<endl;
                tempcompt= tempcompt +1;
           }
           if(tempcompt>=49)
           {
                angleCloche ++ ;
-               cout<<angleCloche<<endl;
                tempcompt= tempcompt +1;
           }
           if(tempcompt==68)
           {
              tempcompt=1;
              angleCloche=4;
-             cout<<"ici"<<endl;
           }
-          
-          if (angleCloche==18 || angleCloche==-15)
+
+          if (angleCloche==18 || angleCloche==-13)
           {
-                              //faire sonner cloche
+          PlaySound(TEXT("cloche3.wav"), NULL, SND_FILENAME|SND_ASYNC);
           }
           
          glutPostRedisplay();
          
          break;  
+     case 't':
+          monte();
+          
+          PlaySound(TEXT("tchou tchou.wav"), NULL, SND_FILENAME|SND_ASYNC);
+          //
+          //Sleep(2000);
+          //descend();
+          
+          
+          break;
      case 'q' : /*la touche 'q' permet de quitter le programme */
           exit(0);
      }
@@ -1041,7 +1141,7 @@ int main(int argc,char **argv) {
   glutMouseFunc(sourisBasique);
   glutDisplayFunc(display);
   
-  //pour faire tounrer les roues
+  //pour interagir avec la loco
   glutKeyboardFunc(clavier);
   
   glutMainLoop();
