@@ -8,9 +8,9 @@
 #include <iostream>
 #include <windows.h> 
 
-
 #include <Mmsystem.h>
 #include <conio.h>
+#include <fmod/fmod.h>
 
 #include "ModuleCouleurs.h"
 #include "ModuleManipulateur.h"
@@ -18,7 +18,6 @@
 #include "ModuleReshape.h"
 #include "ModuleCylindres.h"
 #include "ModuleRoue.h"
-//#include "ModuleSon.h"
 
 using namespace std;
 
@@ -33,6 +32,7 @@ static float monCosinus[360];
 static float monSinus[360];
 static int angleCloche = 4;
 static int tempcompt = 1;
+GLUquadric* param = gluNewQuadric(); 
 
 void monte()
 {
@@ -64,29 +64,12 @@ void tournerRoue()
      else
     {
         glTranslatef((0.53 * monCosinus[az]), 0.53*monSinus[az] -0.53, 0);
-    }
-     
+    }    
 }
 
-void display(void) { 
-  glClear(GL_COLOR_BUFFER_BIT);
-  glColor4fv(couleurNoir());
-  
-  //pour le recpouvremment: dessine ce qu'il faut
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) ;
-
-  GLUquadric* param = gluNewQuadric(); 
-  
-  glPushMatrix(); 
-  
-      manipulateurSouris();
-      manipulateurClavier();
-      
-      //rotation de toute la scene
-        glRotatef(angley,0.0F,1.0F,0.0F) ;
-        glRotatef(anglex,1.0F,0.0F,0.0F) ;
-       
-      //création de l'avant de la loco
+void creerAvantLoco()
+{
+     //création de l'avant de la loco
       glPushMatrix();
          glColor4fv(couleurRougeFonce());
          glTranslatef(-1, 0.2, 0);
@@ -112,8 +95,12 @@ void display(void) {
          glTranslatef(-2.02, 0.2, 0);
          gluSphere(param,0.19,20,20);
       glPopMatrix();
-      
-      //création de la cheminée
+
+}
+
+void creerChemine()
+{
+     //création de la cheminée
       glPushMatrix();
          glColor4fv(couleurRouge());
          glTranslatef(-1.6, 1.1, 0);
@@ -133,8 +120,11 @@ void display(void) {
          glRotatef(-90, 1, 0, 0);      
          gluCylinder(param,0.4,0.18,0.4,20,1);
       glPopMatrix();
-      
-      //création de la cloche
+}
+
+void creerCloche()
+{
+     //création de la cloche
       glPushMatrix();
       glRotatef(90, 0, 1, 0);
        
@@ -168,7 +158,11 @@ void display(void) {
              gluSphere(param,0.07,20,20);
           glPopMatrix();
       glPopMatrix();
-      //création de l'accroche cloche
+}
+
+void creerAccrocheCloche()
+{
+     //création de l'accroche cloche
       glPushMatrix();
          glColor4fv(couleurBleu());
          glTranslatef(-1.05, 1.12, 0.3);
@@ -199,8 +193,11 @@ void display(void) {
          glTranslatef(-1.05, 1.4, -0.3);
          gluSphere(param,0.04,20,20);
       glPopMatrix();
-      
-      //intérieur cloche
+}
+
+void creerInterieurCloche()
+{
+     //intérieur cloche
       glPushMatrix();
          glColor4fv(couleurJaune());
          glTranslatef(-1.05, 1.12, 0);
@@ -212,8 +209,11 @@ void display(void) {
          glTranslatef(-1.05, 1, 0);
          gluSphere(param,0.07,20,20);
       glPopMatrix();
-      
-      //soupape
+}
+
+void creerSoupape()
+{
+     //soupape
       glPushMatrix();
          glColor4fv(couleurVert());
          glTranslatef(-0.52, 0.8, 0);
@@ -251,8 +251,11 @@ void display(void) {
              gluSphere(param,0.05,20,20);
           glPopMatrix();
       glPopMatrix();
-      
-      //phares
+}
+
+void creerPhares()
+{
+     //phares
               //droit
               glPushMatrix();
                  glColor4fv(couleurCyan());
@@ -320,9 +323,11 @@ void display(void) {
                  glTranslatef(-1.92, -0.4, -0.672);
                  gluSphere(param,0.21,20,20);
               glPopMatrix();
-              
-      
-      //création de la cabine
+}
+
+void creerCabine()
+{
+     //création de la cabine
                  //création du côté
                  glPushMatrix();
                      glColor4fv(couleurBleu());
@@ -654,10 +659,12 @@ void display(void) {
                  glTranslatef(1.5, 1.2, -0.6);
                  gluSphere(param,0.035,20,20);
               glPopMatrix();
-              
-               
-               
-      //création des roues
+       
+}
+
+void creerRoues()
+{
+     //création des roues
                  //roue 1                
                       glPushMatrix();
                          glTranslatef(0.78, -0.65, 0.83);
@@ -743,8 +750,11 @@ void display(void) {
                        glPopMatrix();
                  glPopMatrix();
                  
-                  
-                  //axe roues avant
+}
+
+void creerAxesRoues()
+{
+     //axe roues avant
                   glPushMatrix();
                      glColor4fv(couleurRose());
                      glTranslatef(-0.55, -0.65, 0);
@@ -887,8 +897,12 @@ void display(void) {
                           
                      glPopMatrix();
                   /////////////////////////////////////////////////////////////////////////// 
-                       
-                 
+                     
+}
+
+void creerPointe()
+{
+     
                  //pointe
                  //fixation
                  glPushMatrix();
@@ -1033,14 +1047,59 @@ void display(void) {
                      solidCylindre(0.02,1.08,20,10);
                  glPopMatrix();
                  
-                 
-      
-      
-  glPopMatrix();
-  
+}
 
-  glFlush();
-  glutSwapBuffers();
+void creerTrain()
+{
+     //matrix de la loco
+     glPushMatrix(); 
+        creerAvantLoco();
+        
+        creerChemine();
+        
+        creerCloche();
+        
+        creerAccrocheCloche();
+        
+        creerInterieurCloche();
+        
+        creerSoupape();
+        
+        creerPhares();
+        
+        creerCabine();       
+        
+        creerRoues();
+        
+        creerAxesRoues();    
+        
+        creerPointe();
+    glPopMatrix();
+}
+
+void display(void)
+{ 
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor4fv(couleurNoir());
+      
+    //pour le recpouvremment: dessine ce qu'il faut
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) ;
+    
+    //Matrice de la scene
+    glPushMatrix();
+        manipulateurSouris();
+        manipulateurClavier();
+        
+        //rotation de toute la scene
+        glRotatef(angley,0.0F,1.0F,0.0F) ;
+        glRotatef(anglex,1.0F,0.0F,0.0F) ;
+        
+        //creation du train dans la scene
+        creerTrain();
+    glPopMatrix();
+    
+    glFlush();
+    glutSwapBuffers();
 } 
   
 void myinit(void) { 
@@ -1103,12 +1162,40 @@ void clavier(unsigned char touche,int x,int y)
          
          break;  
      case 't':
-          
+          {
           //l'image n'a pas le temps de s'afficher qu'on lui redemande de se rafraichir
           //(le calcul est trop rapide pour pallier ce problème)
           monte();
           
-          PlaySound(TEXT("tchou tchou.wav"), NULL, SND_FILENAME|SND_ASYNC);
+          FSOUND_STREAM* g_mp3_stream;
+         // initialise fmod, 44000 Hz, 64 channels
+        if( FSOUND_Init(44000,64,0) == FALSE )
+        {
+        	std::cerr << "[ERROR] Could not initialise fmod\n";
+        }
+        
+        // attempt to open the mp3 file as a stream
+        g_mp3_stream = FSOUND_Stream_Open( "tchou tchou.wav" , FSOUND_2D , 0 , 0 );
+        
+        // make sure mp3 opened OK
+        if(!g_mp3_stream) {
+        	std::cerr << "[ERROR] could not open file\n";
+        }
+        
+        FSOUND_Stream_Play(0,g_mp3_stream);
+        
+        clock_t deb = clock();
+        while(clock() - deb < 1500);
+        
+        // Stop and close the mp3 file
+        FSOUND_Stream_Stop( g_mp3_stream );
+        FSOUND_Stream_Close( g_mp3_stream );
+    
+    	// kill off fmod
+    	FSOUND_Close();
+    	
+    	descend();
+          //PlaySound(TEXT("tchou tchou.wav"), NULL, SND_FILENAME|SND_ASYNC);
           
           //option n°1
           //le problème du sleep est qu'il met tout le thread courant en attente
@@ -1121,7 +1208,7 @@ void clavier(unsigned char touche,int x,int y)
           //option numero 2
           //utiliser la méthode Lanuel projet c++ L3
           //avec un delta t pour faire du rafraichissement mais risque de ne pas mieux tourner ... :'(
-          
+          }
           break;
      case 'q' : /*la touche 'q' permet de quitter le programme */
           exit(0);
@@ -1141,7 +1228,8 @@ int main(int argc,char **argv) {
   glEnable(GL_DEPTH_TEST) ;
   
   creationMenuBasique();
-  setParametresPerspectiveBasique(65.0F,1.0F,1.0F,20.0F,0.0F,0.0F,-5.0F);
+  //setParametresPerspectiveBasique(65.0F,1.0F,1.0F,20.0F,0.0F,0.0F,-5.0F);
+  setParametresPerspectiveBasique(80.0F,1.0F,1.0F,20.0F,0.0F,0.0F,-5.0F);
   setManipulateurDistance(10.0F);
   glutReshapeFunc(reshapePerspectiveBasique);
   glutKeyboardFunc(keyBasique);

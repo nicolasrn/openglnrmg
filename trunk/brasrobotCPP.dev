@@ -12,7 +12,7 @@ ResourceIncludes=
 MakeIncludes=
 Compiler=
 CppCompiler=
-Linker=-lglu32  -lglut32  -lglut -lopengl32  -lwinmm  -lgdi32_@@_
+Linker=-lglu32  -lglut32  -lglut -lopengl32  -lwinmm  -lgdi32 -lfmod_@@_
 IsCpp=1
 Icon=
 ExeOutput=
@@ -169,26 +169,6 @@ BuildCmd=
 
 [Unit13]
 FileName=ModuleRoue.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit14]
-FileName=ModuleSon.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit15]
-FileName=ModuleSon.cpp
 CompileCpp=1
 Folder=
 Compile=1
