@@ -2,6 +2,7 @@
 /* Un manipulateur souris et clavier      */
 
 
+#include "ModuleManipulateur.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>

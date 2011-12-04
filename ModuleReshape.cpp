@@ -2,7 +2,7 @@
 /* Module de gestion des transformations  */
 /* de visualisation                       */
 
-
+#include "ModuleReshape.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
