@@ -10,7 +10,6 @@
 
 #include <Mmsystem.h>
 #include <conio.h>
-#include <fmod/fmod.h>
 
 #include "ModuleCouleurs.h"
 #include "ModuleManipulateur.h"
@@ -1236,53 +1235,11 @@ void clavier(unsigned char touche,int x,int y)
 		
 		break;  
 	case 't':
-		{
-			//l'image n'a pas le temps de s'afficher qu'on lui redemande de se rafraichir
-			//(le calcul est trop rapide pour pallier ce problème)
-			monte();
-			
-			/*FSOUND_STREAM* g_mp3_stream;
-			// initialise fmod, 44000 Hz, 64 channels
-			if( FSOUND_Init(44000,64,0) == FALSE )
-			{
-				std::cerr << "[ERROR] Could not initialise fmod\n";
-			}
-			
-			// attempt to open the mp3 file as a stream
-			g_mp3_stream = FSOUND_Stream_Open( "tchou tchou.wav" , FSOUND_2D , 0 , 0 );
-			
-			// make sure mp3 opened OK
-			if(!g_mp3_stream) {
-				std::cerr << "[ERROR] could not open file\n";
-			}
-			
-			FSOUND_Stream_Play(0,g_mp3_stream);
-			
-			clock_t deb = clock();
-			while(clock() - deb < 1500);
-			
-			// Stop and close the mp3 file
-			FSOUND_Stream_Stop( g_mp3_stream );
-			FSOUND_Stream_Close( g_mp3_stream );
-			
-			// kill off fmod
-			FSOUND_Close();*/
-			
-			PlaySound(TEXT("tchou tchou.wav"), NULL, SND_FILENAME|SND_ASYNC);
-			
-			descend();
-			//option n°1
-			//le problème du sleep est qu'il met tout le thread courant en attente
-			//donc le rafraichissement de l'image est aussi mis en pause
-			//il faudrait un thread qui gère la monté au temps 'T' et le lancement de la musique avec
-			//et un autre thread qui se lancerait au temps 'T+1(ou 2)'
-			//Sleep(2000);
-			//descend();
-			
-			//option numero 2
-			//utiliser la méthode Lanuel projet c++ L3
-			//avec un delta t pour faire du rafraichissement mais risque de ne pas mieux tourner ... :'(
-		}
+		monte();
+		
+		PlaySound(TEXT("tchou tchou.wav"), NULL, SND_FILENAME|SND_ASYNC);
+		
+		descend();
 		break;
 	case 'q' : /*la touche 'q' permet de quitter le programme */
 		exit(0);
@@ -1295,7 +1252,7 @@ int main(int argc,char **argv) {
 	glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH);
 	glutInitWindowSize(500,500); 
 	glutInitWindowPosition(100,100); 
-	glutCreateWindow("Petit train"); 
+	glutCreateWindow("Petit train");
 	myinit();
 
 	//pour le recouvrement
@@ -1303,12 +1260,14 @@ int main(int argc,char **argv) {
 
 	creationMenuBasique();
 	//setParametresPerspectiveBasique(65.0F,1.0F,1.0F,20.0F,0.0F,0.0F,-5.0F);
-	setParametresPerspectiveBasique(90.0F,1.0F,1.0F,20.0F,0.0F,0.0F,-5.0F);
+	
+    setParametresPerspectiveBasique(90.0F,1.0F,1.0F,20.0F,0.0F,0.0F,-5.0F);
 	setManipulateurDistance(10.0F);
 	glutReshapeFunc(reshapePerspectiveBasique);
-	glutKeyboardFunc(keyBasique);
+	
+    glutKeyboardFunc(keyBasique);
 	glutSpecialFunc(special);
-
+    
 	glutMotionFunc(motionBasique);
 	glutMouseFunc(sourisBasique);
 	glutDisplayFunc(display);
