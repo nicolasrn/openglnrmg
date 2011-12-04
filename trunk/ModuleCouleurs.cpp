@@ -1,6 +1,7 @@
 
 /* Module de gestion des couleurs         */
 
+#include "ModuleCouleurs.h"
 #include <stdlib.h>
 
 static float blanc[] = { 1.0F,1.0F,1.0F,1.0F };
