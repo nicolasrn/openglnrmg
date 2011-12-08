@@ -69,14 +69,65 @@ void tournerRoue()
 	}    
 }
 
+
+void effetOr()
+{
+     GLfloat cAmbient[] = {0.24725,0.1995,0.0745,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, cAmbient);
+     GLfloat cDiffuse[] = {0.75164,0.60648,0.22648,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
+     GLfloat cSpec[] = {0.628281,0.555802,0.366065,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
+     GLfloat cShin = 51.2;
+     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
+}
+
+void effetChrome()
+{
+     GLfloat cAmbient[] = {0.25,0.25,0.25,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, cAmbient);
+     GLfloat cDiffuse[] = {0.4,0.4,0.4,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
+     GLfloat cSpec[] = {0.774597,0.774597,0.774597,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
+     GLfloat cShin = 76.8;
+     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
+}
+
+void effetArgent()
+{
+     GLfloat cAmbient[] = {0.19225,0.19225,0.19225,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, cAmbient);
+     GLfloat cDiffuse[] = {0.50754,0.50754,0.50754,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
+     GLfloat cSpec[] = {0.508273,0.508273,0.508273,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
+     GLfloat cShin = 51.2;
+     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
+}
+
+void remiseZero()
+{
+     GLfloat cAmbient[] = {0,0,0,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, cAmbient);
+     GLfloat cDiffuse[] = {1,1,1,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
+     GLfloat cSpec[] = {0,0,0,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
+     GLfloat cShin = 51.2;
+     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
+}
+
 void creerAvantLoco()
 {
 	//création de l'avant de la loco
 	glPushMatrix();
+	effetChrome();
 		glColor4fv(couleurCylindre);
 		glTranslatef(-1, 0.2, 0);
 		glRotatef(90, 0, 0, 1);
 		solidCylindre(0.7,1.7,20,10);
+		
 	glPopMatrix();
 	
 	glPushMatrix();
@@ -86,11 +137,13 @@ void creerAvantLoco()
 		gluCylinder(param,0.7,0,0.3,20,1);
 	glPopMatrix();
 	
+	
 	glPushMatrix();
 		glColor4fv(couleurOptique);
 		glTranslatef(-2, 0.2, 0);
 		gluSphere(param,0.2,20,20);
 	glPopMatrix();
+	remiseZero();
 	
 	glPushMatrix();
 		glColor4fv(couleurPhare);
@@ -103,6 +156,7 @@ void creerAvantLoco()
 void creerChemine()
 {
 	//création de la cheminée
+	effetArgent();
 	glPushMatrix();
 		glColor4fv(couleurChemine);
 		glTranslatef(-1.6, 1.1, 0);
@@ -122,11 +176,13 @@ void creerChemine()
 		glRotatef(-90, 1, 0, 0);      
 		gluCylinder(param,0.4,0.18,0.4,20,1);
 	glPopMatrix();
+	remiseZero();
 }
 
 void creerCloche()
 {
 	//création de la cloche
+	effetArgent();
 	glPushMatrix();
 		glRotatef(90, 0, 1, 0);
 		
@@ -160,10 +216,12 @@ void creerCloche()
 			gluSphere(param,0.07,20,20);
 		glPopMatrix();
 	glPopMatrix();
+	remiseZero();
 }
 
 void creerAccrocheCloche()
 {
+     effetOr();
 	//création de l'accroche cloche
 	glPushMatrix();
 		glColor4fv(couleurClocheAccroche);
@@ -195,11 +253,13 @@ void creerAccrocheCloche()
 		glTranslatef(-1.05, 1.4, -0.3);
 		gluSphere(param,0.04,20,20);
 	glPopMatrix();
+	remiseZero();
 }
 
 void creerInterieurCloche()
 {
 	//intérieur cloche
+	effetOr();
 	glPushMatrix();
 		glColor4fv(couleurClocheBaton);
 		glTranslatef(-1.05, 1.12, 0);
@@ -211,20 +271,21 @@ void creerInterieurCloche()
 		glTranslatef(-1.05, 1, 0);
 		gluSphere(param,0.07,20,20);
 	glPopMatrix();
+	remiseZero();
 }
 
 void creerSoupape()
 {
 	//soupape
 	glPushMatrix();
-		glColor4fv(couleurVert());
+		glColor4fv(couleurCourseSoupape1);
 		glTranslatef(-0.52, 0.8, 0);
 		glRotatef(-90, 1, 0, 0);         
 		gluCylinder(param,0.3,0.2,0.15,20,1);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRouge());
+		glColor4fv(couleurCourseSoupape2);
 		glTranslatef(-0.52, 1, 0);
 		solidCylindre(0.2,0.2,20,10);
 	glPopMatrix();
@@ -233,21 +294,21 @@ void creerSoupape()
 		glTranslatef(0, up, 0);
 		
 		glPushMatrix();
-			glColor4fv(couleurRose());
+			glColor4fv(couleurCourseSoupape1);
 			glTranslatef(-0.52, 1, 0);
 			glRotatef(-90, 1, 0, 0);         
 			gluCylinder(param,0.25,0.2,0.12,20,1);
 		glPopMatrix();
 		
 		glPushMatrix();
-			glColor4fv(couleurCyan());
+			glColor4fv(couleurCourseSoupape1);
 			glTranslatef(-0.52, 1.12, 0);
 			glRotatef(-90, 1, 0, 0);         
 			gluCylinder(param,0.2,0.05,0.05,20,1);
 		glPopMatrix();
 		
 		glPushMatrix();
-			glColor4fv(couleurBleu());
+			glColor4fv(couleurCourseSoupape2);
 			glTranslatef(-0.52, 1.15, 0);
 			gluSphere(param,0.05,20,20);
 		glPopMatrix();
@@ -258,6 +319,7 @@ void creerPhares()
 {
 	//phares
 	//droit
+	effetArgent();
 	glPushMatrix();
 		glColor4fv(couleurGdPhare);
 		glTranslatef(-1.6, -0.4, 0.65);
@@ -284,6 +346,7 @@ void creerPhares()
 		glTranslatef(-1.3, -0.4, 0.668);
 		gluSphere(param,0.1,20,20);
 	glPopMatrix();
+	remiseZero();
 	
 	glPushMatrix();
 		glColor4fv(couleurPhare);
@@ -292,6 +355,7 @@ void creerPhares()
 	glPopMatrix();
 	
 	//gauche
+	effetArgent();
 	glPushMatrix();
 		glColor4fv(couleurGdPhare);
 		glTranslatef(-1.6, -0.4, -0.65);
@@ -318,6 +382,7 @@ void creerPhares()
 		glTranslatef(-1.3, -0.4, -0.668);
 		gluSphere(param,0.1,20,20);
 	glPopMatrix();
+	remiseZero();
 	
 	glPushMatrix();
 		glColor4fv(couleurPhare);
@@ -328,6 +393,7 @@ void creerPhares()
 
 void creerCabine()
 {
+     effetChrome();
 	//création de la cabine
 	//création du côté
 	glPushMatrix();
@@ -417,28 +483,28 @@ void creerCabine()
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurMur);
+		glColor4fv(couleurCadre);
 		glTranslatef(0.025, 1.3, -0.775);
 		glScalef(0.05,0.8,0.15);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurMur);
+		glColor4fv(couleurCadre);
 		glTranslatef(1.175, 1.3, -0.775);
 		glScalef(0.05,0.8,0.15);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurMur);
+		glColor4fv(couleurCadre);
 		glTranslatef(0.6, 0.925, -0.775);
 		glScalef(1.1,0.05,0.15);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurMur);
+		glColor4fv(couleurCadre);
 		glTranslatef(0.6, 1.675, -0.775);
 		glScalef(1.1,0.05,0.15);
 		glutSolidCube(1.0); 
@@ -660,6 +726,7 @@ void creerCabine()
 		glTranslatef(1.5, 1.2, -0.6);
 		gluSphere(param,0.035,20,20);
 	glPopMatrix();
+	remiseZero();
 	
 }
 
@@ -752,40 +819,50 @@ void creerRoues()
 	glPopMatrix();
 }
 
-void creerAxesRoues()
+void creerRouesWagon()
 {
-	//axe roues avant
+	//création des roues
+	//roue 1                
 	glPushMatrix();
-		glColor4fv(couleurRose());
-		glTranslatef(-0.55, -0.65, 0);
-		glRotatef(90, 1, 0, 0);
-		solidCylindre(0.2,2,20,10);
+		glTranslatef(0.78, -0.65, 0.83);
+		glRotatef(a,0.0,0.0,1.0);
+		Roue(couleurRoueInterieur, couleurRoueExterieur, couleurFlanRoue);
 	glPopMatrix();
-	
-	//axe roues arrière
+		
+	//roue2
 	glPushMatrix();
-		glColor4fv(couleurRose());
-		glTranslatef(0.78, -0.65, 0);
-		glRotatef(90, 1, 0, 0);
-		solidCylindre(0.2,2,20,10);
+		glTranslatef(-0.55, -0.65, 0.83);
+		glRotatef(a,0.0,0.0,1.0);
+		Roue(couleurRoueInterieur, couleurRoueExterieur, couleurFlanRoue);
 	glPopMatrix();
-	
-	//axe central
+		
+	//roue 3
 	glPushMatrix();
-		glColor4fv(couleurSol);
-		glTranslatef(-0.3, -0.70, 0);
-		glScalef(3.2,0.4,0.4);
-		glutSolidCube(1.0);  
+		glTranslatef(0.78, -0.65, -0.99);
+		glRotatef(az,0.0,0.0,1.0);
+		Roue(couleurRoueInterieur, couleurRoueExterieur, couleurFlanRoue);
 	glPopMatrix();
-	
-	//axe roues droite////////////////////////////////////////////////////////////////////////////////
+		
+		
+	//roue4
+	glPushMatrix();
+		glTranslatef(-0.55, -0.65, -0.99);
+		glRotatef(az,0.0,0.0,1.0);
+		Roue(couleurRoueInterieur, couleurRoueExterieur, couleurFlanRoue);
+	glPopMatrix();
+}
+
+void creerBarres()
+{
+     //axe roues droite////////////////////////////////////////////////////////////////////////////////
 	
 	glPushMatrix();
 		tournerRoue();
 		glTranslatef(0.06, -0.1, 0);     
 		
 		//axe entre roue 1 et roue2
-		glPushMatrix();
+		effetOr();
+        glPushMatrix();
 			glColor4fv(couleurAxe);
 			glTranslatef(0, 0, 1.06);
 			glScalef(1.35,0.14,0.1);
@@ -805,6 +882,7 @@ void creerAxesRoues()
 			glScalef(1,1,0.5);
 			gluSphere(param,0.14,20,20);
 		glPopMatrix();
+		remiseZero();
 		
 		glPushMatrix();
 			glColor4fv(couleurGrisFonce());
@@ -844,7 +922,8 @@ void creerAxesRoues()
 		glTranslatef(0.06, -0.1, 0);     
 		
 		//axe entre roue 2 et roue 3
-		glPushMatrix();
+		effetOr();
+        glPushMatrix();
 			glColor4fv(couleurAxe);
 			glTranslatef(0, 0, -1.06);
 			glScalef(1.35,0.14,0.1);
@@ -864,6 +943,7 @@ void creerAxesRoues()
 			glScalef(1,1,0.5);
 			gluSphere(param,0.14,20,20);
 		glPopMatrix();
+		remiseZero();
 		
 		glPushMatrix();
 			glColor4fv(couleurGrisFonce());
@@ -896,6 +976,35 @@ void creerAxesRoues()
 		glPopMatrix();
 	
 	glPopMatrix();
+     
+}
+void creerAxesRoues()
+{
+	//axe roues avant
+	glPushMatrix();
+		glColor4fv(couleurRose());
+		glTranslatef(-0.55, -0.65, 0);
+		glRotatef(90, 1, 0, 0);
+		solidCylindre(0.2,2,20,10);
+	glPopMatrix();
+	
+	//axe roues arrière
+	glPushMatrix();
+		glColor4fv(couleurRose());
+		glTranslatef(0.78, -0.65, 0);
+		glRotatef(90, 1, 0, 0);
+		solidCylindre(0.2,2,20,10);
+	glPopMatrix();
+	
+	//axe central
+	glPushMatrix();
+		glColor4fv(couleurSol);
+		glTranslatef(-0.3, -0.70, 0);
+		glScalef(3.2,0.4,0.4);
+		glutSolidCube(1.0);  
+	glPopMatrix();
+	
+	
 	/////////////////////////////////////////////////////////////////////////// 
 	
 }
@@ -904,6 +1013,7 @@ void creerPointe()
 {
 	//pointe
 	//fixation
+	effetArgent();
 	glPushMatrix();
 		glColor4fv(couleurGrisFonce());
 		glTranslatef(-1.9, -0.5, 0);
@@ -1045,11 +1155,13 @@ void creerPointe()
 		glRotatef(-57, 0, 0, 1);                 
 		solidCylindre(0.02,1.08,20,10);
 	glPopMatrix();
+	remiseZero();
 	
 }
 
 void creerPasserelle()
 {
+     effetChrome();
      glPushMatrix();
          glPushMatrix();
                      glColor4fv(couleurSol);
@@ -1109,49 +1221,79 @@ void creerPasserelle()
          glPopMatrix();
      
      glPopMatrix();
+     remiseZero();
 }
 void creerContenaire()
 {
+     effetChrome();
     //création de la cabine
 	//création du sud
 	glPushMatrix();
-		glColor4fv(couleurBrun());
+		glColor4fv(couleurCourseWagon1);
 		glTranslatef(0, 0.3, 0.75);
 		glScalef(3,1.5,0.1); //z = epaisseur
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	
+	glPushMatrix();
+		glColor4fv(couleurCourseWagon2);
+		glTranslatef(0, 1.06, 0.775);
+		glScalef(3,0.05,0.15); //z = epaisseur
+		glutSolidCube(1.0);  
+	glPopMatrix();
+	
 	//création du nord
 	glPushMatrix();
-		glColor4fv(couleurRouge());
+		glColor4fv(couleurCourseWagon1);
 		glTranslatef(0, 0.3, -0.75);
 		glScalef(3,1.5,0.1); //z = epaisseur
+		glutSolidCube(1.0);  
+	glPopMatrix();
+	
+	glPushMatrix();
+		glColor4fv(couleurCourseWagon2);
+		glTranslatef(0, 1.06, -0.775);
+		glScalef(3,0.05,0.15); //z = epaisseur
 		glutSolidCube(1.0);  
 	glPopMatrix();
     
     //création de l'est
 	glPushMatrix();
-		glColor4fv(couleurMagenta());
+		glColor4fv(couleurCourseWagon1);
         glTranslatef(1.46, 0.3, 0);
 		glScalef(0.1, 1.5, 1.5); //x = epaisseur
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	
+	glPushMatrix();
+		glColor4fv(couleurCourseWagon2);
+		glTranslatef(1.485, 1.06, 0);
+		glScalef(0.15,0.05,1.7); //z = epaisseur
+		glutSolidCube(1.0);  
+	glPopMatrix();
+	
 	//création de l'ouest
 	glPushMatrix();
-		glColor4fv(couleurMagenta());
+		glColor4fv(couleurCourseWagon1);
         glTranslatef(-1.46, 0.3, 0);
 		glScalef(0.1, 1.5, 1.5); //x = epaisseur
+		glutSolidCube(1.0);  
+	glPopMatrix();
+	glPushMatrix();
+		glColor4fv(couleurCourseWagon2);
+		glTranslatef(-1.485, 1.06, 0);
+		glScalef(0.15,0.05,1.7); //z = epaisseur
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	
 	//création du sol
 	glPushMatrix();
-		glColor4fv(couleurGrisFonce());
+		glColor4fv(couleurCourseWagon2);
         glTranslatef(0, -0.41, 0);
 		glScalef(2.9, 0.1, 1.5);
 		glutSolidCube(1.0);  
 	glPopMatrix();
+	remiseZero();
 }
 
 void creerTrain()
@@ -1176,7 +1318,9 @@ void creerTrain()
 		
 		creerRoues();
 		
-		creerAxesRoues();    
+		creerAxesRoues();
+        
+        creerBarres();   
 		
 		creerPointe();
 		
@@ -1190,9 +1334,9 @@ void creerWagon()
 	glPushMatrix();
         creerContenaire();
         
-		creerRoues();
+		creerRouesWagon();
 		
-        creerAxesRoues();
+		creerAxesRoues();
 	glPopMatrix();
 }
 
@@ -1398,6 +1542,7 @@ int main(int argc,char **argv) {
 	glutCreateWindow("Petit train");
 	myinit();
 
+    glEnable(GL_NORMALIZE);
 	//pour le recouvrement
 	glEnable(GL_DEPTH_TEST) ;
 

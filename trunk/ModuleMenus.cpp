@@ -24,6 +24,10 @@
  float *couleurClocheAccroche = NULL;
  float *couleurClocheBaton = NULL;
  float *couleurChemine = NULL;
+ float *couleurSoupape1 = NULL;
+ float *couleurSoupape2 = NULL;
+ float *couleurWagon1 = NULL;
+ float *couleurWagon2 = NULL;
 
   void select(int selection) 
 {
@@ -89,6 +93,10 @@ void creationMenuBasique(void)
     couleurClocheAccroche = couleurCourseClocheAccroche;
     couleurClocheBaton = couleurCourseClocheBaton;
     couleurChemine = couleurCourseChemine;
+    couleurSoupape1 = couleurCourseSoupape1;
+    couleurSoupape2 = couleurCourseSoupape2;
+    couleurWagon1 = couleurCourseWagon1;
+    couleurWagon2 = couleurCourseWagon2;
 }
 
   void themeFille()
@@ -114,4 +122,8 @@ void creationMenuBasique(void)
     couleurClocheAccroche = couleurFilleClocheAccroche;
     couleurClocheBaton = couleurFilleClocheBaton;
     couleurChemine = couleurFilleChemine;
+    couleurSoupape1 = couleurFilleSoupape1;
+    couleurSoupape2 = couleurFilleSoupape2;
+    couleurWagon1 = couleurFilleWagon1;
+    couleurWagon2 = couleurFilleWagon2;
 }
