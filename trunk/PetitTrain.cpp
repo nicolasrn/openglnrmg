@@ -70,41 +70,8 @@ void tournerRoue()
 }
 
 
-void effetOr()
-{
-     GLfloat cAmbient[] = {0.24725,0.1995,0.0745,1.0};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, cAmbient);
-     GLfloat cDiffuse[] = {0.75164,0.60648,0.22648,1.0};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
-     GLfloat cSpec[] = {0.628281,0.555802,0.366065,1.0};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
-     GLfloat cShin = 51.2;
-     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
-}
 
-void effetChrome()
-{
-     GLfloat cAmbient[] = {0.25,0.25,0.25,1.0};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, cAmbient);
-     GLfloat cDiffuse[] = {0.4,0.4,0.4,1.0};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
-     GLfloat cSpec[] = {0.774597,0.774597,0.774597,1.0};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
-     GLfloat cShin = 76.8;
-     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
-}
 
-void effetArgent()
-{
-     GLfloat cAmbient[] = {0.19225,0.19225,0.19225,1.0};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, cAmbient);
-     GLfloat cDiffuse[] = {0.50754,0.50754,0.50754,1.0};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
-     GLfloat cSpec[] = {0.508273,0.508273,0.508273,1.0};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
-     GLfloat cShin = 51.2;
-     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
-}
 
 void remiseZero()
 {
@@ -122,7 +89,7 @@ void creerAvantLoco()
 {
 	//création de l'avant de la loco
 	glPushMatrix();
-	effetChrome();
+	effetComplexChrome();
 		glColor4fv(couleurCylindre);
 		glTranslatef(-1, 0.2, 0);
 		glRotatef(90, 0, 0, 1);
@@ -156,7 +123,7 @@ void creerAvantLoco()
 void creerChemine()
 {
 	//création de la cheminée
-	effetArgent();
+	effetComplexArgent();
 	glPushMatrix();
 		glColor4fv(couleurChemine);
 		glTranslatef(-1.6, 1.1, 0);
@@ -182,7 +149,7 @@ void creerChemine()
 void creerCloche()
 {
 	//création de la cloche
-	effetArgent();
+	effetComplexArgent();
 	glPushMatrix();
 		glRotatef(90, 0, 1, 0);
 		
@@ -221,7 +188,7 @@ void creerCloche()
 
 void creerAccrocheCloche()
 {
-     effetOr();
+     effetComplexOr();
 	//création de l'accroche cloche
 	glPushMatrix();
 		glColor4fv(couleurClocheAccroche);
@@ -259,7 +226,7 @@ void creerAccrocheCloche()
 void creerInterieurCloche()
 {
 	//intérieur cloche
-	effetOr();
+	effetComplexOr();
 	glPushMatrix();
 		glColor4fv(couleurClocheBaton);
 		glTranslatef(-1.05, 1.12, 0);
@@ -278,14 +245,14 @@ void creerSoupape()
 {
 	//soupape
 	glPushMatrix();
-		glColor4fv(couleurCourseSoupape1);
+		glColor4fv(couleurSoupape1);
 		glTranslatef(-0.52, 0.8, 0);
 		glRotatef(-90, 1, 0, 0);         
 		gluCylinder(param,0.3,0.2,0.15,20,1);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurCourseSoupape2);
+		glColor4fv(couleurSoupape2);
 		glTranslatef(-0.52, 1, 0);
 		solidCylindre(0.2,0.2,20,10);
 	glPopMatrix();
@@ -294,21 +261,21 @@ void creerSoupape()
 		glTranslatef(0, up, 0);
 		
 		glPushMatrix();
-			glColor4fv(couleurCourseSoupape1);
+			glColor4fv(couleurSoupape1);
 			glTranslatef(-0.52, 1, 0);
 			glRotatef(-90, 1, 0, 0);         
 			gluCylinder(param,0.25,0.2,0.12,20,1);
 		glPopMatrix();
 		
 		glPushMatrix();
-			glColor4fv(couleurCourseSoupape1);
+			glColor4fv(couleurSoupape1);
 			glTranslatef(-0.52, 1.12, 0);
 			glRotatef(-90, 1, 0, 0);         
 			gluCylinder(param,0.2,0.05,0.05,20,1);
 		glPopMatrix();
 		
 		glPushMatrix();
-			glColor4fv(couleurCourseSoupape2);
+			glColor4fv(couleurSoupape2);
 			glTranslatef(-0.52, 1.15, 0);
 			gluSphere(param,0.05,20,20);
 		glPopMatrix();
@@ -319,7 +286,7 @@ void creerPhares()
 {
 	//phares
 	//droit
-	effetArgent();
+	effetComplexArgent();
 	glPushMatrix();
 		glColor4fv(couleurGdPhare);
 		glTranslatef(-1.6, -0.4, 0.65);
@@ -355,7 +322,7 @@ void creerPhares()
 	glPopMatrix();
 	
 	//gauche
-	effetArgent();
+	effetComplexArgent();
 	glPushMatrix();
 		glColor4fv(couleurGdPhare);
 		glTranslatef(-1.6, -0.4, -0.65);
@@ -393,7 +360,7 @@ void creerPhares()
 
 void creerCabine()
 {
-     effetChrome();
+     effetComplexChrome();
 	//création de la cabine
 	//création du côté
 	glPushMatrix();
@@ -861,7 +828,7 @@ void creerBarres()
 		glTranslatef(0.06, -0.1, 0);     
 		
 		//axe entre roue 1 et roue2
-		effetOr();
+		effetComplexOr();
         glPushMatrix();
 			glColor4fv(couleurAxe);
 			glTranslatef(0, 0, 1.06);
@@ -922,7 +889,7 @@ void creerBarres()
 		glTranslatef(0.06, -0.1, 0);     
 		
 		//axe entre roue 2 et roue 3
-		effetOr();
+		effetComplexOr();
         glPushMatrix();
 			glColor4fv(couleurAxe);
 			glTranslatef(0, 0, -1.06);
@@ -1013,7 +980,7 @@ void creerPointe()
 {
 	//pointe
 	//fixation
-	effetArgent();
+	effetComplexArgent();
 	glPushMatrix();
 		glColor4fv(couleurGrisFonce());
 		glTranslatef(-1.9, -0.5, 0);
@@ -1161,7 +1128,7 @@ void creerPointe()
 
 void creerPasserelle()
 {
-     effetChrome();
+     effetComplexChrome();
      glPushMatrix();
          glPushMatrix();
                      glColor4fv(couleurSol);
@@ -1225,18 +1192,18 @@ void creerPasserelle()
 }
 void creerContenaire()
 {
-     effetChrome();
+     effetComplexChrome();
     //création de la cabine
 	//création du sud
 	glPushMatrix();
-		glColor4fv(couleurCourseWagon1);
+		glColor4fv(couleurWagon1);
 		glTranslatef(0, 0.3, 0.75);
 		glScalef(3,1.5,0.1); //z = epaisseur
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurCourseWagon2);
+		glColor4fv(couleurWagon2);
 		glTranslatef(0, 1.06, 0.775);
 		glScalef(3,0.05,0.15); //z = epaisseur
 		glutSolidCube(1.0);  
@@ -1244,14 +1211,14 @@ void creerContenaire()
 	
 	//création du nord
 	glPushMatrix();
-		glColor4fv(couleurCourseWagon1);
+		glColor4fv(couleurWagon1);
 		glTranslatef(0, 0.3, -0.75);
 		glScalef(3,1.5,0.1); //z = epaisseur
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurCourseWagon2);
+		glColor4fv(couleurWagon2);
 		glTranslatef(0, 1.06, -0.775);
 		glScalef(3,0.05,0.15); //z = epaisseur
 		glutSolidCube(1.0);  
@@ -1259,14 +1226,14 @@ void creerContenaire()
     
     //création de l'est
 	glPushMatrix();
-		glColor4fv(couleurCourseWagon1);
+		glColor4fv(couleurWagon1);
         glTranslatef(1.46, 0.3, 0);
 		glScalef(0.1, 1.5, 1.5); //x = epaisseur
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurCourseWagon2);
+		glColor4fv(couleurWagon2);
 		glTranslatef(1.485, 1.06, 0);
 		glScalef(0.15,0.05,1.7); //z = epaisseur
 		glutSolidCube(1.0);  
@@ -1274,13 +1241,13 @@ void creerContenaire()
 	
 	//création de l'ouest
 	glPushMatrix();
-		glColor4fv(couleurCourseWagon1);
+		glColor4fv(couleurWagon1);
         glTranslatef(-1.46, 0.3, 0);
 		glScalef(0.1, 1.5, 1.5); //x = epaisseur
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	glPushMatrix();
-		glColor4fv(couleurCourseWagon2);
+		glColor4fv(couleurWagon2);
 		glTranslatef(-1.485, 1.06, 0);
 		glScalef(0.15,0.05,1.7); //z = epaisseur
 		glutSolidCube(1.0);  
@@ -1288,7 +1255,7 @@ void creerContenaire()
 	
 	//création du sol
 	glPushMatrix();
-		glColor4fv(couleurCourseWagon2);
+		glColor4fv(couleurWagon2);
         glTranslatef(0, -0.41, 0);
 		glScalef(2.9, 0.1, 1.5);
 		glutSolidCube(1.0);  
@@ -1533,7 +1500,14 @@ int main(int argc,char **argv) {
     couleurClocheAccroche = couleurCourseClocheAccroche;
     couleurClocheBaton = couleurCourseClocheBaton;
     couleurChemine = couleurCourseChemine;
+    couleurSoupape1 = couleurCourseSoupape1;
+    couleurSoupape2 = couleurCourseSoupape2;
+    couleurWagon1 = couleurCourseWagon1;
+    couleurWagon2 = couleurCourseWagon2;
 	
+	effetComplexOr = effetOr;
+	effetComplexChrome = effetChrome;
+	effetComplexArgent = effetArgent;
 	
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH);
