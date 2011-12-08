@@ -1,22 +1,21 @@
+#include <iostream>
+#include <cstdlib>
+#include <cmath> 
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
-#include <math.h> 
-#include <iostream>
-#include <windows.h> 
 
+#include <windows.h> 
 #include <Mmsystem.h>
 #include <conio.h>
 
 #include "ModuleCouleurs.h"
 #include "ModuleManipulateur.h"
-#include "ModuleMenus.h"
 #include "ModuleReshape.h"
 #include "ModuleCylindres.h"
 #include "ModuleRoue.h"
+#include "ModuleMenus.h"
 
 using namespace std;
 
@@ -74,27 +73,27 @@ void creerAvantLoco()
 {
 	//création de l'avant de la loco
 	glPushMatrix();
-		glColor4fv(couleurRougeFonce());
+		glColor4fv(couleurCylindre);
 		glTranslatef(-1, 0.2, 0);
 		glRotatef(90, 0, 0, 1);
 		solidCylindre(0.7,1.7,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRose());
+		glColor4fv(couleurAvant);
 		glTranslatef(-1.85, 0.2, 0);
 		glRotatef(-90, 0, 1, 0);
 		gluCylinder(param,0.7,0,0.3,20,1);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRouge());
+		glColor4fv(couleurOptique);
 		glTranslatef(-2, 0.2, 0);
 		gluSphere(param,0.2,20,20);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurJaune());
+		glColor4fv(couleurPhare);
 		glTranslatef(-2.02, 0.2, 0);
 		gluSphere(param,0.19,20,20);
 	glPopMatrix();
@@ -105,20 +104,20 @@ void creerChemine()
 {
 	//création de la cheminée
 	glPushMatrix();
-		glColor4fv(couleurRouge());
+		glColor4fv(couleurChemine);
 		glTranslatef(-1.6, 1.1, 0);
 		solidCylindre(0.2,0.4,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurJaune());
+		glColor4fv(couleurChemine);
 		glTranslatef(-1.6, 1.1, 0);
 		glRotatef(-90, 1, 0, 0);  
 		gluCylinder(param,0.18,0.4,0.4,20,1);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurVert());
+		glColor4fv(couleurChemine);
 		glTranslatef(-1.6, 1.5, 0);
 		glRotatef(-90, 1, 0, 0);      
 		gluCylinder(param,0.4,0.18,0.4,20,1);
@@ -136,27 +135,27 @@ void creerCloche()
 		glTranslatef(-1.05, -1.4, 0);//remise en place du centre
 		
 		glPushMatrix();
-			glColor4fv(couleurVert());
+			glColor4fv(couleurCloche1);
 			glTranslatef(-1.05, 1, 0);
 			glRotatef(-90, 1, 0, 0);     
 			gluCylinder(param,0.2,0.1,0.3,20,1);
 		glPopMatrix();
 		
 		glPushMatrix();
-			glColor4fv(couleurRouge());
+			glColor4fv(couleurCloche2);
 			glTranslatef(-1.05, 1, 0);
 			glRotatef(-90, 1, 0, 0);             
 			gluCylinder(param,0.25,0.2,0.05,20,1);
 		glPopMatrix();
 		
 		glPushMatrix();
-			glColor4fv(couleurRouge());
+			glColor4fv(couleurCloche2);
 			glTranslatef(-1.05, 1.3, 0);
 			gluSphere(param,0.1,20,20);
 		glPopMatrix();
 		
 		glPushMatrix();
-			glColor4fv(couleurVert());
+			glColor4fv(couleurCloche1);
 			glTranslatef(-1.05, 1.4, 0);
 			gluSphere(param,0.07,20,20);
 		glPopMatrix();
@@ -167,32 +166,32 @@ void creerAccrocheCloche()
 {
 	//création de l'accroche cloche
 	glPushMatrix();
-		glColor4fv(couleurBleu());
+		glColor4fv(couleurClocheAccroche);
 		glTranslatef(-1.05, 1.12, 0.3);
 		solidCylindre(0.025,0.6,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurBleu());
+		glColor4fv(couleurClocheAccroche);
 		glTranslatef(-1.05, 1.12, -0.3);
 		solidCylindre(0.025,0.6,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurBleu());
+		glColor4fv(couleurClocheAccroche);
 		glTranslatef(-1.05, 1.4, 0);
 		glRotatef(90, 1, 0, 0);
 		solidCylindre(0.025,0.58,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRose());
+		glColor4fv(couleurClocheAccroche);
 		glTranslatef(-1.05, 1.4, 0.3);
 		gluSphere(param,0.04,20,20);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRose());
+		glColor4fv(couleurClocheAccroche);
 		glTranslatef(-1.05, 1.4, -0.3);
 		gluSphere(param,0.04,20,20);
 	glPopMatrix();
@@ -202,13 +201,13 @@ void creerInterieurCloche()
 {
 	//intérieur cloche
 	glPushMatrix();
-		glColor4fv(couleurJaune());
+		glColor4fv(couleurClocheBaton);
 		glTranslatef(-1.05, 1.12, 0);
 		solidCylindre(0.025,0.3,20,10); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRose());
+		glColor4fv(couleurClocheBaton);
 		glTranslatef(-1.05, 1, 0);
 		gluSphere(param,0.07,20,20);
 	glPopMatrix();
@@ -260,68 +259,68 @@ void creerPhares()
 	//phares
 	//droit
 	glPushMatrix();
-		glColor4fv(couleurCyan());
+		glColor4fv(couleurGdPhare);
 		glTranslatef(-1.6, -0.4, 0.65);
 		glRotatef(90, 0, 0, 1);
 		solidCylindre(0.21,0.51,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurVert());
+		glColor4fv(couleurGdPhare2);
 		glTranslatef(-1.833, -0.4, 0.675);
 		glRotatef(-90, 0, 1, 0);  
 		gluCylinder(param,0.2,0.3,0.2,20,1);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurJaune());
+		glColor4fv(couleurGdPhare2);
 		glTranslatef(-1.245, -0.4, 0.668);
 		glRotatef(-90, 0, 1, 0);  
 		gluCylinder(param,0.0,0.22,0.1,20,1);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurVert());
+		glColor4fv(couleurGdPhare);
 		glTranslatef(-1.3, -0.4, 0.668);
 		gluSphere(param,0.1,20,20);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurJaune());
+		glColor4fv(couleurPhare);
 		glTranslatef(-1.92, -0.4, 0.672);
 		gluSphere(param,0.21,20,20);
 	glPopMatrix();
 	
 	//gauche
 	glPushMatrix();
-		glColor4fv(couleurCyan());
+		glColor4fv(couleurGdPhare);
 		glTranslatef(-1.6, -0.4, -0.65);
 		glRotatef(90, 0, 0, 1);
 		solidCylindre(0.21,0.51,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurVert());
+		glColor4fv(couleurGdPhare2);
 		glTranslatef(-1.833, -0.4, -0.675);
 		glRotatef(-90, 0, 1, 0);  
 		gluCylinder(param,0.2,0.3,0.2,20,1);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurJaune());
+		glColor4fv(couleurGdPhare2);
 		glTranslatef(-1.245, -0.4, -0.668);
 		glRotatef(-90, 0, 1, 0);  
 		gluCylinder(param,0.0,0.22,0.1,20,1);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurVert());
+		glColor4fv(couleurGdPhare);
 		glTranslatef(-1.3, -0.4, -0.668);
 		gluSphere(param,0.1,20,20);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurJaune());
+		glColor4fv(couleurPhare);
 		glTranslatef(-1.92, -0.4, -0.672);
 		gluSphere(param,0.21,20,20);
 	glPopMatrix();
@@ -332,28 +331,28 @@ void creerCabine()
 	//création de la cabine
 	//création du côté
 	glPushMatrix();
-		glColor4fv(couleurBleu());
+		glColor4fv(couleurMur);
 		glTranslatef(-0.1, 0.7, 0.75);
 		glScalef(0.2,2.4,0.1);
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurBleu());
+		glColor4fv(couleurMur);
 		glTranslatef(1.3, 0.7, 0.75);
 		glScalef(0.2,2.4,0.1);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurBleu());
+		glColor4fv(couleurMur);
 		glTranslatef(0.6, 0.2, 0.75);
 		glScalef(1.2,1.4,0.1);
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurBleu());
+		glColor4fv(couleurMur);
 		glTranslatef(0.6, 1.8, 0.75);
 		glScalef(1.2,0.2,0.1);
 		glutSolidCube(1.0);  
@@ -361,28 +360,28 @@ void creerCabine()
 	
 	
 	glPushMatrix();
-		glColor4fv(couleurVert());
+		glColor4fv(couleurCadre);
 		glTranslatef(0.025, 1.3, 0.775);
 		glScalef(0.05,0.8,0.15);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurVert());
+		glColor4fv(couleurCadre);
 		glTranslatef(1.175, 1.3, 0.775);
 		glScalef(0.05,0.8,0.15);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurCyan());
+		glColor4fv(couleurCadre);
 		glTranslatef(0.6, 0.925, 0.775);
 		glScalef(1.1,0.05,0.15);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurCyan());
+		glColor4fv(couleurCadre);
 		glTranslatef(0.6, 1.675, 0.775);
 		glScalef(1.1,0.05,0.15);
 		glutSolidCube(1.0); 
@@ -390,56 +389,56 @@ void creerCabine()
 	
 	//création du côté en face
 	glPushMatrix();
-		glColor4fv(couleurBrun());
+		glColor4fv(couleurMur);
 		glTranslatef(-0.1, 0.7, -0.75);
 		glScalef(0.2,2.4,0.1);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurBrun());
+		glColor4fv(couleurMur);
 		glTranslatef(1.3, 0.7, -0.75);
 		glScalef(0.2,2.4,0.1);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurBrun());
+		glColor4fv(couleurMur);
 		glTranslatef(0.6, 0.2, -0.75);
 		glScalef(1.2,1.4,0.1);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurBrun());
+		glColor4fv(couleurMur);
 		glTranslatef(0.6, 1.8, -0.75);
 		glScalef(1.2,0.2,0.1);
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRouge());
+		glColor4fv(couleurMur);
 		glTranslatef(0.025, 1.3, -0.775);
 		glScalef(0.05,0.8,0.15);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRouge());
+		glColor4fv(couleurMur);
 		glTranslatef(1.175, 1.3, -0.775);
 		glScalef(0.05,0.8,0.15);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRose());
+		glColor4fv(couleurMur);
 		glTranslatef(0.6, 0.925, -0.775);
 		glScalef(1.1,0.05,0.15);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRose());
+		glColor4fv(couleurMur);
 		glTranslatef(0.6, 1.675, -0.775);
 		glScalef(1.1,0.05,0.15);
 		glutSolidCube(1.0); 
@@ -447,56 +446,56 @@ void creerCabine()
 	
 	//création de la face avant
 	glPushMatrix();
-		glColor4fv(couleurRouge());
+		glColor4fv(couleurMur);
 		glTranslatef(-0.15, 1.8, 0);
 		glScalef(0.1,0.2,1.4);
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRouge());
+		glColor4fv(couleurMur);
 		glTranslatef(-0.15, 0.2, 0);
 		glScalef(0.1,1.4,1.4);
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRose());
+		glColor4fv(couleurMur);
 		glTranslatef(-0.15, 1.3, -0.6);
 		glScalef(0.1,0.8,0.2);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRose());
+		glColor4fv(couleurMur);
 		glTranslatef(-0.15, 1.3, 0.6);
 		glScalef(0.1,0.8,0.2);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurVert());
+		glColor4fv(couleurCadre);
 		glTranslatef(-0.175, 1.3, 0.475);
 		glScalef(0.15,0.8,0.05);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurVert());
+		glColor4fv(couleurCadre);
 		glTranslatef(-0.175, 1.3, -0.475);
 		glScalef(0.15,0.8,0.05);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurCyan());
+		glColor4fv(couleurCadre);
 		glTranslatef(-0.175, 0.925, 0);
 		glScalef(0.15,0.05,0.9);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurCyan());
+		glColor4fv(couleurCadre);
 		glTranslatef(-0.175, 1.675, 0);
 		glScalef(0.15,0.05,0.9);
 		glutSolidCube(1.0); 
@@ -504,21 +503,21 @@ void creerCabine()
 	
 	//création de la face arrière (côté porte)
 	glPushMatrix();
-		glColor4fv(couleurRouge());
+		glColor4fv(couleurMur);
 		glTranslatef(1.35, 1.8, 0);
 		glScalef(0.1,0.2,1.4);
 		glutSolidCube(1.0);  
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRose());
+		glColor4fv(couleurMur);
 		glTranslatef(1.35, 0.6, -0.6);
 		glScalef(0.1,2.2,0.2);
 		glutSolidCube(1.0); 
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRose());
+		glColor4fv(couleurMur);
 		glTranslatef(1.35, 0.6, 0.6);
 		glScalef(0.1,2.2,0.2);
 		glutSolidCube(1.0); 
@@ -526,7 +525,7 @@ void creerCabine()
 	
 	//création du sol
 	glPushMatrix();
-		glColor4fv(couleurGrisClair());
+		glColor4fv(couleurSol);
 		glTranslatef(0.6, -0.475, 0);
 		glScalef(1.4,0.05,1.4);
 		glutSolidCube(1.0);  
@@ -534,7 +533,7 @@ void creerCabine()
 	
 	//création du toit
 	glPushMatrix();
-		glColor4fv(couleurCyan());
+		glColor4fv(couleurToit);
 		glTranslatef(0.6, 2.11, 0.42);
 		glRotatef(-60, 1, 0, 0);
 		glScalef(2,1,0.05);
@@ -542,7 +541,7 @@ void creerCabine()
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurRouge());
+		glColor4fv(couleurToit);
 		glTranslatef(0.6, 2.11, -0.42);
 		glRotatef(60, 1, 0, 0);
 		glScalef(2,1,0.05);
@@ -551,46 +550,46 @@ void creerCabine()
 	
 	//les pinions
 	glBegin(GL_POLYGON);
-		glColor4fv(couleurRose());
+		glColor4fv(couleurMur);
 		glVertex3f(1.4,1.9, 0.8);//sommet
 		
-		glColor4fv(couleurRose());
+		glColor4fv(couleurMur);
 		glVertex3f(1.4,2.35, 0);
 		
-		glColor4fv(couleurRose());
+		glColor4fv(couleurMur);
 		glVertex3f(1.4,1.9, -0.8);//sommet           
 		glEnd();
 		
 		glBegin(GL_POLYGON);
-		glColor4fv(couleurJaune());
+		glColor4fv(couleurMur);
 		glVertex3f(1.3,1.9, 0.8);//sommet
 		
-		glColor4fv(couleurJaune());
+		glColor4fv(couleurMur);
 		glVertex3f(1.3,2.35, 0);
 		
-		glColor4fv(couleurJaune());
+		glColor4fv(couleurMur);
 		glVertex3f(1.3,1.9, -0.8);//sommet  
 	glEnd();
 	
 	glBegin(GL_POLYGON);
-		glColor4fv(couleurVert());
+		glColor4fv(couleurMur);
 		glVertex3f(-0.1,1.9, 0.8);//sommet
 		
-		glColor4fv(couleurVert());
+		glColor4fv(couleurMur);
 		glVertex3f(-0.1,2.35, 0);
 		
-		glColor4fv(couleurVert());
+		glColor4fv(couleurMur);
 		glVertex3f(-0.1,1.9, -0.8);//sommet  
 	glEnd();
 	
 	glBegin(GL_POLYGON);
-		glColor4fv(couleurRose());
+		glColor4fv(couleurMur);
 		glVertex3f(-0.2,1.9, 0.8);//sommet
 		
-		glColor4fv(couleurRose());
+		glColor4fv(couleurMur);
 		glVertex3f(-0.2,2.35, 0);
 		
-		glColor4fv(couleurRose());
+		glColor4fv(couleurMur);
 		glVertex3f(-0.2,1.9, -0.8);//sommet  
 	glEnd();
 	
@@ -598,66 +597,66 @@ void creerCabine()
 	
 	//poignee 1
 	glPushMatrix();
-		glColor4fv(couleurGrisClair());
+		glColor4fv(couleurCylindre);
 		glTranslatef(1.5, 0.6, 0.6);
 		solidCylindre(0.03,1.2,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurGrisFonce());
+		glColor4fv(couleurGrisClair());
 		glTranslatef(1.45, 0, 0.6);
 		glRotatef(90, 0, 0, 1);
 		solidCylindre(0.03,0.15,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurGrisFonce());
+		glColor4fv(couleurGrisClair());
 		glTranslatef(1.45, 1.2, 0.6);
 		glRotatef(90, 0, 0, 1);
 		solidCylindre(0.03,0.15,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurGrisFonce());
+		glColor4fv(couleurCylindre);
 		glTranslatef(1.5, 0, 0.6);
 		gluSphere(param,0.035,20,20);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurGrisFonce());
+		glColor4fv(couleurCylindre);
 		glTranslatef(1.5, 1.2, 0.6);
 		gluSphere(param,0.035,20,20);
 	glPopMatrix();
 	
 	//poignee2
 	glPushMatrix();
-		glColor4fv(couleurGrisClair());
+		glColor4fv(couleurCylindre);
 		glTranslatef(1.5, 0.6, -0.6);
 		solidCylindre(0.03,1.2,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurGrisFonce());
+		glColor4fv(couleurGrisClair());
 		glTranslatef(1.45, 0, -0.6);
 		glRotatef(90, 0, 0, 1);
 		solidCylindre(0.03,0.15,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurGrisFonce());
+		glColor4fv(couleurGrisClair());
 		glTranslatef(1.45, 1.2, -0.6);
 		glRotatef(90, 0, 0, 1);
 		solidCylindre(0.03,0.15,20,10);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurGrisFonce());
+		glColor4fv(couleurCylindre);
 		glTranslatef(1.5, 0, -0.6);
 		gluSphere(param,0.035,20,20);
 	glPopMatrix();
 	
 	glPushMatrix();
-		glColor4fv(couleurGrisFonce());
+		glColor4fv(couleurCylindre);
 		glTranslatef(1.5, 1.2, -0.6);
 		gluSphere(param,0.035,20,20);
 	glPopMatrix();
@@ -671,7 +670,7 @@ void creerRoues()
 	glPushMatrix();
 		glTranslatef(0.78, -0.65, 0.83);
 		glRotatef(a,0.0,0.0,1.0);
-		Roue(couleurNoir(), couleurVert(), couleurRouge());
+		Roue(couleurRoueInterieur, couleurRoueExterieur, couleurFlanRoue);
 		
 		
 		//attache roue1
@@ -693,7 +692,7 @@ void creerRoues()
 	glPushMatrix();
 		glTranslatef(-0.55, -0.65, 0.83);
 		glRotatef(a,0.0,0.0,1.0);
-		Roue(couleurNoir(), couleurVert(), couleurRouge());
+		Roue(couleurRoueInterieur, couleurRoueExterieur, couleurFlanRoue);
 		
 		
 		//attache roue2
@@ -715,7 +714,7 @@ void creerRoues()
 	glPushMatrix();
 		glTranslatef(0.78, -0.65, -0.99);
 		glRotatef(az,0.0,0.0,1.0);
-		Roue(couleurNoir(), couleurVert(), couleurRouge());
+		Roue(couleurRoueInterieur, couleurRoueExterieur, couleurFlanRoue);
 		
 		glPushMatrix();
 			glColor4fv(couleurBrun());
@@ -736,7 +735,7 @@ void creerRoues()
 	glPushMatrix();
 		glTranslatef(-0.55, -0.65, -0.99);
 		glRotatef(az,0.0,0.0,1.0);
-		Roue(couleurNoir(), couleurVert(), couleurRouge());
+		Roue(couleurRoueInterieur, couleurRoueExterieur, couleurFlanRoue);
 		
 		glPushMatrix();
 			glColor4fv(couleurBrun());
@@ -773,7 +772,7 @@ void creerAxesRoues()
 	
 	//axe central
 	glPushMatrix();
-		glColor4fv(couleurBleu());
+		glColor4fv(couleurSol);
 		glTranslatef(-0.3, -0.70, 0);
 		glScalef(3.2,0.4,0.4);
 		glutSolidCube(1.0);  
@@ -787,21 +786,21 @@ void creerAxesRoues()
 		
 		//axe entre roue 1 et roue2
 		glPushMatrix();
-			glColor4fv(couleurJaune());
+			glColor4fv(couleurAxe);
 			glTranslatef(0, 0, 1.06);
 			glScalef(1.35,0.14,0.1);
 			glutSolidCube(1.0);
 		glPopMatrix();
 		
 		glPushMatrix();
-			glColor4fv(couleurJaune());
+			glColor4fv(couleurAxe);
 			glTranslatef(0.7, 0, 1.07);
 			glScalef(1,1,0.5);
 			gluSphere(param,0.14,20,20);
 		glPopMatrix();
 		
 		glPushMatrix();
-			glColor4fv(couleurJaune());
+			glColor4fv(couleurAxe);
 			glTranslatef(-0.6, 0, 1.07);
 			glScalef(1,1,0.5);
 			gluSphere(param,0.14,20,20);
@@ -846,21 +845,21 @@ void creerAxesRoues()
 		
 		//axe entre roue 2 et roue 3
 		glPushMatrix();
-			glColor4fv(couleurJaune());
+			glColor4fv(couleurAxe);
 			glTranslatef(0, 0, -1.06);
 			glScalef(1.35,0.14,0.1);
 			glutSolidCube(1.0);
 		glPopMatrix();
 		
 		glPushMatrix();
-			glColor4fv(couleurJaune());
+			glColor4fv(couleurAxe);
 			glTranslatef(0.7, 0, -1.07);
 			glScalef(1,1,0.5);
 			gluSphere(param,0.14,20,20);
 		glPopMatrix();
 		
 		glPushMatrix();
-			glColor4fv(couleurJaune());
+			glColor4fv(couleurAxe);
 			glTranslatef(-0.6, 0, -1.07);
 			glScalef(1,1,0.5);
 			gluSphere(param,0.14,20,20);
@@ -1051,68 +1050,65 @@ void creerPointe()
 
 void creerPasserelle()
 {
-     //glPushMatrix();
-     
      glPushMatrix();
-                 glColor4fv(couleurGrisClair());
-                 glTranslatef(1.7, -0.8, 0);
-                 glScalef(0.8,0.05,1.4);
-                 glutSolidCube(1.0);  
-                 //glPopMatrix();
-     glPopMatrix();
+         glPushMatrix();
+                     glColor4fv(couleurSol);
+                     glTranslatef(1.7, -0.8, 0);
+                     glScalef(0.8,0.05,1.4);
+                     glutSolidCube(1.0);
+         glPopMatrix();
+         
+         glPushMatrix();
+                     glColor4fv(couleurSol);
+                     glTranslatef(1.3, -0.65, 0);
+                     glScalef(0.05,0.3,1.4);
+                     glutSolidCube(1.0);
+         glPopMatrix();
+         
+         glPushMatrix();
+                     glColor4fv(couleurGrille);
+                     glTranslatef(2, -0.2, -0.6);
+                     solidCylindre(0.03,1.2,20,10);
+         glPopMatrix();
+         
+         glPushMatrix();
+                     glColor4fv(couleurGrille);
+                     glTranslatef(2, -0.2, 0.6);
+                     solidCylindre(0.03,1.2,20,10);
+         glPopMatrix();
+         
+         glPushMatrix();
+                     glColor4fv(couleurGrille);
+                     glTranslatef(2, -0.2, 0.2);
+                     solidCylindre(0.03,1.2,20,10);
+         glPopMatrix();
+         
+         glPushMatrix();
+                     glColor4fv(couleurGrille);
+                     glTranslatef(2, -0.2, -0.2);
+                     solidCylindre(0.03,1.2,20,10);
+         glPopMatrix();
+         
+         glPushMatrix();
+                     glRotatef(90,1,0,0);
+                     glColor4fv(couleurGrille);
+                     glTranslatef(2, 0, -0.4);
+                     solidCylindre(0.03,1.2,20,10);
+         glPopMatrix();
+         
+         glPushMatrix();
+                     glColor4fv(couleurGrille);
+                     glTranslatef(2, 0.4, -0.6);
+                     gluSphere(param,0.035,20,20);
+         glPopMatrix();
+         
+         glPushMatrix();
+                     glColor4fv(couleurGrille);
+                     glTranslatef(2, 0.4, 0.6);
+                     gluSphere(param,0.035,20,20);
+         glPopMatrix();
      
-     glPushMatrix();
-                 glColor4fv(couleurGrisFonce());
-                 glTranslatef(1.3, -0.65, 0);
-                 glScalef(0.05,0.3,1.4);
-                 glutSolidCube(1.0);  
-                 //glPopMatrix();
      glPopMatrix();
-     
-     glPushMatrix();
-                 glColor4fv(couleurGrisFonce());
-                 glTranslatef(2, -0.2, -0.6);
-                 solidCylindre(0.03,1.2,20,10);
-     glPopMatrix();
-     
-     glPushMatrix();
-                 glColor4fv(couleurGrisFonce());
-                 glTranslatef(2, -0.2, 0.6);
-                 solidCylindre(0.03,1.2,20,10);
-     glPopMatrix();
-     
-     glPushMatrix();
-                 glColor4fv(couleurGrisFonce());
-                 glTranslatef(2, -0.2, 0.2);
-                 solidCylindre(0.03,1.2,20,10);
-     glPopMatrix();
-     
-     glPushMatrix();
-                 glColor4fv(couleurGrisFonce());
-                 glTranslatef(2, -0.2, -0.2);
-                 solidCylindre(0.03,1.2,20,10);
-     glPopMatrix();
-     
-     glPushMatrix();
-                 glRotatef(90,1,0,0);
-                 glColor4fv(couleurGrisFonce());
-                 glTranslatef(2, 0, -0.4);
-                 solidCylindre(0.03,1.2,20,10);
-     glPopMatrix();
-     
-     glPushMatrix();
-                 glColor4fv(couleurGrisClair());
-                 glTranslatef(2, 0.4, -0.6);
-                 gluSphere(param,0.035,20,20);
-     glPopMatrix();
-     
-     glPushMatrix();
-                 glColor4fv(couleurGrisClair());
-                 glTranslatef(2, 0.4, 0.6);
-                 gluSphere(param,0.035,20,20);
-     glPopMatrix();
-     
-     //glPopMatrix();
 }
 void creerContenaire()
 {
@@ -1218,19 +1214,24 @@ void display(void)
 		glRotatef(angley,0.0F,1.0F,0.0F);
 		glRotatef(anglez,0.0F,0.0F,1.0F);
 		
+        cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
 		gluLookAt(dist * monCosinus[angle], 0, dist * monSinus[angle], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-				
-		//creation du wagon
-		glPushMatrix();
-		  glTranslatef(4, 0, 0);		     
-            creerWagon();
-    	glPopMatrix();            
+	   
+        //cout <<  
 		//creation du train dans la scene au point 0, 0, 0
 		creerTrain();
 		
+		glTranslatef(4, 0, 0);
+		
 		//creation du wagon au point x, y, z
-
-
+        creerWagon(); 
+        
+		glTranslatef(-4, 0, 0);
+		
+		glTranslatef(x, y, z);
+		glColor4fv(couleurBleu());
+        glutSolidCube(1);
+            
 	glPopMatrix();
 	
 	glFlush();
@@ -1244,11 +1245,11 @@ void myinit(void) {
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     glEnable(GL_COLOR_MATERIAL);
-    GLfloat L0pos[]={ 0.0,2.0,-1.0};
+    GLfloat L0pos[]={ x, y, z};
     GLfloat L0dif[]={ 0.8, 0.8, 0.8};
     
-    GLfloat Mspec[]={0.9,0.9,0.9};
-    GLfloat Mshiny=10;
+    GLfloat Mspec[]={0,0,0};
+    GLfloat Mshiny=0;
     
     glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,Mspec);
     glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,Mshiny);
@@ -1367,6 +1368,29 @@ void clavier(unsigned char touche,int x,int y)
 
 int main(int argc,char **argv) {
 	trigo();
+	
+	couleurCylindre = couleurCourseCylindre;
+    couleurAvant = couleurCourseAvant;
+    couleurOptique = couleurCourseOptique;
+    couleurPhare = couleurCoursePhare;
+    couleurGdPhare = couleurCourseGdPhare;
+    couleurGdPhare2 = couleurCourseGdPhare2;
+    couleurToit = couleurCourseToit;
+    couleurCadre = couleurCourseCadre;
+    couleurMur = couleurCourseMur;
+    couleurFlanRoue = couleurCourseFlanRoue;
+    couleurRoueInterieur = couleurCourseRoueInterieur;
+    couleurRoueExterieur = couleurCourseRoueExterieur;
+    couleurAxe = couleurCourseAxe;
+    couleurGrille = couleurCourseGrille;
+    couleurSol = couleurCourseSol;
+    couleurCloche1 = couleurCourseCloche1;
+    couleurCloche2 = couleurCourseCloche2;
+    couleurClocheAccroche = couleurCourseClocheAccroche;
+    couleurClocheBaton = couleurCourseClocheBaton;
+    couleurChemine = couleurCourseChemine;
+	
+	
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH);
 	glutInitWindowSize(500,500); 

@@ -3,12 +3,6 @@
 
 
 #include "ModuleManipulateur.h"
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glut.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 static int mouvement = 0 ;
 static int button = 0 ;

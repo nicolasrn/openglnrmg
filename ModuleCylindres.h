@@ -4,6 +4,10 @@
 #ifndef MODULECYLINDRE
 #define MODULECYLINDRE
 
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+
 #define X 1
 #define Y 2
 #define Z 3

@@ -4,6 +4,8 @@
 #ifndef MODULECOULEURS
 #define MODULECOULEURS
 
+#include <cstdlib>
+
 float *couleurBlanc(void);
 float *couleurCyan(void);
 float *couleurMagenta(void);
