@@ -28,6 +28,9 @@
  float *couleurSoupape2 = NULL;
  float *couleurWagon1 = NULL;
  float *couleurWagon2 = NULL;
+ void(*effetComplexOr)() = NULL;
+ void(*effetComplexChrome)() = NULL;
+ void(*effetComplexArgent)() = NULL;
 
   void select(int selection) 
 {
@@ -126,4 +129,46 @@ void creationMenuBasique(void)
     couleurSoupape2 = couleurFilleSoupape2;
     couleurWagon1 = couleurFilleWagon1;
     couleurWagon2 = couleurFilleWagon2;
+}
+
+
+
+
+
+
+void effetOr()
+{
+     GLfloat cAmbient[] = {0.24725,0.1995,0.0745,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, cAmbient);
+     GLfloat cDiffuse[] = {0.75164,0.60648,0.22648,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
+     GLfloat cSpec[] = {0.628281,0.555802,0.366065,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
+     GLfloat cShin = 51.2;
+     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
+}
+
+
+void effetChrome()
+{
+     GLfloat cAmbient[] = {0.25,0.25,0.25,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, cAmbient);
+     GLfloat cDiffuse[] = {0.4,0.4,0.4,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
+     GLfloat cSpec[] = {0.774597,0.774597,0.774597,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
+     GLfloat cShin = 76.8;
+     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
+}
+
+void effetArgent()
+{
+     GLfloat cAmbient[] = {0.19225,0.19225,0.19225,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, cAmbient);
+     GLfloat cDiffuse[] = {0.50754,0.50754,0.50754,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
+     GLfloat cSpec[] = {0.508273,0.508273,0.508273,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
+     GLfloat cShin = 51.2;
+     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
 }

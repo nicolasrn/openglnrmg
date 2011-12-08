@@ -92,6 +92,13 @@
     
     void themeFille();
     
-    typedef float pixel[4];
+    extern void (*effetComplexOr) ();
+    void effetOr();
+    
+    extern void (*effetComplexChrome) ();
+    void effetChrome();
+    
+    extern void (*effetComplexArgent) ();
+    void effetArgent();
 
 #endif
