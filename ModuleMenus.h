@@ -27,14 +27,18 @@
     extern float *couleurClocheAccroche;
     extern float *couleurClocheBaton;
     extern float *couleurChemine;
+    extern float *couleurSoupape1;
+    extern float *couleurSoupape2;
+    extern float *couleurWagon1;
+    extern float *couleurWagon2;
     
     static float couleurCourseCylindre[] = {1, .035, .12, 1};
     static float couleurCourseAvant[] = {.85, .09, .007, 1};
     static float couleurCourseOptique[] = {.3, 0.14, 0.117, 1};
-    static float couleurCoursePhare[] = {1, 1, .41, 1};
+    static float couleurCoursePhare[] = {1, 1, .41, 0.01};
     static float couleurCourseGdPhare[] = {.756, .749, .694, 1};
     static float couleurCourseGdPhare2[] = {.07, .054, .039, 1};
-    static float couleurCourseToit[] = {1, .035, .12, 1};
+    static float couleurCourseToit[] = {.756, .749, .694, 1};
     static float couleurCourseCadre[] = {.756, .749, .694, 1};
     static float couleurCourseMur[] = {.85, .09, .007, 1};
     static float couleurCourseFlanRoue[] = {1, 1, 1, 1};
@@ -48,6 +52,10 @@
     static float couleurCourseClocheAccroche[] =  {1, .84, 0, 1};
     static float couleurCourseClocheBaton[] = {1, .84, 0, 1};
     static float couleurCourseChemine[] = {.756, .749, .694, 1};
+    static float couleurCourseSoupape1[] = {.8, .8, .8, 1};
+    static float couleurCourseSoupape2[] = {.47, .5, .5, 1};
+    static float couleurCourseWagon1[] = {.8, .8, .8, 1};
+    static float couleurCourseWagon2[] = {.85, .09, .007, 1};
     
     static float couleurFilleCylindre[] = {0, 0, 0, 1};
     static float couleurFilleAvant[] = {0, 0, 0, 1};
@@ -69,6 +77,10 @@
     static float couleurFilleClocheAccroche[] =  {0, 0, 0, 1};
     static float couleurFilleClocheBaton[] = {0, 0, 0, 1};
     static float couleurFilleChemine[] = {0, 0, 0, 1};
+    static float couleurFilleSoupape1[] = {0, 0, 0, 1};
+    static float couleurFilleSoupape2[] = {0, 0, 0, 1};
+    static float couleurFilleWagon1[] = {0, 0, 0, 1};
+    static float couleurFilleWagon2[] = {0, 0, 0, 1};
     
     void creationMenuBasique(void);
     
