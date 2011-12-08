@@ -1163,6 +1163,19 @@ void display(void)
 
 void myinit(void) { 
 	glClearColor(1.0,1.0,1.0,1.0);
+	glShadeModel(GL_SMOOTH);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_COLOR_MATERIAL);
+    GLfloat L0pos[]={ 0.0,2.0,-1.0};
+    
+    //glLightfv(GL_LIGHT0,GL_POSITION,L0pos);
+    //glEnable(GL_LIGHT1);
+    /*glLightfv(GL_LIGHT0,GL_DIFFUSE,L0dif);
+    glLightfv(GL_LIGHT0,GL_SPECULAR,L0dif);
+    glLightfv(GL_LIGHT1,GL_DIFFUSE,L1dif);
+    glLightfv(GL_LIGHT1,GL_SPECULAR,L1dif); */
 } 
 
 void special(int key,int x,int y) {
