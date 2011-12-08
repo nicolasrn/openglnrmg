@@ -4,6 +4,11 @@
 #ifndef MODULERESHAPE
 #define MODULERESHAPE
 
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+#include <cstdio>
+
 void setParametresOrthoBasique(float xmin,float xmax,float ymin,float ymax,float zmin,float zmax) ;
 void reshapeOrthoBasique(int w,int h) ;
 void setParametresFrustumBasique(float xmin,float xmax,float ymin,float ymax,float zmin,float zmax,float dx,float dy,float dz) ;

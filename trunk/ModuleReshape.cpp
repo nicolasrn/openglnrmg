@@ -3,10 +3,6 @@
 /* de visualisation                       */
 
 #include "ModuleReshape.h"
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glut.h>
-#include <stdio.h>
 
 static double orthoXmin;
 static double orthoXmax;

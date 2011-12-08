@@ -4,6 +4,13 @@
 #ifndef MODULEMANIPULATEUR
 #define MODULEMANIPULATEUR
 
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+
 int sourisManipulateur(int bouton,int etat,int x,int y) ;
 int motionManipulateur(int x,int y) ;
 void manipulateurSouris() ;

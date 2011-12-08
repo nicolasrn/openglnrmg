@@ -1,12 +1,7 @@
 
 /* Module de dessin des cylindres         */
 
-
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glut.h>
 #include "ModuleRoue.h"
-#include "ModuleCylindres.h"
 
 void Roue(float* couleur1, float* couleur2, float* couleur3) {
   glPushMatrix();

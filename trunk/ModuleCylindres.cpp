@@ -1,10 +1,6 @@
 
 /* Module de dessin des cylindres         */
 
-
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glut.h>
 #include "ModuleCylindres.h"
 
 void wireCylindre(float r,float h,int n,int m) {
