@@ -20,7 +20,7 @@
 
 using namespace std;
 
-
+static int angle = 90;
 static float anglex = 0.0F ;
 static float angley = 0.0F ;
 static float anglez = 0.0F ;
@@ -33,6 +33,9 @@ static float monSinus[360];
 static int angleCloche = 4;
 static int tempcompt = 1;
 GLUquadric* param = gluNewQuadric(); 
+
+static int x=9, y=5, z=-5;
+static float dist = 4.5;
 
 void monte()
 {
@@ -1048,13 +1051,14 @@ void creerPointe()
 
 void creerPasserelle()
 {
-     glPushMatrix();
+     //glPushMatrix();
+     
      glPushMatrix();
                  glColor4fv(couleurGrisClair());
                  glTranslatef(1.7, -0.8, 0);
                  glScalef(0.8,0.05,1.4);
                  glutSolidCube(1.0);  
-                 glPopMatrix();
+                 //glPopMatrix();
      glPopMatrix();
      
      glPushMatrix();
@@ -1062,7 +1066,7 @@ void creerPasserelle()
                  glTranslatef(1.3, -0.65, 0);
                  glScalef(0.05,0.3,1.4);
                  glutSolidCube(1.0);  
-                 glPopMatrix();
+                 //glPopMatrix();
      glPopMatrix();
      
      glPushMatrix();
@@ -1108,7 +1112,7 @@ void creerPasserelle()
                  gluSphere(param,0.035,20,20);
      glPopMatrix();
      
-     glPopMatrix();
+     //glPopMatrix();
 }
 void creerContenaire()
 {
@@ -1214,14 +1218,19 @@ void display(void)
 		glRotatef(angley,0.0F,1.0F,0.0F);
 		glRotatef(anglez,0.0F,0.0F,1.0F);
 		
+		gluLookAt(dist * monCosinus[angle], 0, dist * monSinus[angle], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+				
+		//creation du wagon
+		glPushMatrix();
+		  glTranslatef(4, 0, 0);		     
+            creerWagon();
+    	glPopMatrix();            
 		//creation du train dans la scene au point 0, 0, 0
 		creerTrain();
 		
 		//creation du wagon au point x, y, z
-		//glTranslatef(4, 0, 0);
-		
-		//creation du wagon
-		creerWagon();
+
+
 	glPopMatrix();
 	
 	glFlush();
@@ -1236,13 +1245,16 @@ void myinit(void) {
     glEnable(GL_LIGHT0);
     glEnable(GL_COLOR_MATERIAL);
     GLfloat L0pos[]={ 0.0,2.0,-1.0};
+    GLfloat L0dif[]={ 0.8, 0.8, 0.8};
     
-    //glLightfv(GL_LIGHT0,GL_POSITION,L0pos);
-    //glEnable(GL_LIGHT1);
-    /*glLightfv(GL_LIGHT0,GL_DIFFUSE,L0dif);
+    GLfloat Mspec[]={0.9,0.9,0.9};
+    GLfloat Mshiny=10;
+    
+    glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,Mspec);
+    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,Mshiny);
+    
+    glLightfv(GL_LIGHT0,GL_DIFFUSE,L0dif);
     glLightfv(GL_LIGHT0,GL_SPECULAR,L0dif);
-    glLightfv(GL_LIGHT1,GL_DIFFUSE,L1dif);
-    glLightfv(GL_LIGHT1,GL_SPECULAR,L1dif); */
 } 
 
 void special(int key,int x,int y) {
@@ -1268,7 +1280,14 @@ void clavier(unsigned char touche,int x,int y)
 {
 
 	switch (touche)
-	{
+	{   
+	case 'l':
+		if (glIsEnabled(GL_LIGHT0))
+			glDisable(GL_LIGHT0);
+		else
+			glEnable(GL_LIGHT0);
+		glutPostRedisplay();
+		break;
     case 'z':
         anglez++;
         glutPostRedisplay() ;
@@ -1277,6 +1296,26 @@ void clavier(unsigned char touche,int x,int y)
         anglez--;
         glutPostRedisplay() ;
         break;
+    case 'o':
+		angle+=2;
+		if (angle>=360)
+			angle-=360;
+		glutPostRedisplay();
+		break;
+	case 'p' :
+		angle-=2;
+		if (angle<0)
+			angle+=360;
+		glutPostRedisplay();
+		break;
+	case '+':
+		dist -= .5;
+		glutPostRedisplay();
+		break;
+	case '-':
+		dist += .5;
+		glutPostRedisplay();
+		break;
 	case 'a':
 		az = (az+ 5)%360;
 		a = a+5;
