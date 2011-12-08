@@ -1046,6 +1046,70 @@ void creerPointe()
 	
 }
 
+void creerPasserelle()
+{
+     glPushMatrix();
+     glPushMatrix();
+                 glColor4fv(couleurGrisClair());
+                 glTranslatef(1.7, -0.8, 0);
+                 glScalef(0.8,0.05,1.4);
+                 glutSolidCube(1.0);  
+                 glPopMatrix();
+     glPopMatrix();
+     
+     glPushMatrix();
+                 glColor4fv(couleurGrisFonce());
+                 glTranslatef(1.3, -0.65, 0);
+                 glScalef(0.05,0.3,1.4);
+                 glutSolidCube(1.0);  
+                 glPopMatrix();
+     glPopMatrix();
+     
+     glPushMatrix();
+                 glColor4fv(couleurGrisFonce());
+                 glTranslatef(2, -0.2, -0.6);
+                 solidCylindre(0.03,1.2,20,10);
+     glPopMatrix();
+     
+     glPushMatrix();
+                 glColor4fv(couleurGrisFonce());
+                 glTranslatef(2, -0.2, 0.6);
+                 solidCylindre(0.03,1.2,20,10);
+     glPopMatrix();
+     
+     glPushMatrix();
+                 glColor4fv(couleurGrisFonce());
+                 glTranslatef(2, -0.2, 0.2);
+                 solidCylindre(0.03,1.2,20,10);
+     glPopMatrix();
+     
+     glPushMatrix();
+                 glColor4fv(couleurGrisFonce());
+                 glTranslatef(2, -0.2, -0.2);
+                 solidCylindre(0.03,1.2,20,10);
+     glPopMatrix();
+     
+     glPushMatrix();
+                 glRotatef(90,1,0,0);
+                 glColor4fv(couleurGrisFonce());
+                 glTranslatef(2, 0, -0.4);
+                 solidCylindre(0.03,1.2,20,10);
+     glPopMatrix();
+     
+     glPushMatrix();
+                 glColor4fv(couleurGrisClair());
+                 glTranslatef(2, 0.4, -0.6);
+                 gluSphere(param,0.035,20,20);
+     glPopMatrix();
+     
+     glPushMatrix();
+                 glColor4fv(couleurGrisClair());
+                 glTranslatef(2, 0.4, 0.6);
+                 gluSphere(param,0.035,20,20);
+     glPopMatrix();
+     
+     glPopMatrix();
+}
 void creerContenaire()
 {
     //création de la cabine
@@ -1115,6 +1179,9 @@ void creerTrain()
 		creerAxesRoues();    
 		
 		creerPointe();
+		
+		creerPasserelle();
+		
 	glPopMatrix();
 }
 
@@ -1151,7 +1218,7 @@ void display(void)
 		creerTrain();
 		
 		//creation du wagon au point x, y, z
-		glTranslatef(4, 0, 0);
+		//glTranslatef(4, 0, 0);
 		
 		//creation du wagon
 		creerWagon();
