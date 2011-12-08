@@ -7,14 +7,20 @@ Open=0
 Top=0
 [Editors]
 Focused=0
-Order=0
+Order=0,4
 [Editor_0]
 Open=1
 Top=1
 <<<<<<< .mine
+<<<<<<< .mine
+CursorCol=3
+CursorRow=1224
+TopLine=1080
+=======
 CursorCol=5
 CursorRow=1172
 TopLine=68
+>>>>>>> .r20
 =======
 CursorCol=57
 CursorRow=630
@@ -43,11 +49,11 @@ CursorRow=4
 TopLine=1
 LeftChar=1
 [Editor_4]
-Open=0
+Open=1
 Top=0
 CursorCol=1
-CursorRow=7
-TopLine=7
+CursorRow=56
+TopLine=27
 LeftChar=1
 [Editor_5]
 Open=0
