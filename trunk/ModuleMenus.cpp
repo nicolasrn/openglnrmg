@@ -4,9 +4,28 @@
 
 #include "ModuleMenus.h"
 
-using namespace std;
+ float *couleurCylindre = NULL;
+ float *couleurAvant = NULL;
+ float *couleurOptique = NULL;
+ float *couleurPhare = NULL;
+ float *couleurGdPhare = NULL;
+ float *couleurGdPhare2 = NULL;
+ float *couleurToit = NULL;
+ float *couleurCadre = NULL;
+ float *couleurMur = NULL;
+ float *couleurFlanRoue = NULL;
+ float *couleurRoueInterieur = NULL;
+ float *couleurRoueExterieur = NULL;
+ float *couleurAxe = NULL;
+ float *couleurGrille = NULL;
+ float *couleurSol = NULL;
+ float *couleurCloche1 = NULL;
+ float *couleurCloche2 = NULL;
+ float *couleurClocheAccroche = NULL;
+ float *couleurClocheBaton = NULL;
+ float *couleurChemine = NULL;
 
-static  void select(int selection) 
+  void select(int selection) 
 {
     switch (selection) 
     {
@@ -16,7 +35,7 @@ static  void select(int selection)
     glutPostRedisplay();
 }
 
-static  void selectCouleur(int selection)
+  void selectCouleur(int selection)
 {
     switch(selection)
     {
@@ -48,7 +67,7 @@ void creationMenuBasique(void)
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
 
-static  void themeCourse()
+  void themeCourse()
 {
     couleurCylindre = couleurCourseCylindre;
     couleurAvant = couleurCourseAvant;
@@ -72,10 +91,10 @@ static  void themeCourse()
     couleurChemine = couleurCourseChemine;
 }
 
-static  void themeFille()
+  void themeFille()
 {
     couleurCylindre = couleurFilleCylindre;
-    cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
+    //printf("%d, %d, %d\n",couleurCylindre[0], couleurCylindre[1], couleurCylindre[2]);
     couleurAvant = couleurFilleAvant;
     couleurOptique = couleurFilleOptique;
     couleurPhare = couleurFillePhare;
