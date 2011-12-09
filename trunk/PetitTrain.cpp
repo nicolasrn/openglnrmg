@@ -19,7 +19,7 @@
 
 using namespace std;
 
-static int angle = 90;
+static int angle = 45;
 static float anglex = 0.0F ;
 static float angley = 0.0F ;
 static float anglez = 0.0F ;
@@ -1381,6 +1381,37 @@ void creerWagon()
 	glPopMatrix();
 }
 
+void creerRail()
+{
+    double max = 20;
+    double min = max - 0.16;
+    glPushMatrix();
+        glColor3fv(couleurBlanc());
+        glTranslatef(0, -1.27, 19);
+        glRotatef(90, 1, 0, 0);
+        gluDisk(param, min, max, 100, 8);
+    glPopMatrix();
+    
+    max = 18 + .16;
+    min = max - 0.16;
+    glPushMatrix();
+        glColor3fv(couleurBlanc());
+        glTranslatef(0, -1.27, 19);
+        glRotatef(90, 1, 0, 0);
+        gluDisk(param, min, max, 100, 8);
+    glPopMatrix();
+}
+
+void creerTerrain()
+{
+    glPushMatrix();
+        glColor3fv(couleurBleu());
+        glTranslatef(0, -1.78, 0);
+        glScalef(50, 1, 50);
+        glutSolidCube(1);
+    glPopMatrix();
+}
+
 void display(void)
 { 
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -1402,21 +1433,28 @@ void display(void)
         //cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
 		gluLookAt(dist * monCosinus[angle], 0, dist * monSinus[angle], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	   
+	   glPushMatrix();
+	       creerTerrain();
+	       creerRail();
+	   glPopMatrix();
+	   
         //cout <<  
 		//creation du train dans la scene au point 0, 0, 0
 		glPushMatrix();
     		glTranslatef(-2.2, 0, 0);
+		    glRotatef(3, 0, 1, 0);
             creerTrain();
 		glPopMatrix();
 		
 		//creation du wagon au point x, y, z
 		glPushMatrix();
+		    glRotatef(-4, 0, 1, 0);
             glTranslatef(2.2, 0, 0);
             creerWagon();
 		glPopMatrix();
 		
 		glTranslatef(x, y, z);
-		glColor4fv(couleurBleu());
+		  glColor4fv(couleurBleu());
         glutSolidCube(1);
             
 	glPopMatrix();
@@ -1570,9 +1608,9 @@ int main(int argc,char **argv) {
 	glEnable(GL_DEPTH_TEST) ;
 
 	creationMenuBasique();
-	//setParametresPerspectiveBasique(65.0F,1.0F,1.0F,20.0F,0.0F,0.0F,-5.0F);
+	setParametresPerspectiveBasique(65.0F,1.0F,1.0F,100.0F,0.0F,0.0F,-5.0F);
 	
-    setParametresPerspectiveBasique(90.0F,1.0F,1.0F,20.0F,0.0F,0.0F,-5.0F);
+    //setParametresPerspectiveBasique(90.0F,1.0F,1.0F,20.0F,0.0F,0.0F,-5.0F);
 	setManipulateurDistance(10.0F);
 	glutReshapeFunc(reshapePerspectiveBasique);
 	
