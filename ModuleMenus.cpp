@@ -4,35 +4,35 @@
 
 #include "ModuleMenus.h"
 
- float *couleurCylindre = NULL;
- float *couleurAvant = NULL;
- float *couleurOptique = NULL;
- float *couleurPhare = NULL;
- float *couleurGdPhare = NULL;
- float *couleurGdPhare2 = NULL;
- float *couleurToit = NULL;
- float *couleurCadre = NULL;
- float *couleurMur = NULL;
- float *couleurFlanRoue = NULL;
- float *couleurRoueInterieur = NULL;
- float *couleurRoueExterieur = NULL;
- float *couleurAxe = NULL;
- float *couleurGrille = NULL;
- float *couleurSol = NULL;
- float *couleurCloche1 = NULL;
- float *couleurCloche2 = NULL;
- float *couleurClocheAccroche = NULL;
- float *couleurClocheBaton = NULL;
- float *couleurChemine = NULL;
- float *couleurSoupape1 = NULL;
- float *couleurSoupape2 = NULL;
- float *couleurWagon1 = NULL;
- float *couleurWagon2 = NULL;
- void(*effetComplexOr)() = NULL;
- void(*effetComplexChrome)() = NULL;
- void(*effetComplexArgent)() = NULL;
+float *couleurCylindre = NULL;
+float *couleurAvant = NULL;
+float *couleurOptique = NULL;
+float *couleurPhare = NULL;
+float *couleurGdPhare = NULL;
+float *couleurGdPhare2 = NULL;
+float *couleurToit = NULL;
+float *couleurCadre = NULL;
+float *couleurMur = NULL;
+float *couleurFlanRoue = NULL;
+float *couleurRoueInterieur = NULL;
+float *couleurRoueExterieur = NULL;
+float *couleurAxe = NULL;
+float *couleurGrille = NULL;
+float *couleurSol = NULL;
+float *couleurCloche1 = NULL;
+float *couleurCloche2 = NULL;
+float *couleurClocheAccroche = NULL;
+float *couleurClocheBaton = NULL;
+float *couleurChemine = NULL;
+float *couleurSoupape1 = NULL;
+float *couleurSoupape2 = NULL;
+float *couleurWagon1 = NULL;
+float *couleurWagon2 = NULL;
+void(*effetComplexOr)() = NULL;
+void(*effetComplexChrome)() = NULL;
+void(*effetComplexArgent)() = NULL;
 
-  void select(int selection) 
+void select(int selection) 
 {
     switch (selection) 
     {
@@ -42,7 +42,7 @@
     glutPostRedisplay();
 }
 
-  void selectCouleur(int selection)
+void selectCouleur(int selection)
 {
     switch(selection)
     {
@@ -75,7 +75,7 @@ void creationMenuBasique(void)
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
 
-  void themeCourse()
+void themeCourse()
 {
     couleurCylindre = couleurCourseCylindre;
     couleurAvant = couleurCourseAvant;
@@ -107,7 +107,7 @@ void creationMenuBasique(void)
 	effetComplexArgent = effetArgent;
 }
 
-  void themeFille()
+void themeFille()
 {
     couleurCylindre = couleurFilleCylindre;
     //printf("%d, %d, %d\n",couleurCylindre[0], couleurCylindre[1], couleurCylindre[2]);
