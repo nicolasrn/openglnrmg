@@ -34,7 +34,7 @@ static int tempcompt = 1;
 GLUquadric* param = gluNewQuadric(); 
 
 static int x=9, y=5, z=-5;
-static float dist = 4.5;
+static float dist = 4.5, hauteurCam = 4.5;
 
 void monte()
 {
@@ -1406,8 +1406,9 @@ void creerTerrain()
 {
     glPushMatrix();
         glColor3fv(couleurBleu());
+        //glTranslatef(0, -1.78, 0);
         glTranslatef(0, -1.78, 0);
-        glScalef(50, 1, 50);
+        glScalef(100, 1, 100);
         glutSolidCube(1);
     glPopMatrix();
 }
@@ -1431,7 +1432,7 @@ void display(void)
 		glRotatef(anglez,0.0F,0.0F,1.0F);
 		
         //cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
-		gluLookAt(dist * monCosinus[angle], 0, dist * monSinus[angle], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+		gluLookAt(dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	   
 	   glPushMatrix();
 	       creerTerrain();
@@ -1534,6 +1535,14 @@ void clavier(unsigned char touche,int x,int y)
 			angle+=360;
 		glutPostRedisplay();
 		break;
+	case 'i' :
+        hauteurCam += 2;
+        glutPostRedisplay();
+        break;
+    case 'u' :
+        hauteurCam -= 2;
+        glutPostRedisplay();
+        break;
 	case '+':
 		dist -= .5;
 		glutPostRedisplay();
