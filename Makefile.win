@@ -5,9 +5,9 @@ CPP  = g++.exe
 CC   = gcc.exe
 WINDRES = windres.exe
 RES  = 
-OBJ  = PetitTrain.o ModuleManipulateur.o ModuleCouleurs.o ModuleMenus.o ModuleReshape.o ModuleCylindres.o ModuleRoue.o $(RES)
-LINKOBJ  = PetitTrain.o ModuleManipulateur.o ModuleCouleurs.o ModuleMenus.o ModuleReshape.o ModuleCylindres.o ModuleRoue.o $(RES)
-LIBS =  -L"C:/Dev-Cpp/lib" -lglu32  -lglut32  -lglut -lopengl32  -lwinmm  -lgdi32  
+OBJ  = PetitTrain.o ModuleManipulateur.o ModuleCouleurs.o ModuleMenus.o ModuleReshape.o ModuleCylindres.o ModuleRoue.o ModuleMonGlutSolidCube.o $(RES)
+LINKOBJ  = PetitTrain.o ModuleManipulateur.o ModuleCouleurs.o ModuleMenus.o ModuleReshape.o ModuleCylindres.o ModuleRoue.o ModuleMonGlutSolidCube.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" -lglu32  -lglut32  -lglut -lopengl32  -lwinmm  -lgdi32 -ljpeg  
 INCS =  -I"C:/Dev-Cpp/include" 
 CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include" 
 BIN  = brasrobotCPP.exe
@@ -46,3 +46,6 @@ ModuleCylindres.o: ModuleCylindres.cpp
 
 ModuleRoue.o: ModuleRoue.cpp
 	$(CPP) -c ModuleRoue.cpp -o ModuleRoue.o $(CXXFLAGS)
+
+ModuleMonGlutSolidCube.o: ModuleMonGlutSolidCube.cpp
+	$(CPP) -c ModuleMonGlutSolidCube.cpp -o ModuleMonGlutSolidCube.o $(CXXFLAGS)

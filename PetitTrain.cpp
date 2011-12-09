@@ -16,6 +16,7 @@
 #include "ModuleCylindres.h"
 #include "ModuleRoue.h"
 #include "ModuleMenus.h"
+#include "ModuleMonGlutSolidCube.h"
 
 using namespace std;
 
@@ -1405,11 +1406,11 @@ void creerRail()
 void creerTerrain()
 {
     glPushMatrix();
-        glColor3fv(couleurBleu());
+        glColor3fv(couleurBlanc(0));
         //glTranslatef(0, -1.78, 0);
         glTranslatef(0, -1.78, 0);
         glScalef(100, 1, 100);
-        glutSolidCube(1);
+        monGlutSolidCube(1, "herbe.jpg");
     glPopMatrix();
 }
 
@@ -1432,12 +1433,12 @@ void display(void)
 		glRotatef(anglez,0.0F,0.0F,1.0F);
 		
         //cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
-		gluLookAt(dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-	   
-	   glPushMatrix();
-	       creerTerrain();
-	       creerRail();
-	   glPopMatrix();
+        gluLookAt(dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+        glPushMatrix();
+            creerTerrain();
+            creerRail();
+        glPopMatrix();
 	   
         //cout <<  
 		//creation du train dans la scene au point 0, 0, 0
@@ -1471,6 +1472,9 @@ void myinit(void) {
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     glEnable(GL_COLOR_MATERIAL);
+    
+	glEnable(GL_TEXTURE_2D);
+ 
     GLfloat L0pos[]={ x, y, z};
     GLfloat L0dif[]={ 0.8, 0.8, 0.8};
     
