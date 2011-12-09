@@ -976,6 +976,37 @@ void creerAxesRoues()
 	
 }
 
+void creerAxesRouesWagon()
+{
+	//axe roues avant
+	glPushMatrix();
+		glColor4fv(couleurRose());
+		glTranslatef(-0.55, -0.65, 0);
+		glRotatef(90, 1, 0, 0);
+		solidCylindre(0.2,2,20,10);
+	glPopMatrix();
+	
+	//axe roues arrière
+	glPushMatrix();
+		glColor4fv(couleurRose());
+		glTranslatef(0.78, -0.65, 0);
+		glRotatef(90, 1, 0, 0);
+		solidCylindre(0.2,2,20,10);
+	glPopMatrix();
+	
+	//axe central
+	glPushMatrix();
+		glColor4fv(couleurSol);
+		glTranslatef(0, -0.62, 0);
+		glScalef(2.9,0.4,0.4);
+		glutSolidCube(1.0);  
+	glPopMatrix();
+	
+	
+	/////////////////////////////////////////////////////////////////////////// 
+	
+}
+
 void creerPointe()
 {
 	//pointe
@@ -1263,6 +1294,45 @@ void creerContenaire()
 	remiseZero();
 }
 
+void creerAccrocheLoco()
+{
+     glPushMatrix();
+         glColor4fv(couleurGrille);
+         glTranslatef(1.8, -0.85, 0);
+         glRotatef(90, 0,0,1);
+         solidCylindre(0.03,1.2,20,10);
+     glPopMatrix();
+     
+     glPushMatrix();
+         glColor4fv(couleurGrille);
+         glTranslatef(2.4, -0.85, 0);
+         glRotatef(90, 1,0,0);
+         glutSolidTorus	(	0.04 , 0.07 , 10 ,20 );
+     glPopMatrix(); 
+}
+
+void creerAccrocheWagon()
+{
+     glPushMatrix();
+         glColor4fv(couleurGrille);
+         glTranslatef(-1.6, -0.62, 0);
+         glRotatef(90, 0,0,1);
+         solidCylindre(0.03,0.8,20,10);
+     glPopMatrix();
+     
+     glPushMatrix();
+         glColor4fv(couleurGrille);
+         glTranslatef(-2, -0.87, 0);
+         solidCylindre(0.03,0.5,20,10);
+     glPopMatrix();
+     
+     glPushMatrix();
+         glColor4fv(couleurGrille);
+         glTranslatef(-2, -0.62, 0);
+         gluSphere(param,0.03,20,20);
+     glPopMatrix();
+}
+
 void creerTrain()
 {
 	//matrix de la loco
@@ -1293,6 +1363,8 @@ void creerTrain()
 		
 		creerPasserelle();
 		
+		creerAccrocheLoco();
+		
 	glPopMatrix();
 }
 
@@ -1303,7 +1375,9 @@ void creerWagon()
         
 		creerRouesWagon();
 		
-		creerAxesRoues();
+		creerAxesRouesWagon();
+		
+		creerAccrocheWagon();
 	glPopMatrix();
 }
 
@@ -1325,19 +1399,21 @@ void display(void)
 		glRotatef(angley,0.0F,1.0F,0.0F);
 		glRotatef(anglez,0.0F,0.0F,1.0F);
 		
-        cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
+        //cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
 		gluLookAt(dist * monCosinus[angle], 0, dist * monSinus[angle], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	   
         //cout <<  
 		//creation du train dans la scene au point 0, 0, 0
-		creerTrain();
-		
-		glTranslatef(4, 0, 0);
+		glPushMatrix();
+    		glTranslatef(-2.2, 0, 0);
+            creerTrain();
+		glPopMatrix();
 		
 		//creation du wagon au point x, y, z
-        creerWagon(); 
-        
-		glTranslatef(-4, 0, 0);
+		glPushMatrix();
+            glTranslatef(2.2, 0, 0);
+            creerWagon();
+		glPopMatrix();
 		
 		glTranslatef(x, y, z);
 		glColor4fv(couleurBleu());
@@ -1480,35 +1556,8 @@ void clavier(unsigned char touche,int x,int y)
 int main(int argc,char **argv) {
 	trigo();
 	
-	couleurCylindre = couleurCourseCylindre;
-    couleurAvant = couleurCourseAvant;
-    couleurOptique = couleurCourseOptique;
-    couleurPhare = couleurCoursePhare;
-    couleurGdPhare = couleurCourseGdPhare;
-    couleurGdPhare2 = couleurCourseGdPhare2;
-    couleurToit = couleurCourseToit;
-    couleurCadre = couleurCourseCadre;
-    couleurMur = couleurCourseMur;
-    couleurFlanRoue = couleurCourseFlanRoue;
-    couleurRoueInterieur = couleurCourseRoueInterieur;
-    couleurRoueExterieur = couleurCourseRoueExterieur;
-    couleurAxe = couleurCourseAxe;
-    couleurGrille = couleurCourseGrille;
-    couleurSol = couleurCourseSol;
-    couleurCloche1 = couleurCourseCloche1;
-    couleurCloche2 = couleurCourseCloche2;
-    couleurClocheAccroche = couleurCourseClocheAccroche;
-    couleurClocheBaton = couleurCourseClocheBaton;
-    couleurChemine = couleurCourseChemine;
-    couleurSoupape1 = couleurCourseSoupape1;
-    couleurSoupape2 = couleurCourseSoupape2;
-    couleurWagon1 = couleurCourseWagon1;
-    couleurWagon2 = couleurCourseWagon2;
-	
-	effetComplexOr = effetOr;
-	effetComplexChrome = effetChrome;
-	effetComplexArgent = effetArgent;
-	
+	themeCourse();
+
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH);
 	glutInitWindowSize(500,500); 
