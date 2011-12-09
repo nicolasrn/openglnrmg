@@ -50,6 +50,7 @@
             themeFille();
             break;
         case 12:
+             themeGarcon();
             break;
         case 13:
             themeCourse();
@@ -100,6 +101,10 @@ void creationMenuBasique(void)
     couleurSoupape2 = couleurCourseSoupape2;
     couleurWagon1 = couleurCourseWagon1;
     couleurWagon2 = couleurCourseWagon2;
+    
+   	effetComplexOr = effetOr;
+	effetComplexChrome = effetChrome;
+	effetComplexArgent = effetArgent;
 }
 
   void themeFille()
@@ -129,6 +134,43 @@ void creationMenuBasique(void)
     couleurSoupape2 = couleurFilleSoupape2;
     couleurWagon1 = couleurFilleWagon1;
     couleurWagon2 = couleurFilleWagon2;
+    
+   	effetComplexOr = effetPlastique;
+	effetComplexChrome = effetComplexOr;
+	effetComplexArgent = effetComplexOr;
+}
+
+ void themeGarcon()
+{
+    couleurCylindre = couleurGarconCylindre;
+    //printf("%d, %d, %d\n",couleurCylindre[0], couleurCylindre[1], couleurCylindre[2]);
+    couleurAvant = couleurGarconAvant;
+    couleurOptique = couleurGarconOptique;
+    couleurPhare = couleurGarconPhare;
+    couleurGdPhare = couleurGarconGdPhare;
+    couleurGdPhare2 = couleurGarconGdPhare2;
+    couleurToit = couleurGarconToit;
+    couleurCadre = couleurGarconCadre;
+    couleurMur = couleurGarconMur;
+    couleurFlanRoue = couleurGarconFlanRoue;
+    couleurRoueInterieur = couleurGarconRoueInterieur;
+    couleurRoueExterieur = couleurGarconRoueExterieur;
+    couleurAxe = couleurGarconAxe;
+    couleurGrille = couleurGarconGrille;
+    couleurSol = couleurGarconSol;
+    couleurCloche1 = couleurGarconCloche1;
+    couleurCloche2 = couleurGarconCloche2;
+    couleurClocheAccroche = couleurGarconClocheAccroche;
+    couleurClocheBaton = couleurGarconClocheBaton;
+    couleurChemine = couleurGarconChemine;
+    couleurSoupape1 = couleurGarconSoupape1;
+    couleurSoupape2 = couleurGarconSoupape2;
+    couleurWagon1 = couleurGarconWagon1;
+    couleurWagon2 = couleurGarconWagon2;
+    
+   	effetComplexOr = effetPlastique;
+	effetComplexChrome = effetComplexOr;
+	effetComplexArgent = effetComplexOr;
 }
 
 
@@ -170,5 +212,17 @@ void effetArgent()
      GLfloat cSpec[] = {0.508273,0.508273,0.508273,1.0};
      glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
      GLfloat cShin = 51.2;
+     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
+}
+
+void effetPlastique()
+{
+     GLfloat cAmbient[] = {0.02,0.02,0.02,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, cAmbient);
+     GLfloat cDiffuse[] = {0.01,0.01,0.01,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
+     GLfloat cSpec[] = {0.4,0.4,0.4,1.0};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
+     GLfloat cShin = 10;
      glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
 }
