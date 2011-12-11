@@ -102,9 +102,9 @@ void themeCourse()
     couleurWagon1 = couleurCourseWagon1;
     couleurWagon2 = couleurCourseWagon2;
     
-   	effetComplexOr = effetOr;
-	effetComplexChrome = effetChrome;
-	effetComplexArgent = effetArgent;
+   	effetComplexOr = &effetOr;
+	effetComplexChrome = &effetChrome;
+	effetComplexArgent = &effetArgent;
 }
 
 void themeFille()
@@ -135,7 +135,7 @@ void themeFille()
     couleurWagon1 = couleurFilleWagon1;
     couleurWagon2 = couleurFilleWagon2;
     
-   	effetComplexOr = effetPlastique;
+   	effetComplexOr = &effetPlastique;
 	effetComplexChrome = effetComplexOr;
 	effetComplexArgent = effetComplexOr;
 }
@@ -168,15 +168,10 @@ void themeFille()
     couleurWagon1 = couleurGarconWagon1;
     couleurWagon2 = couleurGarconWagon2;
     
-   	effetComplexOr = effetPlastique;
+   	effetComplexOr = &effetPlastique;
 	effetComplexChrome = effetComplexOr;
 	effetComplexArgent = effetComplexOr;
 }
-
-
-
-
-
 
 void effetOr()
 {
@@ -189,7 +184,6 @@ void effetOr()
      GLfloat cShin = 51.2;
      glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
 }
-
 
 void effetChrome()
 {

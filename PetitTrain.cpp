@@ -21,6 +21,7 @@
 using namespace std;
 
 static int angle = 45;
+static int angleTrain = 45;
 static float anglex = 0.0F ;
 static float angley = 0.0F ;
 static float anglez = 0.0F ;
@@ -36,6 +37,7 @@ GLUquadric* param = gluNewQuadric();
 
 static int x=9, y=5, z=-5;
 static float dist = 4.5, hauteurCam = 4.5;
+static float depCamX = 0.0, depCamY = 0.0, depCamZ = 0.0;
 
 void monte()
 {
@@ -1433,28 +1435,33 @@ void display(void)
 		glRotatef(anglez,0.0F,0.0F,1.0F);
 		
         //cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
-        gluLookAt(dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-
+        gluLookAt(dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], depCamX, depCamY, depCamZ, 0.0, 1.0, 0.0);
+        
         glPushMatrix();
             creerTerrain();
             creerRail();
         glPopMatrix();
-	   
-        //cout <<  
-		//creation du train dans la scene au point 0, 0, 0
-		glPushMatrix();
-    		glTranslatef(-2.2, 0, 0);
-		    glRotatef(3, 0, 1, 0);
-            creerTrain();
-		glPopMatrix();
-		
-		//creation du wagon au point x, y, z
-		glPushMatrix();
-		    glRotatef(-4, 0, 1, 0);
-            glTranslatef(2.2, 0, 0);
-            creerWagon();
-		glPopMatrix();
-		
+        
+        //creation du train dans la scene au point 0, 0, 0
+        glPushMatrix();
+            //deplacement du train il faut aussi une rotation progressive pour mettre le train dans le bon sens ...
+            //ca aurait était trop facile sinon X|
+            glTranslatef(18*monCosinus[angleTrain], 0, -18*monSinus[angleTrain]);
+            //ici déplacement du train sur les rails
+            glPushMatrix();
+                glTranslatef(-2.2, 0, 0.125);
+                glRotatef(5, 0, 1, 0);
+                creerTrain();
+            glPopMatrix();
+            
+            //creation du wagon au point x, y, z
+            glPushMatrix();
+                glRotatef(-4, 0, 1, 0);
+                glTranslatef(2.2, 0, 0);
+                creerWagon();
+            glPopMatrix();
+        glPopMatrix();
+
 		glTranslatef(x, y, z);
 		  glColor4fv(couleurBleu());
         glutSolidCube(1);
@@ -1547,6 +1554,30 @@ void clavier(unsigned char touche,int x,int y)
         hauteurCam -= 2;
         glutPostRedisplay();
         break;
+    case '6':
+        depCamX += 2;
+        glutPostRedisplay();
+        break;
+    case '4':
+        depCamX -= 2;
+        glutPostRedisplay();
+        break;
+    case '8':
+        depCamY += 2;
+        glutPostRedisplay();
+        break;
+    case '2':
+        depCamY -= 2;
+        glutPostRedisplay();
+        break;
+    case '9':
+        depCamZ += 2;
+        glutPostRedisplay();
+        break;
+    case '1':
+        depCamZ -= 2;
+        glutPostRedisplay();
+        break;
 	case '+':
 		dist -= .5;
 		glutPostRedisplay();
@@ -1558,6 +1589,9 @@ void clavier(unsigned char touche,int x,int y)
 	case 'a':
 		az = (az+ 5)%360;
 		a = a+5;
+		
+		angleTrain++;
+		
 		glutPostRedisplay() ;
 		break;
 	case 'b':
