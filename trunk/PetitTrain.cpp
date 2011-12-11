@@ -20,8 +20,8 @@
 
 using namespace std;
 
-static int angle = 45;
-static int angleTrain = 45;
+static int angle = 90;
+static int angleTrain = 0;
 static float anglex = 0.0F ;
 static float angley = 0.0F ;
 static float anglez = 0.0F ;
@@ -1447,6 +1447,8 @@ void display(void)
             //deplacement du train il faut aussi une rotation progressive pour mettre le train dans le bon sens ...
             //ca aurait était trop facile sinon X|
             glTranslatef(18*monCosinus[angleTrain], 0, -18*monSinus[angleTrain]);
+            //pas terrible la rotation
+            glRotatef(angleTrain, 0, 1, 0);
             //ici déplacement du train sur les rails
             glPushMatrix();
                 glTranslatef(-2.2, 0, 0.125);
@@ -1590,7 +1592,7 @@ void clavier(unsigned char touche,int x,int y)
 		az = (az+ 5)%360;
 		a = a+5;
 		
-		angleTrain++;
+		angleTrain = (angleTrain + 1) % 360;
 		
 		glutPostRedisplay() ;
 		break;
