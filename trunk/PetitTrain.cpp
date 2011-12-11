@@ -72,10 +72,6 @@ void tournerRoue()
 	}    
 }
 
-
-
-
-
 void remiseZero()
 {
      GLfloat cAmbient[] = {0,0,0,1.0};
@@ -1412,7 +1408,7 @@ void creerTerrain()
         //glTranslatef(0, -1.78, 0);
         glTranslatef(0, -1.78, 0);
         glScalef(100, 1, 100);
-        monGlutSolidCube(1, "herbe.jpg");
+        monGlutSolidCube(1);
     glPopMatrix();
 }
 
@@ -1479,22 +1475,31 @@ void myinit(void) {
 	glShadeModel(GL_SMOOTH);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE);
     glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
     glEnable(GL_COLOR_MATERIAL);
     
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHT1);
 	glEnable(GL_TEXTURE_2D);
- 
+    
     GLfloat L0pos[]={ x, y, z};
-    GLfloat L0dif[]={ 0.8, 0.8, 0.8};
+    GLfloat L0dif[]={ 0.5, 0.8, 0.7};
     
-    GLfloat Mspec[]={0,0,0};
-    GLfloat Mshiny=0;
+    GLfloat L1pos[]={ -x, -y, -z};
+    GLfloat L1dif[]={ 0.3, 0.4, 0.1};
     
-    glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,Mspec);
-    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,Mshiny);
+    //GLfloat Mspec[]={0,0,0};
+    //GLfloat Mshiny=0;
     
+    //glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,Mspec);
+    //glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,Mshiny);
+    
+    glLightfv(GL_LIGHT0,GL_POSITION,L0pos);
     glLightfv(GL_LIGHT0,GL_DIFFUSE,L0dif);
     glLightfv(GL_LIGHT0,GL_SPECULAR,L0dif);
+    
+    glLightfv(GL_LIGHT1,GL_POSITION,L1pos);
+    glLightfv(GL_LIGHT1,GL_DIFFUSE,L1dif);
+    glLightfv(GL_LIGHT1,GL_SPECULAR,L1dif);
 } 
 
 void special(int key,int x,int y) {
@@ -1526,6 +1531,13 @@ void clavier(unsigned char touche,int x,int y)
 			glDisable(GL_LIGHT0);
 		else
 			glEnable(GL_LIGHT0);
+		glutPostRedisplay();
+		break;
+    case 'm':
+		if (glIsEnabled(GL_LIGHT1))
+			glDisable(GL_LIGHT1);
+		else
+			glEnable(GL_LIGHT1);
 		glutPostRedisplay();
 		break;
     case 'z':
@@ -1652,6 +1664,8 @@ int main(int argc,char **argv) {
 	glutCreateWindow("Petit train");
 	myinit();
 
+    loadJpegImage("herbe.jpg", idTextureHerbe);
+    
     glEnable(GL_NORMALIZE);
 	//pour le recouvrement
 	glEnable(GL_DEPTH_TEST) ;

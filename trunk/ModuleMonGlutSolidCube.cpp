@@ -1,6 +1,7 @@
 #include "ModuleMonGlutSolidCube.h"
 
-static void loadJpegImage(char *fichier, GLuint numtex)
+GLuint idTextureHerbe = 0;
+void loadJpegImage(char *fichier, GLuint numtex)
 {
     struct jpeg_decompress_struct cinfo;
     struct jpeg_error_mgr jerr;
@@ -50,7 +51,7 @@ static void loadJpegImage(char *fichier, GLuint numtex)
     delete [] image;
 }
 
-static void drawBox(GLfloat size, GLenum type, char* filename)
+static void drawBox(GLfloat size, GLenum type)
 {
     static GLfloat n[6][3] =
     {
@@ -80,8 +81,6 @@ static void drawBox(GLfloat size, GLenum type, char* filename)
     v[0][2] = v[3][2] = v[4][2] = v[7][2] = -size / 2;
     v[1][2] = v[2][2] = v[5][2] = v[6][2] = size / 2;
     
-    loadJpegImage(filename, idTextureHerbe);
-    
     for (i = 5; i >= 0; i--) 
     {
         glBegin(type);
@@ -94,7 +93,7 @@ static void drawBox(GLfloat size, GLenum type, char* filename)
     }
 }
 
-void monGlutSolidCube(GLdouble size, char* filename) 
+void monGlutSolidCube(GLdouble size) 
 {
-    drawBox(size, GL_QUADS, filename);
+    drawBox(size, GL_QUADS);
 }
