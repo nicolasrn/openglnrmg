@@ -35,7 +35,7 @@ static int angleCloche = 4;
 static int tempcompt = 1;
 GLUquadric* param = gluNewQuadric(); 
 
-static int x=9, y=5, z=-5;
+static int x=0, y=0, z=0;
 static float dist = 4.5, hauteurCam = 4.5;
 static float depCamX = 0.0, depCamY = 0.0, depCamZ = 0.0;
 
@@ -1422,7 +1422,8 @@ void display(void)
 	
 	//Matrice de la scene
 	glPushMatrix();
-		manipulateurSouris();
+		
+        manipulateurSouris();
 		manipulateurClavier();
 		
 		//rotation de toute la scene
@@ -1433,19 +1434,30 @@ void display(void)
         //cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
         gluLookAt(dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], depCamX, depCamY, depCamZ, 0.0, 1.0, 0.0);
         
+		glPushMatrix();
+    		glColor4fv(couleurRouge());
+            glutSolidCube(1);
+        glPopMatrix();
+        
         glPushMatrix();
             creerTerrain();
-            creerRail();
         glPopMatrix();
         
         //creation du train dans la scene au point 0, 0, 0
         glPushMatrix();
+            
+            glRotatef(angleTrain, 0, 1, 0);
+            glTranslatef(0, 0, -19);
+            creerRail();
+            
+            //glTranslatef(0, 0, -18);
+            //glTranslatef(-18*monCosinus[1], 0, 18*monSinus[1]);
             //deplacement du train il faut aussi une rotation progressive pour mettre le train dans le bon sens ...
             //ca aurait était trop facile sinon X|
-            glTranslatef(18*monCosinus[angleTrain], 0, -18*monSinus[angleTrain]);
+            //glTranslatef(18*monCosinus[angleTrain], 0, -18*monSinus[angleTrain]);
             //pas terrible la rotation
-            glRotatef(angleTrain, 0, 1, 0);
             //ici déplacement du train sur les rails
+            
             glPushMatrix();
                 glTranslatef(-2.2, 0, 0.125);
                 glRotatef(5, 0, 1, 0);
@@ -1460,9 +1472,6 @@ void display(void)
             glPopMatrix();
         glPopMatrix();
 
-		glTranslatef(x, y, z);
-		  glColor4fv(couleurBleu());
-        glutSolidCube(1);
             
 	glPopMatrix();
 	
@@ -1549,13 +1558,13 @@ void clavier(unsigned char touche,int x,int y)
         glutPostRedisplay() ;
         break;
     case 'o':
-		angle+=2;
+		angle+=1;
 		if (angle>=360)
 			angle-=360;
 		glutPostRedisplay();
 		break;
 	case 'p' :
-		angle-=2;
+		angle-=1;
 		if (angle<0)
 			angle+=360;
 		glutPostRedisplay();
@@ -1663,8 +1672,8 @@ int main(int argc,char **argv) {
 	glutInitWindowPosition(100,100); 
 	glutCreateWindow("Petit train");
 	myinit();
-
-    loadJpegImage("herbe.jpg", idTextureHerbe);
+    
+    loadJpegImage("herbe4.jpg", idTextureHerbe);
     
     glEnable(GL_NORMALIZE);
 	//pour le recouvrement
