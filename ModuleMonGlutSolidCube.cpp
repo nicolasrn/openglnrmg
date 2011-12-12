@@ -1,7 +1,6 @@
 #include "ModuleMonGlutSolidCube.h"
 
-GLuint idTextureHerbe = 0;
-void loadJpegImage(char *fichier, GLuint numtex)
+void loadJpegImage(char *fichier, GLuint *numtex)
 {
     struct jpeg_decompress_struct cinfo;
     struct jpeg_error_mgr jerr;
@@ -37,8 +36,8 @@ void loadJpegImage(char *fichier, GLuint numtex)
     jpeg_finish_decompress(&cinfo);
     jpeg_destroy_decompress(&cinfo);
     /* Paramétrage de la texture */
-    glGenTextures(1, &numtex);
-    glBindTexture(GL_TEXTURE_2D,numtex);
+    glGenTextures(1, &(*numtex));
+    glBindTexture(GL_TEXTURE_2D, *numtex);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

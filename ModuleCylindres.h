@@ -13,7 +13,7 @@
 #define Z 3
 
 void wireCylindre(float r,float h,int n,int m);
-void solidCylindre(float r,float h,int n,int m);
+void solidCylindre(float r,float h,int n,int m, bool texture = false);
 void wireCylindre(float r,float h,int n,int m,int axe);
 void solidCylindre(float r,float h,int n,int m,int axe);
 

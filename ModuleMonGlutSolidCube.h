@@ -56,9 +56,7 @@ OpenGL(TM) is a trademark of Silicon Graphics, Inc.
 #include <jpeglib.h>
 #include <jerror.h>
 
-extern GLuint idTextureHerbe;
-
-void loadJpegImage(char *fichier, GLuint numtex);
+void loadJpegImage(char *fichier, GLuint *numtex);
 
 static void drawBox(GLfloat size, GLenum type);
 

@@ -35,9 +35,12 @@ static int angleCloche = 4;
 static int tempcompt = 1;
 GLUquadric* param = gluNewQuadric(); 
 
-static int x=0, y=0, z=0;
+static int x=1, y=1, z=1;
 static float dist = 4.5, hauteurCam = 4.5;
 static float depCamX = 0.0, depCamY = 0.0, depCamZ = 0.0;
+
+GLuint idTextureHerbe;
+GLuint idTextureCiel;
 
 void monte()
 {
@@ -1408,7 +1411,14 @@ void creerTerrain()
         //glTranslatef(0, -1.78, 0);
         glTranslatef(0, -1.78, 0);
         glScalef(100, 1, 100);
+        glBindTexture(GL_TEXTURE_2D, idTextureHerbe);
         monGlutSolidCube(1);
+    glPopMatrix();
+    
+    glPushMatrix();
+        glColor3fv(couleurBlanc(0));
+        glBindTexture(GL_TEXTURE_2D, idTextureCiel);
+        solidCylindre(50, 30, 20, 1, true);
     glPopMatrix();
 }
 
@@ -1490,11 +1500,13 @@ void myinit(void) {
     glEnable(GL_LIGHT1);
 	glEnable(GL_TEXTURE_2D);
     
-    GLfloat L0pos[]={ x, y, z};
+    cout << "position lumière : (" << -2*x << ", " << -2*y << ", " << -2*z << ")" << endl;
+    GLfloat L0pos[]={ -2*x, -2*y, -2*z};
     GLfloat L0dif[]={ 0.5, 0.8, 0.7};
     
+    cout << "position lumière : (" << -x << ", " << -y << ", " << -z << ")" << endl;
     GLfloat L1pos[]={ -x, -y, -z};
-    GLfloat L1dif[]={ 0.3, 0.4, 0.1};
+    GLfloat L1dif[]={ 1, 1, 1};
     
     //GLfloat Mspec[]={0,0,0};
     //GLfloat Mshiny=0;
@@ -1665,7 +1677,7 @@ int main(int argc,char **argv) {
 	trigo();
 	
 	themeCourse();
-
+    
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH);
 	glutInitWindowSize(500,500); 
@@ -1673,7 +1685,14 @@ int main(int argc,char **argv) {
 	glutCreateWindow("Petit train");
 	myinit();
     
-    loadJpegImage("herbe4.jpg", idTextureHerbe);
+    //cout << "herbe : " << idTextureHerbe << endl;
+    //cout << "ciel : " << idTextureCiel << endl;
+    
+    loadJpegImage("herbe4.jpg", &idTextureHerbe);
+    loadJpegImage("ciel03.jpg", &idTextureCiel);
+    
+    //cout << "herbe : " << idTextureHerbe << endl;
+    //cout << "ciel : " << idTextureCiel << endl;
     
     glEnable(GL_NORMALIZE);
 	//pour le recouvrement
