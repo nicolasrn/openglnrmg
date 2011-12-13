@@ -39,6 +39,11 @@ static int x=1, y=1, z=1;
 static float dist = 4.5, hauteurCam = 4.5;
 static float depCamX = 0.0, depCamY = 0.0, depCamZ = 0.0;
 
+static GLfloat L0pos[]= {0.0,2.0,-1.0};
+static GLfloat L1pos[]= { 2.0,2.0,2.0};
+
+static void (*idleFunc)() = NULL;
+
 GLuint idTextureHerbe;
 GLuint idTextureCiel;
 
@@ -1432,7 +1437,6 @@ void display(void)
 	
 	//Matrice de la scene
 	glPushMatrix();
-		
         manipulateurSouris();
 		manipulateurClavier();
 		
@@ -1442,7 +1446,15 @@ void display(void)
 		glRotatef(anglez,0.0F,0.0F,1.0F);
 		
         //cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
-        gluLookAt(dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], depCamX, depCamY, depCamZ, 0.0, 1.0, 0.0);
+        gluLookAt   (
+                        dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], 
+                        depCamX, depCamY, depCamZ, 
+                        0.0, 1.0, 0.0
+                    );
+        GLfloat L3pos[] = {dist * monCosinus[angle], hauteurCam, dist * monSinus[angle]};
+        glLightfv(GL_LIGHT0,GL_POSITION,L3pos);
+        glLightfv(GL_LIGHT0,GL_POSITION,L0pos);
+        glLightfv(GL_LIGHT1,GL_POSITION,L1pos);
         
 		glPushMatrix();
     		glColor4fv(couleurRouge());
@@ -1481,13 +1493,53 @@ void display(void)
                 creerWagon();
             glPopMatrix();
         glPopMatrix();
-
-            
+        
 	glPopMatrix();
 	
 	glFlush();
 	glutSwapBuffers();
-} 
+}
+
+void idle()
+{
+    //deplacement du train
+    az = (az+ 5)%360;
+	a = a+5;
+	angleTrain = (angleTrain + 1) % 360;
+	
+	//raffichage
+    glutPostRedisplay();
+}
+
+void sonnerCloche()
+{
+    if(tempcompt<16)
+	{
+		angleCloche ++ ;
+		tempcompt= tempcompt +1;
+		
+	}
+	if(tempcompt>=16 && tempcompt<49)
+	{
+		angleCloche -- ;
+		tempcompt= tempcompt +1;
+	}
+	if(tempcompt>=49)
+	{
+		angleCloche ++ ;
+		tempcompt= tempcompt +1;
+	}
+	if(tempcompt==68)
+	{
+		tempcompt=1;
+		angleCloche=4;
+	}
+
+	if (angleCloche==18 || angleCloche==-13)
+	{
+		PlaySound(TEXT("cloche3.wav"), NULL, SND_FILENAME|SND_ASYNC);
+	}
+}
 
 void myinit(void) { 
 	glClearColor(1.0,1.0,1.0,1.0);
@@ -1498,29 +1550,32 @@ void myinit(void) {
     
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHT1);
+    glEnable(GL_LIGHT3);
 	glEnable(GL_TEXTURE_2D);
     
-    cout << "position lumière : (" << 2*x << ", " << 2*y << ", " << 2*z << ")" << endl;
-    GLfloat L0pos[]={ x, y, z};
     GLfloat L0dif[]={ 0, 1, 0};
     GLfloat L0amb[]={ 1, 1, 0};
     GLfloat L0spec[]={ 1, 0, 0};
     
-    cout << "position lumière : (" << -x << ", " << -y << ", " << -z << ")" << endl;
-    GLfloat L1pos[]={ -2*x, -2*y, -2*z};
     GLfloat L1dif[]={ 1, 0, 0};
     GLfloat L1amb[]={ 1, 1, 1};
     GLfloat L1spec[]={ 0, 0, 1};
     
-    glLightfv(GL_LIGHT0,GL_POSITION,L0pos);
+    GLfloat L3dif[]={ .4, .7, .1};
+    GLfloat L3amb[]={ 1, 1, 1};
+    GLfloat L3spec[]={ .7, .3, .9};
+    
     glLightfv(GL_LIGHT0,GL_DIFFUSE,L0dif);
     glLightfv(GL_LIGHT0,GL_AMBIENT,L0amb);
     glLightfv(GL_LIGHT0,GL_SPECULAR,L0spec);
     
-    glLightfv(GL_LIGHT1,GL_POSITION,L1pos);
     glLightfv(GL_LIGHT1,GL_DIFFUSE,L1dif);
     glLightfv(GL_LIGHT1,GL_AMBIENT,L1amb);
     glLightfv(GL_LIGHT1,GL_SPECULAR,L1spec);
+    
+    glLightfv(GL_LIGHT3,GL_DIFFUSE,L3dif);
+    glLightfv(GL_LIGHT3,GL_AMBIENT,L3amb);
+    glLightfv(GL_LIGHT3,GL_SPECULAR,L3spec);
 } 
 
 void special(int key,int x,int y) {
@@ -1544,9 +1599,9 @@ void special(int key,int x,int y) {
 
 void clavier(unsigned char touche,int x,int y)
 {
-
 	switch (touche)
-	{   
+	{
+    //lumière
 	case 'l':
 		if (glIsEnabled(GL_LIGHT0))
 			glDisable(GL_LIGHT0);
@@ -1561,6 +1616,14 @@ void clavier(unsigned char touche,int x,int y)
 			glEnable(GL_LIGHT1);
 		glutPostRedisplay();
 		break;
+	case 'P':
+		if (glIsEnabled(GL_LIGHT3))
+			glDisable(GL_LIGHT3);
+		else
+			glEnable(GL_LIGHT3);
+		glutPostRedisplay();
+		break;
+	//manipulation de la scene
     case 'z':
         anglez++;
         glutPostRedisplay() ;
@@ -1569,6 +1632,7 @@ void clavier(unsigned char touche,int x,int y)
         anglez--;
         glutPostRedisplay() ;
         break;
+    //manipulation de la camera
     case 'o':
 		angle+=1;
 		if (angle>=360)
@@ -1621,45 +1685,15 @@ void clavier(unsigned char touche,int x,int y)
 		dist += .5;
 		glutPostRedisplay();
 		break;
+	//animation de la scene
+	//deplacement du train
 	case 'a':
-		az = (az+ 5)%360;
-		a = a+5;
-		
-		angleTrain = (angleTrain + 1) % 360;
-		
-		glutPostRedisplay() ;
+		idle();
 		break;
+	//annimation de la cloche
 	case 'b':
-		
-		if(tempcompt<16)
-		{
-			angleCloche ++ ;
-			tempcompt= tempcompt +1;
-			
-		}
-		if(tempcompt>=16 && tempcompt<49)
-		{
-			angleCloche -- ;
-			tempcompt= tempcompt +1;
-		}
-		if(tempcompt>=49)
-		{
-			angleCloche ++ ;
-			tempcompt= tempcompt +1;
-		}
-		if(tempcompt==68)
-		{
-			tempcompt=1;
-			angleCloche=4;
-		}
-
-		if (angleCloche==18 || angleCloche==-13)
-		{
-			PlaySound(TEXT("cloche3.wav"), NULL, SND_FILENAME|SND_ASYNC);
-		}
-		
+		sonnerCloche();
 		glutPostRedisplay();
-		
 		break;  
 	case 't':
 		monte();
@@ -1668,6 +1702,16 @@ void clavier(unsigned char touche,int x,int y)
 		
 		descend();
 		break;
+	//animation via idle
+	case 'I':
+        if (idleFunc == NULL)
+            idleFunc = &idle;
+        else
+            idleFunc = NULL;
+        
+        glutIdleFunc(*idleFunc);
+        break;
+    //pour quitter
 	case 'q' : /*la touche 'q' permet de quitter le programme */
 		exit(0);
 	}
