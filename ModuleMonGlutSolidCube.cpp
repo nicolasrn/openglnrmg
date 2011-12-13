@@ -80,6 +80,7 @@ static void drawBox(GLfloat size, GLenum type)
     v[0][2] = v[3][2] = v[4][2] = v[7][2] = -size / 2;
     v[1][2] = v[2][2] = v[5][2] = v[6][2] = size / 2;
     
+    //glEnable(GL_TEXTURE_2D);
     for (i = 5; i >= 0; i--) 
     {
         glBegin(type);
@@ -90,6 +91,7 @@ static void drawBox(GLfloat size, GLenum type)
         glTexCoord2i(0,100); glVertex3fv(&v[faces[i][3]][0]); 
         glEnd();
     }
+    //glDisable(GL_TEXTURE_2D);
 }
 
 void monGlutSolidCube(GLdouble size) 
