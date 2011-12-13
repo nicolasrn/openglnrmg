@@ -85,9 +85,9 @@ static void drawBox(GLfloat size, GLenum type)
         glBegin(type);
         glNormal3fv(&n[i][0]);
         glTexCoord2i(0,0); glVertex3fv(&v[faces[i][0]][0]); 
-        glTexCoord2i(1,0); glVertex3fv(&v[faces[i][1]][0]); 
-        glTexCoord2i(1,1); glVertex3fv(&v[faces[i][2]][0]); 
-        glTexCoord2i(0,1); glVertex3fv(&v[faces[i][3]][0]); 
+        glTexCoord2i(100,0); glVertex3fv(&v[faces[i][1]][0]); 
+        glTexCoord2i(100,100); glVertex3fv(&v[faces[i][2]][0]); 
+        glTexCoord2i(0,100); glVertex3fv(&v[faces[i][3]][0]); 
         glEnd();
     }
 }

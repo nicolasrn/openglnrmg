@@ -1422,6 +1422,7 @@ void creerTerrain()
     
     glPushMatrix();
         glColor3fv(couleurBlanc(0));
+        glTranslatef(0, 26/2, 0);
         glBindTexture(GL_TEXTURE_2D, idTextureCiel);
         solidCylindre(50, 30, 20, 1, true);
     glPopMatrix();
