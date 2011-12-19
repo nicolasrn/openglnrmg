@@ -1548,34 +1548,6 @@ void myinit(void) {
     glEnable(GL_COLOR_MATERIAL);
     
     //glEnable(GL_LIGHT0);
-    //glEnable(GL_LIGHT1);
-    //glEnable(GL_LIGHT3);
-    
-    /*GLfloat L0dif[]={ 0, 1, 0};
-    GLfloat L0amb[]={ 1, 1, 0};
-    GLfloat L0spec[]={ 1, 0, 0};
-    
-    GLfloat L1dif[]={ 1, 0, 0};
-    GLfloat L1amb[]={ 1, 1, 1};
-    GLfloat L1spec[]={ 0, 0, 1};*/
-    
-    /*GLfloat L3pos[]={ 9, 5, -5};
-    GLfloat L3dif[]={ 0.8, 0.8, 0.8};
-    //GLfloat L3amb[]={ 1, 1, 1};*/
-    
-    /*glLightfv(GL_LIGHT0,GL_DIFFUSE,L0dif);
-    glLightfv(GL_LIGHT0,GL_AMBIENT,L0amb);
-    glLightfv(GL_LIGHT0,GL_SPECULAR,L0spec);
-    
-    glLightfv(GL_LIGHT1,GL_DIFFUSE,L1dif);
-    glLightfv(GL_LIGHT1,GL_AMBIENT,L1amb);
-    glLightfv(GL_LIGHT1,GL_SPECULAR,L1spec);*/
-    
-    /*glLightfv(GL_LIGHT3,GL_POSITION,L3pos);
-    glLightfv(GL_LIGHT3,GL_DIFFUSE,L3dif);
-    glLightfv(GL_LIGHT3,GL_SPECULAR,L3dif);*/
-    
-    glEnable(GL_LIGHT0);
     GLfloat L0pos[]={ 0, 20, 0, 0};
     GLfloat L0dif[]={ 0.8, 0.8, 0.8};
     
@@ -1583,14 +1555,21 @@ void myinit(void) {
     glLightfv(GL_LIGHT0,GL_DIFFUSE,L0dif);
     glLightfv(GL_LIGHT0,GL_SPECULAR,L0dif);
     
-    GLfloat L1pos[]={ 0, 0, 10, 0};
-    GLfloat L1dif[]={ 1, 1, 1};
-    GLfloat L1spec[]={ 0, 0, 1};
+    //glEnable(GL_LIGHT1);
+    GLfloat L1pos[]={ 0, 0, 10, 1};
+    GLfloat L1dif[]={ 1, 1, 0};
+    GLfloat L1spec[]={ 1, 1, 0};
     
     glLightfv(GL_LIGHT1,GL_POSITION,L1pos);
     glLightfv(GL_LIGHT1,GL_DIFFUSE,L1dif);
-    //glLightfv(GL_LIGHT1,GL_AMBIENT,L1amb);
     glLightfv(GL_LIGHT1,GL_SPECULAR,L1spec);
+    glLightf(GL_LIGHT1,GL_QUADRATIC_ATTENUATION,.05f);
+    
+    GLfloat L2pos[]={ 0, 0, 12, 1};
+    glLightfv(GL_LIGHT2,GL_POSITION,L2pos);
+    glLightfv(GL_LIGHT2,GL_DIFFUSE,L1dif);
+    glLightfv(GL_LIGHT2,GL_SPECULAR,L1spec);
+    glLightf(GL_LIGHT2,GL_QUADRATIC_ATTENUATION,.05f);
 } 
 
 void special(int key,int x,int y) {
@@ -1626,10 +1605,16 @@ void clavier(unsigned char touche,int x,int y)
 		break;
     case 'm':
 		if (glIsEnabled(GL_LIGHT1))
-			glDisable(GL_LIGHT1);
-		else
-			glEnable(GL_LIGHT1);
-		glutPostRedisplay();
+		{
+            glDisable(GL_LIGHT1);
+            glDisable(GL_LIGHT2);
+		}
+        else
+		{
+            glEnable(GL_LIGHT1);
+            glEnable(GL_LIGHT2);
+		}
+        glutPostRedisplay();
 		break;
 	/*case 'P':
 		if (glIsEnabled(GL_LIGHT3))
