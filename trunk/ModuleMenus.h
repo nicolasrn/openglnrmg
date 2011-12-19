@@ -107,6 +107,32 @@
     static float couleurGarconWagon1[] = {0.227, 0.556, 0.729, 1};
     static float couleurGarconWagon2[] = {0.329, 0.976, 0.552, 1};
     
+	//ton couleur bois - marron 
+    static float couleurVieuxCylindre[] = {0.74, 0.56, 0.56, 1};//bois de rose
+    static float couleurVieuxAvant[] = {0.87, 0.596, 0.361, 1};//ocre rouge
+    static float couleurVieuxOptique[] = {0.74, 0.56, 0.56, 1};//bois de rose
+    static float couleurVieuxPhare[] = {0.87, 0.596, 0.361, 1};//ocre rouge
+    static float couleurVieuxGdPhare[] = {0.53, 0.259, 0.114, 1};//accajou
+    static float couleurVieuxGdPhare2[] = {0.87, 0.72, 0.53, 1};//bois dur
+    static float couleurVieuxToit[] = {0.87, 0.596, 0.361, 1};//ocre rouge
+    static float couleurVieuxCadre[] = {0.53, 0.259, 0.114, 1};//accajou
+    static float couleurVieuxMur[] = {0.87, 0.72, 0.53, 1};//bois dur
+    static float couleurVieuxFlanRoue[] = {0.87, 0.72, 0.53, 1};//bois dur
+    static float couleurVieuxRoueInterieur[] = {0.53, 0.259, 0.114, 1};//accajou
+    static float couleurVieuxRoueExterieur[] = {0.87, 0.596, 0.361, 1};//ocre rouge
+    static float couleurVieuxAxe[] = {0.74, 0.56, 0.56, 1};//bois de rose
+    static float couleurVieuxGrille[] = {0.87, 0.72, 0.53, 1};//bois dur
+    static float couleurVieuxSol[] = {0.87, 0.72, 0.53, 1};//bois dur
+    static float couleurVieuxCloche1[] = {0.74, 0.56, 0.56, 1};//bois de rose
+    static float couleurVieuxCloche2[] = {0.87, 0.596, 0.361, 1};//ocre rouge
+    static float couleurVieuxClocheAccroche[] =  {0.53, 0.259, 0.114, 1};//accajou
+    static float couleurVieuxClocheBaton[] = {0.87, 0.72, 0.53, 1};//bois dur
+    static float couleurVieuxChemine[] = {0.87, 0.72, 0.53, 1};//bois dur
+    static float couleurVieuxSoupape1[] = {0.87, 0.596, 0.361, 1};//ocre rouge
+    static float couleurVieuxSoupape2[] = {0.74, 0.56, 0.56, 1};//bois de rose
+    static float couleurVieuxWagon1[] = {0.87, 0.72, 0.53, 1};//bois dur
+    static float couleurVieuxWagon2[] = {0.53, 0.259, 0.114, 1};//accajou
+    
     void creationMenuBasique(void);
     
     void select(int selection);
@@ -118,6 +144,8 @@
     void themeFille();
     
     void themeGarcon();
+    
+    void themeVieux();
     
     extern void (*effetComplexOr) ();
     void effetOr();

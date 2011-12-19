@@ -56,6 +56,7 @@ void selectCouleur(int selection)
             themeCourse();
             break;
         case 14:
+            themeVieux();
             break;
     }
     glutPostRedisplay();
@@ -140,7 +141,7 @@ void themeFille()
 	effetComplexArgent = effetComplexOr;
 }
 
- void themeGarcon()
+void themeGarcon()
 {
     couleurCylindre = couleurGarconCylindre;
     //printf("%d, %d, %d\n",couleurCylindre[0], couleurCylindre[1], couleurCylindre[2]);
@@ -167,6 +168,39 @@ void themeFille()
     couleurSoupape2 = couleurGarconSoupape2;
     couleurWagon1 = couleurGarconWagon1;
     couleurWagon2 = couleurGarconWagon2;
+    
+   	effetComplexOr = &effetPlastique;
+	effetComplexChrome = effetComplexOr;
+	effetComplexArgent = effetComplexOr;
+}
+
+void themeVieux()
+{
+    couleurCylindre = couleurVieuxCylindre;
+    //printf("%d, %d, %d\n",couleurCylindre[0], couleurCylindre[1], couleurCylindre[2]);
+    couleurAvant = couleurVieuxAvant;
+    couleurOptique = couleurVieuxOptique;
+    couleurPhare = couleurVieuxPhare;
+    couleurGdPhare = couleurVieuxGdPhare;
+    couleurGdPhare2 = couleurVieuxGdPhare2;
+    couleurToit = couleurVieuxToit;
+    couleurCadre = couleurVieuxCadre;
+    couleurMur = couleurVieuxMur;
+    couleurFlanRoue = couleurVieuxFlanRoue;
+    couleurRoueInterieur = couleurVieuxRoueInterieur;
+    couleurRoueExterieur = couleurVieuxRoueExterieur;
+    couleurAxe = couleurVieuxAxe;
+    couleurGrille = couleurVieuxGrille;
+    couleurSol = couleurVieuxSol;
+    couleurCloche1 = couleurVieuxCloche1;
+    couleurCloche2 = couleurVieuxCloche2;
+    couleurClocheAccroche = couleurVieuxClocheAccroche;
+    couleurClocheBaton = couleurVieuxClocheBaton;
+    couleurChemine = couleurVieuxChemine;
+    couleurSoupape1 = couleurVieuxSoupape1;
+    couleurSoupape2 = couleurVieuxSoupape2;
+    couleurWagon1 = couleurVieuxWagon1;
+    couleurWagon2 = couleurVieuxWagon2;
     
    	effetComplexOr = &effetPlastique;
 	effetComplexChrome = effetComplexOr;
