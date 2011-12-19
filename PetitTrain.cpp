@@ -291,78 +291,86 @@ void creerSoupape()
 
 void creerPhares()
 {
+    //je ne sais pas a quoi sert le 1 mais c'est vachement jolie
+    float lpos[] = {0, 0, 0, 1};
 	//phares
 	//droit
-	effetComplexArgent();
-	glPushMatrix();
-		glColor4fv(couleurGdPhare);
-		glTranslatef(-1.6, -0.4, 0.65);
-		glRotatef(90, 0, 0, 1);
-		solidCylindre(0.21,0.51,20,10);
-	glPopMatrix();
-	
-	glPushMatrix();
-		glColor4fv(couleurGdPhare2);
-		glTranslatef(-1.833, -0.4, 0.675);
-		glRotatef(-90, 0, 1, 0);  
-		gluCylinder(param,0.2,0.3,0.2,20,1);
-	glPopMatrix();
-	
-	glPushMatrix();
-		glColor4fv(couleurGdPhare2);
-		glTranslatef(-1.245, -0.4, 0.668);
-		glRotatef(-90, 0, 1, 0);  
-		gluCylinder(param,0.0,0.22,0.1,20,1);
-	glPopMatrix();
-	
-	glPushMatrix();
-		glColor4fv(couleurGdPhare);
-		glTranslatef(-1.3, -0.4, 0.668);
-		gluSphere(param,0.1,20,20);
-	glPopMatrix();
-	remiseZero();
-	
-	glPushMatrix();
-		glColor4fv(couleurPhare);
-		glTranslatef(-1.92, -0.4, 0.672);
-		gluSphere(param,0.21,20,20);
+    glPushMatrix();
+    	effetComplexArgent();
+    	glPushMatrix();
+    		glColor4fv(couleurGdPhare);
+    		glTranslatef(-1.6, -0.4, 0.65);
+    		glRotatef(90, 0, 0, 1);
+    		solidCylindre(0.21,0.51,20,10);
+    	glPopMatrix();
+    	
+    	glPushMatrix();
+    		glColor4fv(couleurGdPhare2);
+    		glTranslatef(-1.833, -0.4, 0.675);
+    		glRotatef(-90, 0, 1, 0);  
+    		gluCylinder(param,0.2,0.3,0.2,20,1);
+    	glPopMatrix();
+    	
+    	glPushMatrix();
+    		glColor4fv(couleurGdPhare2);
+    		glTranslatef(-1.245, -0.4, 0.668);
+    		glRotatef(-90, 0, 1, 0);  
+    		gluCylinder(param,0.0,0.22,0.1,20,1);
+    	glPopMatrix();
+    	
+    	glPushMatrix();
+    		glColor4fv(couleurGdPhare);
+    		glTranslatef(-1.3, -0.4, 0.668);
+    		gluSphere(param,0.1,20,20);
+    	glPopMatrix();
+    	remiseZero();
+    	
+    	glPushMatrix();
+    		glColor4fv(couleurPhare);
+    		glTranslatef(-1.92, -0.4, 0.672);
+            glLightfv(GL_LIGHT1,GL_POSITION,lpos);
+    		gluSphere(param,0.21,20,20);
+    	glPopMatrix();
 	glPopMatrix();
 	
 	//gauche
-	effetComplexArgent();
 	glPushMatrix();
-		glColor4fv(couleurGdPhare);
-		glTranslatef(-1.6, -0.4, -0.65);
-		glRotatef(90, 0, 0, 1);
-		solidCylindre(0.21,0.51,20,10);
-	glPopMatrix();
-	
-	glPushMatrix();
-		glColor4fv(couleurGdPhare2);
-		glTranslatef(-1.833, -0.4, -0.675);
-		glRotatef(-90, 0, 1, 0);  
-		gluCylinder(param,0.2,0.3,0.2,20,1);
-	glPopMatrix();
-	
-	glPushMatrix();
-		glColor4fv(couleurGdPhare2);
-		glTranslatef(-1.245, -0.4, -0.668);
-		glRotatef(-90, 0, 1, 0);  
-		gluCylinder(param,0.0,0.22,0.1,20,1);
-	glPopMatrix();
-	
-	glPushMatrix();
-		glColor4fv(couleurGdPhare);
-		glTranslatef(-1.3, -0.4, -0.668);
-		gluSphere(param,0.1,20,20);
-	glPopMatrix();
-	remiseZero();
-	
-	glPushMatrix();
-		glColor4fv(couleurPhare);
-		glTranslatef(-1.92, -0.4, -0.672);
-		gluSphere(param,0.21,20,20);
-	glPopMatrix();
+    	effetComplexArgent();
+    	glPushMatrix();
+    		glColor4fv(couleurGdPhare);
+    		glTranslatef(-1.6, -0.4, -0.65);
+    		glRotatef(90, 0, 0, 1);
+    		solidCylindre(0.21,0.51,20,10);
+    	glPopMatrix();
+    	
+    	glPushMatrix();
+    		glColor4fv(couleurGdPhare2);
+    		glTranslatef(-1.833, -0.4, -0.675);
+    		glRotatef(-90, 0, 1, 0);  
+    		gluCylinder(param,0.2,0.3,0.2,20,1);
+    	glPopMatrix();
+    	
+    	glPushMatrix();
+    		glColor4fv(couleurGdPhare2);
+    		glTranslatef(-1.245, -0.4, -0.668);
+    		glRotatef(-90, 0, 1, 0);  
+    		gluCylinder(param,0.0,0.22,0.1,20,1);
+    	glPopMatrix();
+    	
+    	glPushMatrix();
+    		glColor4fv(couleurGdPhare);
+    		glTranslatef(-1.3, -0.4, -0.668);
+    		gluSphere(param,0.1,20,20);
+    	glPopMatrix();
+    	remiseZero();
+    	
+    	glPushMatrix();
+    		glColor4fv(couleurPhare);
+    		glTranslatef(-1.92, -0.4, -0.672);
+            glLightfv(GL_LIGHT2,GL_POSITION,lpos);
+    		gluSphere(param,0.21,20,20);
+    	glPopMatrix();
+    glPopMatrix();
 }
 
 void creerCabine()
@@ -1556,17 +1564,15 @@ void myinit(void) {
     glLightfv(GL_LIGHT0,GL_SPECULAR,L0dif);
     
     //glEnable(GL_LIGHT1);
-    GLfloat L1pos[]={ 0, 0, 10, 1};
+    //GLfloat L1pos[]={ 0, 0, 10, 1};
     GLfloat L1dif[]={ 1, 1, 0};
     GLfloat L1spec[]={ 1, 1, 0};
     
-    glLightfv(GL_LIGHT1,GL_POSITION,L1pos);
     glLightfv(GL_LIGHT1,GL_DIFFUSE,L1dif);
     glLightfv(GL_LIGHT1,GL_SPECULAR,L1spec);
     glLightf(GL_LIGHT1,GL_QUADRATIC_ATTENUATION,.05f);
     
-    GLfloat L2pos[]={ 0, 0, 12, 1};
-    glLightfv(GL_LIGHT2,GL_POSITION,L2pos);
+    //GLfloat L2pos[]={ 0, 0, 12, 1};
     glLightfv(GL_LIGHT2,GL_DIFFUSE,L1dif);
     glLightfv(GL_LIGHT2,GL_SPECULAR,L1spec);
     glLightf(GL_LIGHT2,GL_QUADRATIC_ATTENUATION,.05f);
