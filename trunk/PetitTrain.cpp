@@ -291,8 +291,20 @@ void creerSoupape()
 
 void creerPhares()
 {
+    GLfloat L1dif[]={ 1, 1, 0};
+    GLfloat L1spec[]={ 1, 1, 0};
+    
+    glLightfv(GL_LIGHT1,GL_DIFFUSE,L1dif);
+    glLightfv(GL_LIGHT1,GL_SPECULAR,L1spec);
+    //glLightf(GL_LIGHT1,GL_QUADRATIC_ATTENUATION,.1f);
+    
+    glLightfv(GL_LIGHT2,GL_DIFFUSE,L1dif);
+    glLightfv(GL_LIGHT2,GL_SPECULAR,L1spec);
+    //glLightf(GL_LIGHT2,GL_QUADRATIC_ATTENUATION,.1f);
+    GLfloat direction[]={1.0, 1.0, 0.0};
+    
     //je ne sais pas a quoi sert le 1 mais c'est vachement jolie
-    float lpos[] = {0, 0, 0, 1};
+    float lpos[] = {-5, 0, 0, 1};
 	//phares
 	//droit
     glPushMatrix();
@@ -326,9 +338,15 @@ void creerPhares()
     	remiseZero();
     	
     	glPushMatrix();
+            glRotatef(90, 1, 0, 0);
+    		glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 45.0); // ce spot ?clairera jusqu'? 45? autour de son axe 
+            glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction);
+            glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 0.01);// coefficient d'att?nuation angulaire
+            glLightfv(GL_LIGHT1,GL_POSITION,lpos); 
+            glRotatef(-90, 1, 0, 0);
+            
     		glColor4fv(couleurPhare);
     		glTranslatef(-1.92, -0.4, 0.672);
-            glLightfv(GL_LIGHT1,GL_POSITION,lpos);
     		gluSphere(param,0.21,20,20);
     	glPopMatrix();
 	glPopMatrix();
@@ -365,10 +383,16 @@ void creerPhares()
     	remiseZero();
     	
     	glPushMatrix();
+            glRotatef(90, 1, 0, 0);
+    		glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 45.0); // ce spot ?clairera jusqu'? 45? autour de son axe 
+            glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
+            glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 0.01);// coefficient d'att?nuation angulaire
+            glLightfv(GL_LIGHT2,GL_POSITION,lpos);
+            glRotatef(-90, 1, 0, 0);
+            
     		glColor4fv(couleurPhare);
     		glTranslatef(-1.92, -0.4, -0.672);
-            glLightfv(GL_LIGHT2,GL_POSITION,lpos);
-    		gluSphere(param,0.21,20,20);
+            gluSphere(param,0.21,20,20);
     	glPopMatrix();
     glPopMatrix();
 }
@@ -1554,6 +1578,7 @@ void myinit(void) {
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE);
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_NORMALIZE);
     
     //glEnable(GL_LIGHT0);
     GLfloat L0pos[]={ 0, 20, 0, 0};
@@ -1562,20 +1587,7 @@ void myinit(void) {
     glLightfv(GL_LIGHT0,GL_POSITION,L0pos);
     glLightfv(GL_LIGHT0,GL_DIFFUSE,L0dif);
     glLightfv(GL_LIGHT0,GL_SPECULAR,L0dif);
-    
-    //glEnable(GL_LIGHT1);
-    //GLfloat L1pos[]={ 0, 0, 10, 1};
-    GLfloat L1dif[]={ 1, 1, 0};
-    GLfloat L1spec[]={ 1, 1, 0};
-    
-    glLightfv(GL_LIGHT1,GL_DIFFUSE,L1dif);
-    glLightfv(GL_LIGHT1,GL_SPECULAR,L1spec);
-    glLightf(GL_LIGHT1,GL_QUADRATIC_ATTENUATION,.05f);
-    
-    //GLfloat L2pos[]={ 0, 0, 12, 1};
-    glLightfv(GL_LIGHT2,GL_DIFFUSE,L1dif);
-    glLightfv(GL_LIGHT2,GL_SPECULAR,L1spec);
-    glLightf(GL_LIGHT2,GL_QUADRATIC_ATTENUATION,.05f);
+    glLightf (GL_LIGHT0,GL_QUADRATIC_ATTENUATION, .05f);
 } 
 
 void special(int key,int x,int y) {
