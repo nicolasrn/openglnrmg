@@ -291,8 +291,8 @@ void creerSoupape()
 
 void creerPhares()
 {
-    GLfloat L1dif[]={ 1, 1, 0};
-    GLfloat L1spec[]={ 1, 1, 0};
+    GLfloat L1dif[]={ 1, 1, 1};
+    GLfloat L1spec[]={ 1, 1, 1};
     
     glLightfv(GL_LIGHT1,GL_DIFFUSE,L1dif);
     glLightfv(GL_LIGHT1,GL_SPECULAR,L1spec);
@@ -301,10 +301,10 @@ void creerPhares()
     glLightfv(GL_LIGHT2,GL_DIFFUSE,L1dif);
     glLightfv(GL_LIGHT2,GL_SPECULAR,L1spec);
     //glLightf(GL_LIGHT2,GL_QUADRATIC_ATTENUATION,.1f);
-    GLfloat direction[]={1.0, 1.0, 0.0};
+    GLfloat direction[]={1.0, 0.0, 0.0};
     
     //je ne sais pas a quoi sert le 1 mais c'est vachement jolie
-    float lpos[] = {-5, 0, 0, 1};
+    float lpos[] = {-7, 0, 0, 1};
 	//phares
 	//droit
     glPushMatrix();
@@ -338,12 +338,12 @@ void creerPhares()
     	remiseZero();
     	
     	glPushMatrix();
-            glRotatef(90, 1, 0, 0);
-    		glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 45.0); // ce spot ?clairera jusqu'? 45? autour de son axe 
+            glRotatef(180, 1, 0, 0);
+    		glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 20.0); // ce spot ?clairera jusqu'? 45? autour de son axe 
             glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction);
             glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 0.01);// coefficient d'att?nuation angulaire
             glLightfv(GL_LIGHT1,GL_POSITION,lpos); 
-            glRotatef(-90, 1, 0, 0);
+            glRotatef(-180, 1, 0, 0);
             
     		glColor4fv(couleurPhare);
     		glTranslatef(-1.92, -0.4, 0.672);
@@ -383,12 +383,12 @@ void creerPhares()
     	remiseZero();
     	
     	glPushMatrix();
-            glRotatef(90, 1, 0, 0);
-    		glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 45.0); // ce spot ?clairera jusqu'? 45? autour de son axe 
+            glRotatef(180, 1, 0, 0);
+    		glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 20.0); // ce spot ?clairera jusqu'? 45? autour de son axe 
             glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
             glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 0.01);// coefficient d'att?nuation angulaire
             glLightfv(GL_LIGHT2,GL_POSITION,lpos);
-            glRotatef(-90, 1, 0, 0);
+            glRotatef(-180, 1, 0, 0);
             
     		glColor4fv(couleurPhare);
     		glTranslatef(-1.92, -0.4, -0.672);
