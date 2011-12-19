@@ -301,10 +301,11 @@ void creerPhares()
     glLightfv(GL_LIGHT2,GL_DIFFUSE,L1dif);
     glLightfv(GL_LIGHT2,GL_SPECULAR,L1spec);
     //glLightf(GL_LIGHT2,GL_QUADRATIC_ATTENUATION,.1f);
-    GLfloat direction[]={10.0, 0.0, 0.0};
+    GLfloat direction[]={1, 0, 0};
     
     //je ne sais pas a quoi sert le 1 mais c'est vachement jolie
-    float lpos[] = {0, 0, 0, 1};
+    float lpos2[] = {-1.92, -0.4, -0.672};
+    float lpos1[] = {-1.92, -0.4, 0.672};
 	//phares
 	//droit
     glPushMatrix();
@@ -342,7 +343,7 @@ void creerPhares()
     		glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 30.0); // ce spot ?clairera jusqu'? 45? autour de son axe 
             glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction);
             glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 0.01);// coefficient d'att?nuation angulaire
-            glLightfv(GL_LIGHT1,GL_POSITION,lpos); 
+            glLightfv(GL_LIGHT1,GL_POSITION,lpos1); 
             //glRotatef(-180, 1, 0, 0);
             
     		glColor4fv(couleurPhare);
@@ -387,7 +388,7 @@ void creerPhares()
     		glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 30.0); // ce spot ?clairera jusqu'? 45? autour de son axe 
             glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
             glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 0.01);// coefficient d'att?nuation angulaire
-            glLightfv(GL_LIGHT2,GL_POSITION,lpos);
+            glLightfv(GL_LIGHT2,GL_POSITION,lpos2);
             //glRotatef(-180, 1, 0, 0);
             
     		glColor4fv(couleurPhare);
