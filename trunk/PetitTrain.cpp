@@ -342,7 +342,7 @@ void creerPhares()
             //glRotatef(180, 1, 0, 0);
     		glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 30.0); // ce spot ?clairera jusqu'? 45? autour de son axe 
             glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction);
-            glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 0.01);// coefficient d'att?nuation angulaire
+            glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, .01);// coefficient d'att?nuation angulaire
             glLightfv(GL_LIGHT1,GL_POSITION,lpos1); 
             //glRotatef(-180, 1, 0, 0);
             
@@ -387,7 +387,7 @@ void creerPhares()
             //glRotatef(180, 1, 0, 0);
     		glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 30.0); // ce spot ?clairera jusqu'? 45? autour de son axe 
             glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
-            glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 0.01);// coefficient d'att?nuation angulaire
+            glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, .01);// coefficient d'att?nuation angulaire
             glLightfv(GL_LIGHT2,GL_POSITION,lpos2);
             //glRotatef(-180, 1, 0, 0);
             
