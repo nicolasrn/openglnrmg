@@ -3,6 +3,10 @@
 using namespace std;
 
 //void (*trajectoire)(Camera) = NULL;
+Camera cameraLibre;
+Camera cameraCabine;
+Camera *cameraCourante = NULL;
+void (*trajectoireCourante)(Camera*) = NULL;
 
 void initCamera(Camera *cam, GLdouble eyeX, GLdouble eyeY, GLdouble eyeZ, GLdouble centerX, GLdouble centerY, GLdouble centerZ, GLdouble upX, GLdouble upY, GLdouble upZ)
 {
@@ -80,4 +84,18 @@ void afficherCam(Camera cam)
     cout << "(" <<  cam.eyeX << ", " << cam.eyeY << ", " << cam.eyeZ << ", " <<
                     cam.centerX << ", " << cam.centerY << ", " << cam.centerZ << ", " << 
                     cam.upX << ", " << cam.upY << ", " << cam.upZ << endl;
+}
+
+void trajectoireLibre(Camera*)
+{
+#if defined(debug_camera) && debug_camera == 1
+    cout << "trajectoireLibre attribué" << endl;
+#endif
+}
+
+void trajectoireCabine(Camera*)
+{
+#if defined(debug_camera) && debug_camera == 1
+    cout << "trajectoireCabine attribué" << endl;
+#endif  
 }

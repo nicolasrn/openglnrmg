@@ -1,11 +1,13 @@
 #ifndef MODULE_MENUS
     #define MODULE_MENUS
     
-    #include <stdio.h>
-    #include <stdlib.h>
+    #include <iostream>
     #include <GL/gl.h>
     #include <GL/glu.h>
     #include <GL/glut.h>
+    #include "MonModuleCamera.h"
+    
+    #define debug_menu 1
     
     extern float *couleurCylindre;
     extern float *couleurAvant;
@@ -156,5 +158,8 @@
     
     extern void (*effetComplexArgent) ();
     void effetArgent();
+    
+    void activerTrajectoireLibre();
+    void activerTrajectoireCabine();
 
 #endif

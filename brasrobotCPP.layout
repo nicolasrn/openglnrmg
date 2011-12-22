@@ -18,9 +18,9 @@ Top=1
 <<<<<<< .mine
 <<<<<<< .mine
 <<<<<<< .mine
-CursorCol=25
-CursorRow=1500
-TopLine=1479
+CursorCol=5
+CursorRow=1609
+TopLine=1588
 =======
 CursorCol=1
 CursorRow=1560
@@ -69,9 +69,9 @@ LeftChar=1
 Open=1
 Top=0
 <<<<<<< .mine
-CursorCol=58
-CursorRow=217
-TopLine=18
+CursorCol=1
+CursorRow=286
+TopLine=261
 =======
 CursorCol=58
 CursorRow=213
@@ -82,8 +82,8 @@ LeftChar=1
 Open=1
 Top=0
 <<<<<<< .mine
-CursorCol=5
-CursorRow=3
+CursorCol=25
+CursorRow=10
 TopLine=1
 =======
 CursorCol=5
@@ -168,14 +168,14 @@ LeftChar=1
 [Editor_17]
 Open=1
 Top=0
-CursorCol=36
-CursorRow=49
-TopLine=22
+CursorCol=1
+CursorRow=50
+TopLine=31
 LeftChar=1
 [Editor_18]
 Open=1
 Top=0
 CursorCol=1
-CursorRow=66
-TopLine=52
+CursorRow=70
+TopLine=65
 LeftChar=1
