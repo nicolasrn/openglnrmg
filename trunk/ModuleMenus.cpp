@@ -4,6 +4,8 @@
 
 #include "ModuleMenus.h"
 
+using namespace std;
+
 float *couleurCylindre = NULL;
 float *couleurAvant = NULL;
 float *couleurOptique = NULL;
@@ -62,6 +64,20 @@ void selectCouleur(int selection)
     glutPostRedisplay();
 }
 
+void selectTrajectoire(int selection)
+{
+    switch(selection)
+    {
+        case 21:
+            activerTrajectoireLibre();
+            break;
+        case 22:
+            activerTrajectoireCabine();
+            break;
+    }
+    glutPostRedisplay();
+}        
+
 void creationMenuBasique(void)
 {
     int menuCouleur = glutCreateMenu(selectCouleur);
@@ -70,8 +86,13 @@ void creationMenuBasique(void)
     glutAddMenuEntry("Course", 13);
     glutAddMenuEntry("Vieux", 14);
     
+    int menuTrajectoire = glutCreateMenu(selectTrajectoire);
+    glutAddMenuEntry("Libre", 21);
+    glutAddMenuEntry("Cabine", 22);
+    
     glutCreateMenu(select);
     glutAddSubMenu("Mode", menuCouleur);
+    glutAddSubMenu("Trajectoire", menuTrajectoire);
     glutAddMenuEntry("Quitter",0);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
@@ -253,4 +274,20 @@ void effetPlastique()
      glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
      GLfloat cShin = 10;
      glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
+}
+
+void activerTrajectoireLibre()
+{
+    trajectoireCourante = &trajectoireLibre;
+#if defined(debug_menu) && debug_menu
+    cout << "activerTrajectoireLibre" << endl;
+#endif
+}
+
+void activerTrajectoireCabine()
+{
+    trajectoireCourante = &trajectoireCabine;
+#if defined(debug_menu) && debug_menu
+    cout << "activerTrajectoireCabine" << endl;
+#endif
 }

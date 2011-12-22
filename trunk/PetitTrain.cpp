@@ -42,9 +42,9 @@ GLUquadric* param = gluNewQuadric();
 //static int x=1, y=1, z=1;
 //static float dist = 4.5, hauteurCam = 4.5;
 //static float depCamX = 0.0, depCamY = 0.0, depCamZ = 0.0;
-Camera cameraLibre;
+/*Camera cameraLibre;
 Camera cameraCabine;
-Camera *cameraCourante;
+Camera *cameraCourante;*/
 static float dist = 4.5;
 
 //pour l'animation
@@ -1498,7 +1498,7 @@ void display(void)
                         depCamX, depCamY, depCamZ, 
                         0.0, 1.0, 0.0
                     );*/
-        lookAt(cameraCourante);
+        lookAt(cameraCourante, trajectoireCourante);
         
 		glPushMatrix();
     		glColor4fv(couleurRouge());
@@ -1606,6 +1606,9 @@ void myinit(void) {
     initCamera(&cameraLibre, dist * monCosinus[angle], dist, dist * monSinus[angle]);
     initCamera(&cameraCabine, 0, 1, -14.5, 12, 0, -12);
     cameraCourante = &cameraLibre;
+    
+    //pour la caméra
+    trajectoireCourante = &trajectoireLibre;
     
     //animation
     idleFunc = NULL;

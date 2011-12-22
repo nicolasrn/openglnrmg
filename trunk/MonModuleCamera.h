@@ -6,7 +6,7 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 
-#define debug_camera 0
+#define debug_camera 1
 
 typedef struct camera
 {
@@ -50,5 +50,14 @@ void setUpZ(Camera *cam, GLdouble z);
 
 void lookAt(Camera *cam, void (*trajectoire)(Camera*) = NULL);
 void afficherCam(Camera cam);
+
+extern Camera cameraLibre;
+extern Camera cameraCabine;
+extern Camera *cameraCourante;
+
+extern void (*trajectoireCourante)(Camera*);
+
+void trajectoireLibre(Camera*);
+void trajectoireCabine(Camera*);
 
 #endif
