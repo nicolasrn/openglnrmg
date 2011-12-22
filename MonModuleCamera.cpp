@@ -8,6 +8,14 @@ Camera cameraCabine;
 Camera *cameraCourante = NULL;
 void (*trajectoireCourante)(Camera*) = NULL;
 
+int angle = 90;
+
+float monCosinus[360];
+float monSinus[360];
+
+float dist = 4.5, hauteurCam = 4.5;
+float depCamX = 0.0, depCamY = 0.0, depCamZ = 0.0;
+
 void initCamera(Camera *cam, GLdouble eyeX, GLdouble eyeY, GLdouble eyeZ, GLdouble centerX, GLdouble centerY, GLdouble centerZ, GLdouble upX, GLdouble upY, GLdouble upZ)
 {
     cam->eyeX = eyeX;
@@ -88,6 +96,13 @@ void afficherCam(Camera cam)
 
 void trajectoireLibre(Camera *cam)
 {
+    setEyeZ(cam, dist * monSinus[angle]);
+	setEyeX(cam, dist * monCosinus[angle]);
+    setEyeY(cam, hauteurCam);
+    
+    setCenterX(cam, depCamX);
+    setCenterY(cam, depCamY);
+    setCenterZ(cam, depCamZ);
 #if defined(debug_camera) && debug_camera == 1
     cout << "trajectoireLibre attribué" << endl;
 #endif
@@ -95,7 +110,8 @@ void trajectoireLibre(Camera *cam)
 
 void trajectoireCabine(Camera *cam)
 {
+    initCamera(cam, 0, 3, -21);
 #if defined(debug_camera) && debug_camera == 1
     cout << "trajectoireCabine attribué" << endl;
-#endif  
+#endif
 }
