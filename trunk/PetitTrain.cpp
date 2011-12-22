@@ -23,7 +23,7 @@
 using namespace std;
 
 //variables qui dépendent du train
-static int angle = 90;
+//static int angle = 90;
 static int angleTrain = 0;
 static float anglex = 0.0F ;
 static float angley = 0.0F ;
@@ -32,8 +32,8 @@ static float up = 0.0F ;
 static int az = 6 ;
 static int a = 0 ;
 static float PI = 3.14;//159265;
-static float monCosinus[360];
-static float monSinus[360];
+//static float monCosinus[360];
+//static float monSinus[360];
 static int angleCloche = 4;
 static int tempcompt = 1;
 GLUquadric* param = gluNewQuadric(); 
@@ -45,7 +45,7 @@ GLUquadric* param = gluNewQuadric();
 /*Camera cameraLibre;
 Camera cameraCabine;
 Camera *cameraCourante;*/
-static float dist = 4.5;
+//static float dist = 4.5;
 
 //pour l'animation
 static void (*idleFunc)() = NULL;
@@ -1679,56 +1679,56 @@ void clavier(unsigned char touche,int x,int y)
 		angle+=1;
 		if (angle>=360)
 			angle-=360;
-		setEyeZ(cameraCourante, dist * monSinus[angle]);
-		setEyeX(cameraCourante, dist * monCosinus[angle]);
+		//setEyeZ(cameraCourante, dist * monSinus[angle]);
+		//setEyeX(cameraCourante, dist * monCosinus[angle]);
 		glutPostRedisplay();
 		break;
 	case 'p' :
 		angle-=1;
 		if (angle<0)
 			angle+=360;
-		setEyeZ(cameraCourante, dist * monSinus[angle]);
-		setEyeX(cameraCourante, dist * monCosinus[angle]);
+		//setEyeZ(cameraCourante, dist * monSinus[angle]);
+		//setEyeX(cameraCourante, dist * monCosinus[angle]);
 		glutPostRedisplay();
 		break;
 	case 'i' :
-        //hauteurCam += 2;
-        setEyeY(cameraCourante, cameraCourante->eyeY + 2);
+        hauteurCam += 2;
+        //setEyeY(cameraCourante, cameraCourante->eyeY + 2);
         glutPostRedisplay();
         break;
     case 'u' :
-        //hauteurCam -= 2;
-        setEyeY(cameraCourante, cameraCourante->eyeY - 2);
+        hauteurCam -= 2;
+        //setEyeY(cameraCourante, cameraCourante->eyeY - 2);
         glutPostRedisplay();
         break;
     case '6':
-        //depCamX += 2;
-        setCenterX(cameraCourante, cameraCourante->centerX + 2);
+        depCamX += 2;
+        //setCenterX(cameraCourante, cameraCourante->centerX + 2);
         glutPostRedisplay();
         break;
     case '4':
-        //depCamX -= 2;
-        setCenterX(cameraCourante, cameraCourante->centerX - 2);
+        depCamX -= 2;
+        //setCenterX(cameraCourante, cameraCourante->centerX - 2);
         glutPostRedisplay();
         break;
     case '8':
-        //depCamY += 2;
-        setCenterY(cameraCourante, cameraCourante->centerY + 2);
+        depCamY += 2;
+        //setCenterY(cameraCourante, cameraCourante->centerY + 2);
         glutPostRedisplay();
         break;
     case '2':
-        //depCamY -= 2;
-        setCenterY(cameraCourante, cameraCourante->centerY - 2);
+        depCamY -= 2;
+        //setCenterY(cameraCourante, cameraCourante->centerY - 2);
         glutPostRedisplay();
         break;
     case '9':
-        //depCamZ += 2;
-        setCenterZ(cameraCourante, cameraCourante->centerZ + 2);
+        depCamZ += 2;
+        //setCenterZ(cameraCourante, cameraCourante->centerZ + 2);
         glutPostRedisplay();
         break;
     case '1':
-        //depCamZ -= 2;
-        setCenterZ(cameraCourante, cameraCourante->centerZ - 2);
+        depCamZ -= 2;
+        //setCenterZ(cameraCourante, cameraCourante->centerZ - 2);
         glutPostRedisplay();
         break;
 	case '+':/*gluLookAt   (
@@ -1737,14 +1737,14 @@ void clavier(unsigned char touche,int x,int y)
                         0.0, 1.0, 0.0
                     );*/
 		dist -= .5;
-		setEyeZ(cameraCourante, dist * monSinus[angle]);
-		setEyeX(cameraCourante, dist * monCosinus[angle]);
+		//setEyeZ(cameraCourante, dist * monSinus[angle]);
+		//setEyeX(cameraCourante, dist * monCosinus[angle]);
 		glutPostRedisplay();
 		break;
 	case '-':
 		dist += .5;
-		setEyeZ(cameraCourante, dist * monSinus[angle]);
-		setEyeX(cameraCourante, dist * monCosinus[angle]);
+		//setEyeZ(cameraCourante, dist * monSinus[angle]);
+		//setEyeX(cameraCourante, dist * monCosinus[angle]);
 		glutPostRedisplay();
 		break;
 	//animation de la scene
@@ -1781,7 +1781,6 @@ void clavier(unsigned char touche,int x,int y)
 
 int main(int argc,char **argv) {
 	trigo();
-	
 	themeCourse();
     
 	glutInit(&argc,argv);

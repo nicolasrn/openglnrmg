@@ -23,6 +23,20 @@ typedef struct camera
     GLdouble upZ;
 }Camera;
 
+extern Camera cameraLibre;
+extern Camera cameraCabine;
+extern Camera *cameraCourante;
+
+extern void (*trajectoireCourante)(Camera*);
+
+extern int angle;
+
+extern float monCosinus[360];
+extern float monSinus[360];
+
+extern float dist, hauteurCam;
+extern float depCamX, depCamY, depCamZ;
+
 //extern void (*trajectoire)(Camera);
 
 void initCamera(Camera *cam, 
@@ -50,12 +64,6 @@ void setUpZ(Camera *cam, GLdouble z);
 
 void lookAt(Camera *cam, void (*trajectoire)(Camera*) = NULL);
 void afficherCam(Camera cam);
-
-extern Camera cameraLibre;
-extern Camera cameraCabine;
-extern Camera *cameraCourante;
-
-extern void (*trajectoireCourante)(Camera*);
 
 void trajectoireLibre(Camera*);
 void trajectoireCabine(Camera*);
