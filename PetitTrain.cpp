@@ -17,9 +17,12 @@
 #include "ModuleRoue.h"
 #include "ModuleMenus.h"
 #include "ModuleMonGlutSolidCube.h"
+#include "MonModuleSouris.h"
+#include "MonModuleCamera.h"
 
 using namespace std;
 
+//variables qui dépendent du train
 static int angle = 90;
 static int angleTrain = 0;
 static float anglex = 0.0F ;
@@ -35,15 +38,19 @@ static int angleCloche = 4;
 static int tempcompt = 1;
 GLUquadric* param = gluNewQuadric(); 
 
-static int x=1, y=1, z=1;
-static float dist = 4.5, hauteurCam = 4.5;
-static float depCamX = 0.0, depCamY = 0.0, depCamZ = 0.0;
+//dépend de lookAt
+//static int x=1, y=1, z=1;
+//static float dist = 4.5, hauteurCam = 4.5;
+//static float depCamX = 0.0, depCamY = 0.0, depCamZ = 0.0;
+Camera cameraLibre;
+Camera cameraCabine;
+Camera *cameraCourante;
+static float dist = 4.5;
 
-static GLfloat L0pos[]= {0.0,2.0,-1.0};
-static GLfloat L1pos[]= { 2.0,2.0,2.0};
-
+//pour l'animation
 static void (*idleFunc)() = NULL;
 
+//texture
 GLuint idTextureHerbe;
 GLuint idTextureCiel;
 
@@ -1476,17 +1483,23 @@ void display(void)
         manipulateurSouris();
 		manipulateurClavier();
 		
-		//rotation de toute la scene
+		//via la souris
+        glRotatef(-sourisangley, 1.0, 0.0, 0.0);
+        glRotatef(-sourisanglex, 0.0, 1.0, 0.0);
+		
+        //rotation de toute la scene via le clavier
 		glRotatef(anglex,1.0F,0.0F,0.0F);
 		glRotatef(angley,0.0F,1.0F,0.0F);
 		glRotatef(anglez,0.0F,0.0F,1.0F);
 		
         //cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
-        gluLookAt   (
+        /*gluLookAt   (
                         dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], 
                         depCamX, depCamY, depCamZ, 
                         0.0, 1.0, 0.0
-                    );
+                    );*/
+        lookAt(*cameraCourante);
+        afficherCam(*cameraCourante);
         
 		glPushMatrix();
     		glColor4fv(couleurRouge());
@@ -1589,6 +1602,14 @@ void myinit(void) {
     glLightfv(GL_LIGHT0,GL_DIFFUSE,L0dif);
     glLightfv(GL_LIGHT0,GL_SPECULAR,L0dif);
     glLightf (GL_LIGHT0,GL_QUADRATIC_ATTENUATION, .05f);
+    
+    //initialisation de la camera
+    initCamera(&cameraLibre, dist * monCosinus[angle], dist, dist * monSinus[angle]);
+    initCamera(&cameraCabine, 0, 1, -14.5, 12, 0, -12);
+    cameraCourante = &cameraLibre;
+    
+    //animation
+    idleFunc = NULL;
 } 
 
 void special(int key,int x,int y) {
@@ -1656,52 +1677,72 @@ void clavier(unsigned char touche,int x,int y)
 		angle+=1;
 		if (angle>=360)
 			angle-=360;
+		setEyeZ(cameraCourante, dist * monSinus[angle]);
+		setEyeX(cameraCourante, dist * monCosinus[angle]);
 		glutPostRedisplay();
 		break;
 	case 'p' :
 		angle-=1;
 		if (angle<0)
 			angle+=360;
+		setEyeZ(cameraCourante, dist * monSinus[angle]);
+		setEyeX(cameraCourante, dist * monCosinus[angle]);
 		glutPostRedisplay();
 		break;
 	case 'i' :
-        hauteurCam += 2;
+        //hauteurCam += 2;
+        setEyeY(cameraCourante, cameraCourante->eyeY + 2);
         glutPostRedisplay();
         break;
     case 'u' :
-        hauteurCam -= 2;
+        //hauteurCam -= 2;
+        setEyeY(cameraCourante, cameraCourante->eyeY - 2);
         glutPostRedisplay();
         break;
     case '6':
-        depCamX += 2;
+        //depCamX += 2;
+        setCenterX(cameraCourante, cameraCourante->centerX + 2);
         glutPostRedisplay();
         break;
     case '4':
-        depCamX -= 2;
+        //depCamX -= 2;
+        setCenterX(cameraCourante, cameraCourante->centerX - 2);
         glutPostRedisplay();
         break;
     case '8':
-        depCamY += 2;
+        //depCamY += 2;
+        setCenterY(cameraCourante, cameraCourante->centerY + 2);
         glutPostRedisplay();
         break;
     case '2':
-        depCamY -= 2;
+        //depCamY -= 2;
+        setCenterY(cameraCourante, cameraCourante->centerY - 2);
         glutPostRedisplay();
         break;
     case '9':
-        depCamZ += 2;
+        //depCamZ += 2;
+        setCenterZ(cameraCourante, cameraCourante->centerZ + 2);
         glutPostRedisplay();
         break;
     case '1':
-        depCamZ -= 2;
+        //depCamZ -= 2;
+        setCenterZ(cameraCourante, cameraCourante->centerZ - 2);
         glutPostRedisplay();
         break;
-	case '+':
+	case '+':/*gluLookAt   (
+                        dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], 
+                        depCamX, depCamY, depCamZ, 
+                        0.0, 1.0, 0.0
+                    );*/
 		dist -= .5;
+		setEyeZ(cameraCourante, dist * monSinus[angle]);
+		setEyeX(cameraCourante, dist * monCosinus[angle]);
 		glutPostRedisplay();
 		break;
 	case '-':
 		dist += .5;
+		setEyeZ(cameraCourante, dist * monSinus[angle]);
+		setEyeX(cameraCourante, dist * monCosinus[angle]);
 		glutPostRedisplay();
 		break;
 	//animation de la scene
@@ -1773,8 +1814,12 @@ int main(int argc,char **argv) {
     glutKeyboardFunc(keyBasique);
 	glutSpecialFunc(special);
     
-	glutMotionFunc(motionBasique);
-	glutMouseFunc(sourisBasique);
+	//glutMotionFunc(motionBasique);
+	//glutMouseFunc(sourisBasique);
+	
+    glutMouseFunc(mouse);
+    glutMotionFunc(mousemotion);
+	
 	glutDisplayFunc(display);
 
 	//pour interagir avec la loco
