@@ -65,6 +65,9 @@ void setUpZ(Camera *cam, GLdouble x)
 void lookAt(Camera cam)
 {
     gluLookAt(cam.eyeX, cam.eyeY, cam.eyeZ, cam.centerX, cam.centerY, cam.centerZ, cam.upX, cam.upY, cam.upZ);
+#if defined(debug_camera) && debug_camera == 1
+    afficherCam(cam);
+#endif
 }
 
 void afficherCam(Camera cam)
