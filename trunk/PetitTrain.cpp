@@ -1499,7 +1499,6 @@ void display(void)
                         0.0, 1.0, 0.0
                     );*/
         lookAt(*cameraCourante);
-        afficherCam(*cameraCourante);
         
 		glPushMatrix();
     		glColor4fv(couleurRouge());
