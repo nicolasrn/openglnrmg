@@ -1607,7 +1607,7 @@ void myinit(void) {
     initCamera(&cameraCabine, 0, 1, -14.5, 12, 0, -12);
     cameraCourante = &cameraLibre;
     
-    //pour la caméra
+    //pour la trajectoire de la caméra
     trajectoireCourante = &trajectoireLibre;
     
     //animation

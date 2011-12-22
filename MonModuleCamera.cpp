@@ -86,14 +86,14 @@ void afficherCam(Camera cam)
                     cam.upX << ", " << cam.upY << ", " << cam.upZ << endl;
 }
 
-void trajectoireLibre(Camera*)
+void trajectoireLibre(Camera *cam)
 {
 #if defined(debug_camera) && debug_camera == 1
     cout << "trajectoireLibre attribué" << endl;
 #endif
 }
 
-void trajectoireCabine(Camera*)
+void trajectoireCabine(Camera *cam)
 {
 #if defined(debug_camera) && debug_camera == 1
     cout << "trajectoireCabine attribué" << endl;
