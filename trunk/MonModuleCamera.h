@@ -6,7 +6,7 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 
-#define debug_camera 1
+#define debug_camera 0
 
 typedef struct camera
 {
@@ -23,22 +23,32 @@ typedef struct camera
     GLdouble upZ;
 }Camera;
 
-void initCamera(Camera *cam, GLdouble eyeX = 0, GLdouble eyeY = 0, GLdouble eyeZ = 0, GLdouble centerX = 0, GLdouble centerY = 0, GLdouble centerZ = 0, GLdouble upX = 0, GLdouble upY = 1, GLdouble upZ = 0);
+//extern void (*trajectoire)(Camera);
+
+void initCamera(Camera *cam, 
+                GLdouble eyeX = 0,
+                GLdouble eyeY = 0, 
+                GLdouble eyeZ = 0, 
+                GLdouble centerX = 0, 
+                GLdouble centerY = 0, 
+                GLdouble centerZ = 0, 
+                GLdouble upX = 0, 
+                GLdouble upY = 1, 
+                GLdouble upZ = 0);
 
 void setEyeX(Camera *cam, GLdouble x);
-void setEyeY(Camera *cam, GLdouble x);
-void setEyeZ(Camera *cam, GLdouble x);
+void setEyeY(Camera *cam, GLdouble y);
+void setEyeZ(Camera *cam, GLdouble z);
 
 void setCenterX(Camera *cam, GLdouble x);
-void setCenterY(Camera *cam, GLdouble x);
-void setCenterZ(Camera *cam, GLdouble x);
+void setCenterY(Camera *cam, GLdouble y);
+void setCenterZ(Camera *cam, GLdouble z);
 
 void setUpX(Camera *cam, GLdouble x);
-void setUpY(Camera *cam, GLdouble x);
-void setUpZ(Camera *cam, GLdouble x);
+void setUpY(Camera *cam, GLdouble y);
+void setUpZ(Camera *cam, GLdouble z);
 
-void lookAt(Camera cam);
-
+void lookAt(Camera *cam, void (*trajectoire)(Camera*) = NULL);
 void afficherCam(Camera cam);
 
 #endif
