@@ -30,6 +30,8 @@ extern Camera *cameraCourante;
 extern void (*trajectoireCourante)(Camera*);
 
 extern int angle;
+extern int angleTrain;
+extern int angleTrainCamera;
 
 extern float monCosinus[360];
 extern float monSinus[360];
@@ -67,5 +69,8 @@ void afficherCam(Camera cam);
 
 void trajectoireLibre(Camera*);
 void trajectoireCabine(Camera*);
+
+void resetDataLibre();
+void resetDataCabine();
 
 #endif

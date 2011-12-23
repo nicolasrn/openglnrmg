@@ -279,6 +279,7 @@ void effetPlastique()
 void activerTrajectoireLibre()
 {
     trajectoireCourante = &trajectoireLibre;
+    resetDataLibre();
 #if defined(debug_menu) && debug_menu
     cout << "activerTrajectoireLibre" << endl;
 #endif
@@ -287,6 +288,7 @@ void activerTrajectoireLibre()
 void activerTrajectoireCabine()
 {
     trajectoireCourante = &trajectoireCabine;
+    resetDataCabine();
 #if defined(debug_menu) && debug_menu
     cout << "activerTrajectoireCabine" << endl;
 #endif
