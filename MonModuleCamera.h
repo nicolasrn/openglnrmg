@@ -44,7 +44,7 @@ extern float depCamX, depCamY, depCamZ;
 void initCamera(Camera *cam, 
                 GLdouble eyeX = 0,
                 GLdouble eyeY = 0, 
-                GLdouble eyeZ = 0, 
+                GLdouble eyeZ = -10, 
                 GLdouble centerX = 0, 
                 GLdouble centerY = 0, 
                 GLdouble centerZ = 0, 
