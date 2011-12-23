@@ -129,7 +129,7 @@ void trajectoireCabine(Camera *cam)
 {
     int cx = 15, cy = 1, cz = -15;
     
-    initCamera(cam, .5*monCosinus[angleTrainCamera] + cx * monCosinus[angleTrainCamera], cy, -.5*monSinus[angleTrainCamera] + cz * monSinus[angleTrainCamera]);
+    initCamera(cam, 0 + cx * monCosinus[angleTrainCamera], cy, /*-120*cz*monSinus[angleTrainCamera]*/ + cz * monSinus[angleTrainCamera]);
     
     //setCenterX(cam, -cx * monCosinus[angleTrain]);
     //setCenterY(cam, cy);
