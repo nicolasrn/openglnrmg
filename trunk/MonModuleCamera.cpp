@@ -10,7 +10,7 @@ void (*trajectoireCourante)(Camera*) = NULL;
 
 int angle = 90;
 int angleTrain = 0;
-int angleTrainCamera = 90;
+int angleTrainCamera = 95;
 
 float monCosinus[360];
 float monSinus[360];
@@ -127,13 +127,13 @@ void trajectoireLibre(Camera *cam)
 
 void trajectoireCabine(Camera *cam)
 {
-    int cx = 15, cy = 1, cz = -15;
+    GLfloat cx = 14.5, cy = 1, cz = -14.5;
     
-    initCamera(cam, 0 + cx * monCosinus[angleTrainCamera], cy, /*-120*cz*monSinus[angleTrainCamera]*/ + cz * monSinus[angleTrainCamera]);
+    initCamera(cam, 0 + cx * monCosinus[angleTrainCamera], cy, 0 + cz * monSinus[angleTrainCamera]);
     
-    //setCenterX(cam, -cx * monCosinus[angleTrain]);
-    //setCenterY(cam, cy);
-    //setCenterZ(cam, cz * monSinus[angleTrain]);
+    //glRotatef(angleTrain, 0, 1, 0);
+    //glTranslatef(0, 0, 19);
+
 #if defined(debug_camera) && debug_camera == 1
     cout << "trajectoireCabine attribué" << endl;
 #endif
