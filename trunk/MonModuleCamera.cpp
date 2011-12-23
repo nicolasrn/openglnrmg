@@ -9,12 +9,29 @@ Camera *cameraCourante = NULL;
 void (*trajectoireCourante)(Camera*) = NULL;
 
 int angle = 90;
+int angleTrain = 0;
+int angleTrainCamera = 90;
 
 float monCosinus[360];
 float monSinus[360];
 
 float dist = 4.5, hauteurCam = 4.5;
 float depCamX = 0.0, depCamY = 0.0, depCamZ = 0.0;
+
+void resetDataLibre()
+{
+    dist = hauteurCam = 4.5;
+    depCamX = depCamY = depCamZ = 0.0;
+}
+
+void resetDataCabine()
+{
+    dist = 4.5;
+    hauteurCam = 0;
+    depCamX = 0;
+    depCamY = 3;
+    depCamZ = -21;
+}
 
 void initCamera(Camera *cam, GLdouble eyeX, GLdouble eyeY, GLdouble eyeZ, GLdouble centerX, GLdouble centerY, GLdouble centerZ, GLdouble upX, GLdouble upY, GLdouble upZ)
 {
@@ -91,7 +108,7 @@ void afficherCam(Camera cam)
 {
     cout << "(" <<  cam.eyeX << ", " << cam.eyeY << ", " << cam.eyeZ << ", " <<
                     cam.centerX << ", " << cam.centerY << ", " << cam.centerZ << ", " << 
-                    cam.upX << ", " << cam.upY << ", " << cam.upZ << endl;
+                    cam.upX << ", " << cam.upY << ", " << cam.upZ << ")" << endl;
 }
 
 void trajectoireLibre(Camera *cam)
@@ -110,7 +127,13 @@ void trajectoireLibre(Camera *cam)
 
 void trajectoireCabine(Camera *cam)
 {
-    initCamera(cam, 0, 3, -21);
+    int cx = 15, cy = 1, cz = -15;
+    
+    initCamera(cam, .5*monCosinus[angleTrainCamera] + cx * monCosinus[angleTrainCamera], cy, -.5*monSinus[angleTrainCamera] + cz * monSinus[angleTrainCamera]);
+    
+    //setCenterX(cam, -cx * monCosinus[angleTrain]);
+    //setCenterY(cam, cy);
+    //setCenterZ(cam, cz * monSinus[angleTrain]);
 #if defined(debug_camera) && debug_camera == 1
     cout << "trajectoireCabine attribué" << endl;
 #endif

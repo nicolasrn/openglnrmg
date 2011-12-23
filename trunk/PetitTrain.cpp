@@ -24,7 +24,7 @@ using namespace std;
 
 //variables qui dépendent du train
 //static int angle = 90;
-static int angleTrain = 0;
+//static int angleTrain = 0;
 static float anglex = 0.0F ;
 static float angley = 0.0F ;
 static float anglez = 0.0F ;
@@ -1550,6 +1550,7 @@ void idle()
     az = (az+ 5)%360;
 	a = a+5;
 	angleTrain = (angleTrain + 1) % 360;
+	angleTrainCamera = (angleTrainCamera + 1) % 360;
 	
 	//raffichage
     glutPostRedisplay();
@@ -1605,10 +1606,10 @@ void myinit(void) {
     //initialisation de la camera
     initCamera(&cameraLibre, dist * monCosinus[angle], dist, dist * monSinus[angle]);
     initCamera(&cameraCabine, 0, 1, -14.5, 12, 0, -12);
-    cameraCourante = &cameraLibre;
+    cameraCourante = &cameraCabine;
     
     //pour la trajectoire de la caméra
-    trajectoireCourante = &trajectoireLibre;
+    trajectoireCourante = &trajectoireCabine;
     
     //animation
     idleFunc = NULL;
