@@ -18,19 +18,22 @@ float monSinus[360];
 float dist = 1, hauteurCam = 1;
 float depCamX = 0.0, depCamY = 0.0, depCamZ = 0.0;
 
+static int typeVueCabine;
+
 void resetDataLibre()
 {
     dist = hauteurCam = 4.5;
     depCamX = depCamY = depCamZ = 0.0;
 }
 
-void resetDataCabine()
+void resetDataCabine(int type)
 {
     dist = 1;
     hauteurCam = 0;
     depCamX = 0;
     depCamY = 3;
     depCamZ = -21;
+    typeVueCabine = type;
 }
 
 void initCamera(Camera *cam, GLdouble eyeX, GLdouble eyeY, GLdouble eyeZ, GLdouble centerX, GLdouble centerY, GLdouble centerZ, GLdouble upX, GLdouble upY, GLdouble upZ)
@@ -130,8 +133,18 @@ void trajectoireCabine(Camera *cam)
     GLfloat cx = 14.5, cy = 1, cz = -14.5;
     
     initCamera(cam, dist * cx * monCosinus[angleTrainCamera], cy, dist * cz * monSinus[angleTrainCamera]);
-    glRotatef(90, 0, 1, 0);
     
+    switch(typeVueCabine)
+    {
+        case 1 :
+            glRotatef(75, 0, 1, 0);
+            glTranslatef(-4, 0, -3.5);
+            break;
+        case 2 :
+            //glRotatef(90, 0, 1, 0); donne déjà un bon truc
+            glRotatef(100, 0, 1, 0);
+            break;
+    }
 #if defined(debug_camera) && debug_camera == 1
     cout << "trajectoireCabine attribué" << endl;
 #endif

@@ -160,6 +160,6 @@
     void effetArgent();
     
     void activerTrajectoireLibre();
-    void activerTrajectoireCabine();
+    void activerTrajectoireCabine(int i);
 
 #endif

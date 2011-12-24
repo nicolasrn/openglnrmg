@@ -71,6 +71,6 @@ void trajectoireLibre(Camera*);
 void trajectoireCabine(Camera*);
 
 void resetDataLibre();
-void resetDataCabine();
+void resetDataCabine(int type = 1);
 
 #endif

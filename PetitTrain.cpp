@@ -1608,6 +1608,7 @@ void myinit(void) {
     
     //initialisation de la camera
     initCamera(&cameraLibre, dist * monCosinus[angle], dist, dist * monSinus[angle]);
+    initCamera(&cameraCabine);
     cameraCourante = &cameraLibre;
     
     //pour la trajectoire de la caméra
