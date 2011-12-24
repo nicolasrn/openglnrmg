@@ -72,7 +72,10 @@ void selectTrajectoire(int selection)
             activerTrajectoireLibre();
             break;
         case 22:
-            activerTrajectoireCabine();
+            activerTrajectoireCabine(1);
+            break;
+        case 23:
+            activerTrajectoireCabine(2);
             break;
     }
     glutPostRedisplay();
@@ -88,7 +91,8 @@ void creationMenuBasique(void)
     
     int menuTrajectoire = glutCreateMenu(selectTrajectoire);
     glutAddMenuEntry("Libre", 21);
-    glutAddMenuEntry("Cabine", 22);
+    glutAddMenuEntry("Cabine 1", 22);
+    glutAddMenuEntry("Cabine 2", 23);
     
     glutCreateMenu(select);
     glutAddSubMenu("Mode", menuCouleur);
@@ -285,10 +289,10 @@ void activerTrajectoireLibre()
 #endif
 }
 
-void activerTrajectoireCabine()
+void activerTrajectoireCabine(int i)
 {
     trajectoireCourante = &trajectoireCabine;
-    resetDataCabine();
+    resetDataCabine(i);
 #if defined(debug_menu) && debug_menu
     cout << "activerTrajectoireCabine" << endl;
 #endif
