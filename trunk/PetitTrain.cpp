@@ -1603,13 +1603,15 @@ void myinit(void) {
     glLightfv(GL_LIGHT0,GL_SPECULAR,L0dif);
     glLightf (GL_LIGHT0,GL_QUADRATIC_ATTENUATION, .05f);
     
+    //initialisation des variables dépendant de la caméra
+    resetDataLibre();
+    
     //initialisation de la camera
     initCamera(&cameraLibre, dist * monCosinus[angle], dist, dist * monSinus[angle]);
-    initCamera(&cameraCabine, 0, 1, -14.5, 12, 0, -12);
-    cameraCourante = &cameraCabine;
+    cameraCourante = &cameraLibre;
     
     //pour la trajectoire de la caméra
-    trajectoireCourante = &trajectoireCabine;
+    trajectoireCourante = &trajectoireLibre;
     
     //animation
     idleFunc = NULL;
