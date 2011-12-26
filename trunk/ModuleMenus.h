@@ -6,6 +6,7 @@
     #include <GL/glu.h>
     #include <GL/glut.h>
     #include "MonModuleCamera.h"
+    #include "MonModuleSouris.h"
     
     #define debug_menu 1
     
@@ -33,6 +34,15 @@
     extern float *couleurSoupape2;
     extern float *couleurWagon1;
     extern float *couleurWagon2;
+    
+    
+    extern float anglex;
+    extern float angley;
+    extern float anglez;    
+    
+    //pour la manip souris
+    extern void (*doActionSourisRotation)();
+    extern void (*doActionClavierRotation)(int);
     
     static float couleurCourseCylindre[] = {1, .035, .12, 1};
     static float couleurCourseAvant[] = {.85, .09, .007, 1};
@@ -170,6 +180,7 @@
         void activerDesactiverPhare();
         
         void activerDesactiverSoleil();
-        
+    
+    void doActionClavier(int key);
 
 #endif

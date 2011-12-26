@@ -34,6 +34,13 @@ void(*effetComplexOr)() = NULL;
 void(*effetComplexChrome)() = NULL;
 void(*effetComplexArgent)() = NULL;
 
+void (*doActionSourisRotation)() = NULL;
+void (*doActionClavierRotation)(int) = NULL; 
+
+float anglex = 0.0F ;
+float angley = 0.0F ;
+float anglez = 0.0F ;
+
 void select(int selection) 
 {
     switch (selection) 
@@ -93,7 +100,33 @@ void selectLumiere(int selection)
             break;
     }
     glutPostRedisplay();
-}    
+}  
+
+void selectManipulation(int selection)
+{
+    switch(selection)
+    {
+    case 41:
+        if (doActionSourisRotation != NULL)
+        {   
+            doActionSourisRotation = NULL;
+            doActionClavierRotation = NULL; 
+            
+            glutMouseFunc(NULL);
+            glutMotionFunc(NULL);
+        }
+        else
+        {
+            doActionSourisRotation = &doActionSouris;
+            doActionClavierRotation = &doActionClavier; 
+            
+            glutMouseFunc(mouse);
+            glutMotionFunc(mousemotion);
+        }
+        break;
+    }
+    glutPostRedisplay();
+} 
 
 void creationMenuBasique(void)
 {
@@ -112,10 +145,14 @@ void creationMenuBasique(void)
     glutAddMenuEntry("Soleil", 31);
     glutAddMenuEntry("Phare", 32);
     
+    int menuManipulation = glutCreateMenu(selectManipulation);
+    glutAddMenuEntry("Scene",41);
+    
     glutCreateMenu(select);
     glutAddSubMenu("Mode", menuCouleur);
     glutAddSubMenu("Trajectoire", menuTrajectoire);
     glutAddSubMenu("Lumière", menuLumiere);
+    glutAddSubMenu("Activer/Désactiver Manipulation", menuManipulation);
     glutAddMenuEntry("Quitter",0);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
@@ -339,3 +376,35 @@ void activerDesactiverSoleil()
 	else
 		glEnable(GL_LIGHT0);
 }
+
+void doActionClavier(int key)
+{
+    switch(key) 
+	{
+	case GLUT_KEY_UP    : 
+		anglex--; 
+        glutPostRedisplay() ;
+		break;
+	case GLUT_KEY_DOWN  : 
+		anglex++; 
+        glutPostRedisplay() ;
+		break;
+	case GLUT_KEY_LEFT  : 
+		angley--; 
+        glutPostRedisplay() ;
+		break;
+	case GLUT_KEY_RIGHT : 
+		angley++; 
+        glutPostRedisplay() ;
+		break; 
+    case 'z':
+        anglez++;
+        glutPostRedisplay() ;
+        break;
+    case 'Z':
+        anglez--;
+        glutPostRedisplay() ;
+        break;
+	}
+}
+

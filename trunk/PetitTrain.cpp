@@ -25,17 +25,14 @@ using namespace std;
 //variables qui dépendent du train
 //static int angle = 90;
 //static int angleTrain = 0;
-static float anglex = 0.0F ;
-static float angley = 0.0F ;
-static float anglez = 0.0F ;
-static float up = 0.0F ;
-static int az = 6 ;
-static int a = 0 ;
-static float PI = 3.14;//159265;
+float up = 0.0F ;
+int az = 6 ;
+int a = 0 ;
+float PI = 3.14;//159265;
 //static float monCosinus[360];
 //static float monSinus[360];
-static int angleCloche = 4;
-static int tempcompt = 1;
+int angleCloche = 4;
+int tempcompt = 1;
 GLUquadric* param = gluNewQuadric(); 
 
 //dépend de lookAt
@@ -48,7 +45,7 @@ Camera *cameraCourante;*/
 //static float dist = 4.5;
 
 //pour l'animation
-static void (*idleFunc)() = NULL;
+void (*idleFunc)() = NULL;
 
 //texture
 GLuint idTextureHerbe;
@@ -346,7 +343,7 @@ void creerPhares()
     	
     	glPushMatrix();
             glPushMatrix();
-                glRotatef(90, 0, 1, 0);
+                glRotatef(180, 0, 1, 0);
                 glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
                 glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
                 glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
@@ -393,7 +390,7 @@ void creerPhares()
     	
     	glPushMatrix();
             glPushMatrix();
-                glRotatef(90, 0, 1, 0);
+                glRotatef(180, 0, 1, 0);
                 glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
                 glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
                 glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
@@ -1482,27 +1479,27 @@ void creerTerrain()
             glPushMatrix();
                 glTranslatef(-50, 0, 0);
                 glScalef(1, 100, 100);
-                monGlutSolidCube(1, 5);
+                monGlutSolidCube(1, 1);
             glPopMatrix();
             
             glPushMatrix();
                 glTranslatef(50, 0, 0);
                 glScalef(1, 100, 100);
-                monGlutSolidCube(1, 5);
+                monGlutSolidCube(1, 1);
             glPopMatrix();
             
             glPushMatrix();
                 glRotatef(90, 0, 1, 0);
                 glTranslatef(-50, 0, 0);
                 glScalef(1, 100, 100);
-                monGlutSolidCube(1, 5);
+                monGlutSolidCube(1, 1);
             glPopMatrix();
             
             glPushMatrix();
                 glRotatef(90, 0, 1, 0);
                 glTranslatef(50, 0, 0);
                 glScalef(1, 100, 100);
-                monGlutSolidCube(1, 5);
+                monGlutSolidCube(1, 1);
             glPopMatrix();
         glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
@@ -1521,10 +1518,10 @@ void display(void)
         manipulateurSouris();
 		manipulateurClavier();
         
-		//via la souris
-        glRotatef(-sourisangley, 1.0, 0.0, 0.0);
-        glRotatef(-sourisanglex, 0.0, 1.0, 0.0);
-		
+        //via la souris
+        if (doActionSourisRotation != NULL)
+            doActionSourisRotation();
+        
         //rotation de toute la scene via le clavier
 		glRotatef(anglex,1.0F,0.0F,0.0F);
 		glRotatef(angley,0.0F,1.0F,0.0F);
@@ -1663,34 +1660,20 @@ void myinit(void) {
     //pour la trajectoire de la caméra
     trajectoireCourante = &trajectoireLibre;
     
-    //animation
-    idleFunc = NULL;
+    //souris
+    //doActionSouris = &doAction;
 } 
 
 void special(int key,int x,int y) {
-	switch(key) 
-	{
-	case GLUT_KEY_UP    : 
-		anglex--; 
-		break;
-	case GLUT_KEY_DOWN  : 
-		anglex++; 
-		break;
-	case GLUT_KEY_LEFT  : 
-		angley--; 
-		break;
-	case GLUT_KEY_RIGHT : 
-		angley++; 
-		break; 
-	}
-	glutPostRedisplay() ;
+    if (doActionClavierRotation != NULL)
+    	doActionClavierRotation(key);
 }
 
 void clavier(unsigned char touche,int x,int y)
 {
+    //lumière
 	switch (touche)
 	{
-    //lumière
 	case 'l':
 		activerDesactiverSoleil();
         glutPostRedisplay();
@@ -1699,16 +1682,15 @@ void clavier(unsigned char touche,int x,int y)
 		activerDesactiverPhare();
         glutPostRedisplay();
 		break;
-	//manipulation de la scene
-    case 'z':
-        anglez++;
-        glutPostRedisplay() ;
-        break;
-    case 'Z':
-        anglez--;
-        glutPostRedisplay() ;
-        break;
+    }
+    
+    //manipulation de la scene
+    if (doActionClavierRotation)
+        doActionClavierRotation(touche);
+    
     //manipulation de la camera
+    switch(touche)
+    {
     case 'o':
 		angle+=1;
 		if (angle>=360)
@@ -1781,7 +1763,11 @@ void clavier(unsigned char touche,int x,int y)
 		//setEyeX(cameraCourante, dist * monCosinus[angle]);
 		glutPostRedisplay();
 		break;
+    }
+    
 	//animation de la scene
+    switch(touche)
+    {
 	//deplacement du train
 	case 'a':
 		idle();
@@ -1840,7 +1826,8 @@ int main(int argc,char **argv) {
 	glEnable(GL_DEPTH_TEST) ;
 
 	creationMenuBasique();
-	setParametresPerspectiveBasique(65.0F,1.0F,1.0F,100.0F,0.0F,0.0F,-5.0F);
+	//                             angle, ratio, clipping min, max , dx  , dy   , dz
+	setParametresPerspectiveBasique(65.0F, 1.0F, .1F       , 200.0F, 0.0F, 0.0F, -5.0F);
 	
     //setParametresPerspectiveBasique(90.0F,1.0F,1.0F,20.0F,0.0F,0.0F,-5.0F);
 	setManipulateurDistance(10.0F);
@@ -1851,9 +1838,6 @@ int main(int argc,char **argv) {
     
 	//glutMotionFunc(motionBasique);
 	//glutMouseFunc(sourisBasique);
-	
-    glutMouseFunc(mouse);
-    glutMotionFunc(mousemotion);
 	
 	glutDisplayFunc(display);
 
