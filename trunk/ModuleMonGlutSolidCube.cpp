@@ -50,7 +50,7 @@ void loadJpegImage(char *fichier, GLuint *numtex)
     delete [] image;
 }
 
-static void drawBox(GLfloat size, GLenum type)
+static void drawBox(GLfloat size, GLenum type, int xTexture, int yTexture)
 {
     static GLfloat n[6][3] =
     {
@@ -80,21 +80,28 @@ static void drawBox(GLfloat size, GLenum type)
     v[0][2] = v[3][2] = v[4][2] = v[7][2] = -size / 2;
     v[1][2] = v[2][2] = v[5][2] = v[6][2] = size / 2;
     
-    //glEnable(GL_TEXTURE_2D);
     for (i = 5; i >= 0; i--) 
     {
         glBegin(type);
         glNormal3fv(&n[i][0]);
-        glTexCoord2i(0,0); glVertex3fv(&v[faces[i][0]][0]); 
-        glTexCoord2i(100,0); glVertex3fv(&v[faces[i][1]][0]); 
-        glTexCoord2i(100,100); glVertex3fv(&v[faces[i][2]][0]); 
-        glTexCoord2i(0,100); glVertex3fv(&v[faces[i][3]][0]); 
+        glTexCoord2i(0, 0); 
+        glVertex3fv(&v[faces[i][0]][0]); 
+        glTexCoord2i(xTexture, 0); 
+        glVertex3fv(&v[faces[i][1]][0]); 
+        glTexCoord2i(xTexture, yTexture); 
+        glVertex3fv(&v[faces[i][2]][0]); 
+        glTexCoord2i(0, yTexture); 
+        glVertex3fv(&v[faces[i][3]][0]); 
         glEnd();
     }
-    //glDisable(GL_TEXTURE_2D);
 }
 
-void monGlutSolidCube(GLdouble size) 
+void monGlutSolidCube(GLdouble size, int xTexture, int yTexture) 
 {
-    drawBox(size, GL_QUADS);
+    drawBox(size, GL_QUADS, xTexture, yTexture);
+}
+
+void monGlutSolidCube(GLdouble size, int xTexture)
+{
+    drawBox(size, GL_QUADS, xTexture, xTexture);
 }
