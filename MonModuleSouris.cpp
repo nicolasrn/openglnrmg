@@ -58,3 +58,9 @@ void mousemotion(int x,int y)
     sourisxold = x; /* sauvegarde des valeurs courante de le position de la souris */
     sourisyold = y;
 }
+
+void doActionSouris()
+{
+    glRotatef(-sourisangley, 1.0, 0.0, 0.0);
+    glRotatef(-sourisanglex, 0.0, 1.0, 0.0);
+}
