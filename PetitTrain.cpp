@@ -303,16 +303,15 @@ void creerPhares()
     
     glLightfv(GL_LIGHT1,GL_DIFFUSE,L1dif);
     glLightfv(GL_LIGHT1,GL_SPECULAR,L1spec);
-    //glLightf(GL_LIGHT1,GL_QUADRATIC_ATTENUATION,.1f);
     
     glLightfv(GL_LIGHT2,GL_DIFFUSE,L1dif);
     glLightfv(GL_LIGHT2,GL_SPECULAR,L1spec);
-    //glLightf(GL_LIGHT2,GL_QUADRATIC_ATTENUATION,.1f);
-    GLfloat direction[]={1, 0, 0};
+    GLfloat direction[]={1, -.02, 0};
     
-    //je ne sais pas a quoi sert le 1 mais c'est vachement jolie
-    float lpos2[] = {-1.92, -0.4, -0.672};
-    float lpos1[] = {-1.92, -0.4, 0.672};
+    float lpos2[] = {-1.93, -0.4, -0.672};
+    float lpos1[] = {-1.93, -0.4, 0.672};
+    
+    float angle = 30., attenuation = .01;
 	//phares
 	//droit
     glPushMatrix();
@@ -346,12 +345,14 @@ void creerPhares()
     	remiseZero();
     	
     	glPushMatrix();
-            //glRotatef(180, 1, 0, 0);
-    		glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 30.0); // ce spot ?clairera jusqu'? 45? autour de son axe 
-            glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction);
-            glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, .01);// coefficient d'att?nuation angulaire
-            glLightfv(GL_LIGHT1,GL_POSITION,lpos1); 
-            //glRotatef(-180, 1, 0, 0);
+            glPushMatrix();
+                glRotatef(90, 0, 1, 0);
+                glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
+                glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
+                glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
+                glLightfv(GL_LIGHT2,GL_POSITION,lpos1);
+                glRotatef(-90, 0, 1, 0);
+            glPopMatrix();
             
     		glColor4fv(couleurPhare);
     		glTranslatef(-1.92, -0.4, 0.672);
@@ -391,12 +392,14 @@ void creerPhares()
     	remiseZero();
     	
     	glPushMatrix();
-            //glRotatef(180, 1, 0, 0);
-    		glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 30.0); // ce spot ?clairera jusqu'? 45? autour de son axe 
-            glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
-            glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, .01);// coefficient d'att?nuation angulaire
-            glLightfv(GL_LIGHT2,GL_POSITION,lpos2);
-            //glRotatef(-180, 1, 0, 0);
+            glPushMatrix();
+                glRotatef(90, 0, 1, 0);
+                glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
+                glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
+                glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
+                glLightfv(GL_LIGHT2,GL_POSITION,lpos2);
+                glRotatef(-90, 0, 1, 0);
+            glPopMatrix();
             
     		glColor4fv(couleurPhare);
     		glTranslatef(-1.92, -0.4, -0.672);
@@ -1458,14 +1461,50 @@ void creerTerrain()
             glTranslatef(0, -1.78, 0);
             glScalef(100, 1, 100);
             glBindTexture(GL_TEXTURE_2D, idTextureHerbe);
-            monGlutSolidCube(1);
+            monGlutSolidCube(1, 10);
         glPopMatrix();
+        
+        /*glPushMatrix();
+            glColor3fv(couleurBlanc(0));
+            //glTranslatef(0, 26/2, 0);
+            //glScalef(100, 100, 100);
+            glBindTexture(GL_TEXTURE_2D, idTextureCiel);
+            //glTranslatef(50, 0, 0);
+            //glScalef(1, 100, 100);
+            monGlutSolidCube(100, 5);
+            //solidCylindre(50, 30, 20, 1, true);
+        glPopMatrix();*/
         
         glPushMatrix();
             glColor3fv(couleurBlanc(0));
-            glTranslatef(0, 26/2, 0);
+            //glTranslatef(0, 26/2, 0);
+            //glScalef(100, 100, 100);
             glBindTexture(GL_TEXTURE_2D, idTextureCiel);
-            solidCylindre(50, 30, 20, 1, true);
+            glPushMatrix();
+                glTranslatef(-50, 0, 0);
+                glScalef(1, 100, 100);
+                monGlutSolidCube(1, 5);
+            glPopMatrix();
+            
+            glPushMatrix();
+                glTranslatef(50, 0, 0);
+                glScalef(1, 100, 100);
+                monGlutSolidCube(1, 5);
+            glPopMatrix();
+            
+            glPushMatrix();
+                glRotatef(90, 0, 1, 0);
+                glTranslatef(-50, 0, 0);
+                glScalef(1, 100, 100);
+                monGlutSolidCube(1, 5);
+            glPopMatrix();
+            
+            glPushMatrix();
+                glRotatef(90, 0, 1, 0);
+                glTranslatef(50, 0, 0);
+                glScalef(1, 100, 100);
+                monGlutSolidCube(1, 5);
+            glPopMatrix();
         glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
 }
@@ -1482,7 +1521,7 @@ void display(void)
 	glPushMatrix();
         manipulateurSouris();
 		manipulateurClavier();
-		
+        
 		//via la souris
         glRotatef(-sourisangley, 1.0, 0.0, 0.0);
         glRotatef(-sourisanglex, 0.0, 1.0, 0.0);
@@ -1593,16 +1632,27 @@ void myinit(void) {
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_NORMALIZE);
+    //glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
     
-    //glEnable(GL_LIGHT0);
-    GLfloat L0pos[]={ 0, 20, 0, 0};
-    GLfloat L0dif[]={ 0.8, 0.8, 0.8};
+	//initialisation de la lumière normale
+    //GLfloat direction[]={ 0, -1, 0};
+    GLfloat L0pos[]={ 0, 20, 0, 1};
+    GLfloat L0dif[]={ 1, 1, 1};
+    //GLfloat attenuation = 1;
+    //GLfloat langle = 180;
     
-    glLightfv(GL_LIGHT0,GL_POSITION,L0pos);
-    glLightfv(GL_LIGHT0,GL_DIFFUSE,L0dif);
-    glLightfv(GL_LIGHT0,GL_SPECULAR,L0dif);
-    glLightf (GL_LIGHT0,GL_QUADRATIC_ATTENUATION, .05f);
+    //position et direction
+    glLightfv(GL_LIGHT0, GL_POSITION, L0pos);
+    //glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, direction);
     
+    //couleur
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, L0dif);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, L0dif);
+    
+    //parametres avances
+    //glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, langle); 
+    //glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, attenuation);
+	
     //initialisation des variables dépendant de la caméra
     resetDataLibre();
     
@@ -1798,7 +1848,7 @@ int main(int argc,char **argv) {
     //cout << "ciel : " << idTextureCiel << endl;
     
     //glEnable(GL_TEXTURE_2D);
-    loadJpegImage("herbe4.jpg", &idTextureHerbe);
+    loadJpegImage("herbe2.jpg", &idTextureHerbe);
     loadJpegImage("ciel03.jpg", &idTextureCiel);
     //glDisable(GL_TEXTURE_2D);
     
