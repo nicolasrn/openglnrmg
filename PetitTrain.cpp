@@ -351,7 +351,7 @@ void creerPhares()
                 glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
                 glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
                 glLightfv(GL_LIGHT2,GL_POSITION,lpos1);
-                glRotatef(-90, 0, 1, 0);
+                //glRotatef(-90, 0, 1, 0);
             glPopMatrix();
             
     		glColor4fv(couleurPhare);
@@ -398,7 +398,7 @@ void creerPhares()
                 glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
                 glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
                 glLightfv(GL_LIGHT2,GL_POSITION,lpos2);
-                glRotatef(-90, 0, 1, 0);
+                //glRotatef(-90, 0, 1, 0);
             glPopMatrix();
             
     		glColor4fv(couleurPhare);
@@ -1466,13 +1466,12 @@ void creerTerrain()
         
         /*glPushMatrix();
             glColor3fv(couleurBlanc(0));
-            //glTranslatef(0, 26/2, 0);
-            //glScalef(100, 100, 100);
+            glTranslatef(0, 26/2, 0);
             glBindTexture(GL_TEXTURE_2D, idTextureCiel);
             //glTranslatef(50, 0, 0);
             //glScalef(1, 100, 100);
-            monGlutSolidCube(100, 5);
-            //solidCylindre(50, 30, 20, 1, true);
+            //monGlutSolidCube(100, 5);
+            solidCylindre(50, 30, 20, 1, true);
         glPopMatrix();*/
         
         glPushMatrix();
@@ -1693,32 +1692,13 @@ void clavier(unsigned char touche,int x,int y)
 	{
     //lumière
 	case 'l':
-		if (glIsEnabled(GL_LIGHT0))
-			glDisable(GL_LIGHT0);
-		else
-			glEnable(GL_LIGHT0);
-		glutPostRedisplay();
-		break;
-    case 'm':
-		if (glIsEnabled(GL_LIGHT1))
-		{
-            glDisable(GL_LIGHT1);
-            glDisable(GL_LIGHT2);
-		}
-        else
-		{
-            glEnable(GL_LIGHT1);
-            glEnable(GL_LIGHT2);
-		}
+		activerDesactiverSoleil();
         glutPostRedisplay();
 		break;
-	/*case 'P':
-		if (glIsEnabled(GL_LIGHT3))
-			glDisable(GL_LIGHT3);
-		else
-			glEnable(GL_LIGHT3);
-		glutPostRedisplay();
-		break;*/ 
+    case 'm':
+		activerDesactiverPhare();
+        glutPostRedisplay();
+		break;
 	//manipulation de la scene
     case 'z':
         anglez++;

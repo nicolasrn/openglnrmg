@@ -140,26 +140,36 @@
     void select(int selection);
     
     void selectCouleur(int selection);
+        
+        void themeCourse();
+        
+        void themeFille();
+        
+        void themeGarcon();
+        
+        void themeVieux();
+        
+        extern void (*effetComplexOr) ();
+        void effetOr();
+        void effetPlastique();
+        
+        extern void (*effetComplexChrome) ();
+        void effetChrome();
+        
+        extern void (*effetComplexArgent) ();
+        void effetArgent();
     
-    void themeCourse();
-    
-    void themeFille();
-    
-    void themeGarcon();
-    
-    void themeVieux();
-    
-    extern void (*effetComplexOr) ();
-    void effetOr();
-    void effetPlastique();
-    
-    extern void (*effetComplexChrome) ();
-    void effetChrome();
-    
-    extern void (*effetComplexArgent) ();
-    void effetArgent();
-    
-    void activerTrajectoireLibre();
-    void activerTrajectoireCabine(int i);
+    void selectTrajectoire(int selection);
+        
+        void activerTrajectoireLibre();
+        
+        void activerTrajectoireCabine(int i);
+        
+    void selectLumiere(int selection);
+        
+        void activerDesactiverPhare();
+        
+        void activerDesactiverSoleil();
+        
 
 #endif

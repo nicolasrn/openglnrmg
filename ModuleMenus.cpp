@@ -79,7 +79,21 @@ void selectTrajectoire(int selection)
             break;
     }
     glutPostRedisplay();
-}        
+}     
+
+void selectLumiere(int selection)
+{
+    switch(selection)
+    {
+        case 31:
+            activerDesactiverSoleil();
+            break;
+        case 32:
+            activerDesactiverPhare();
+            break;
+    }
+    glutPostRedisplay();
+}    
 
 void creationMenuBasique(void)
 {
@@ -94,9 +108,14 @@ void creationMenuBasique(void)
     glutAddMenuEntry("Cabine 1", 22);
     glutAddMenuEntry("Cabine 2", 23);
     
+    int menuLumiere = glutCreateMenu(selectLumiere);
+    glutAddMenuEntry("Soleil", 31);
+    glutAddMenuEntry("Phare", 32);
+    
     glutCreateMenu(select);
     glutAddSubMenu("Mode", menuCouleur);
     glutAddSubMenu("Trajectoire", menuTrajectoire);
+    glutAddSubMenu("Lumière", menuLumiere);
     glutAddMenuEntry("Quitter",0);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
@@ -296,4 +315,27 @@ void activerTrajectoireCabine(int i)
 #if defined(debug_menu) && debug_menu
     cout << "activerTrajectoireCabine" << endl;
 #endif
+}
+
+
+void activerDesactiverPhare()
+{
+    if (glIsEnabled(GL_LIGHT1))
+	{
+        glDisable(GL_LIGHT1);
+        glDisable(GL_LIGHT2);
+	}
+    else
+	{
+        glEnable(GL_LIGHT1);
+        glEnable(GL_LIGHT2);
+	}
+}
+
+void activerDesactiverSoleil()
+{
+    if (glIsEnabled(GL_LIGHT0))
+		glDisable(GL_LIGHT0);
+	else
+		glEnable(GL_LIGHT0);
 }
