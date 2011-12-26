@@ -1523,10 +1523,12 @@ void display(void)
             doActionSourisRotation();
         
         //rotation de toute la scene via le clavier
-		glRotatef(anglex,1.0F,0.0F,0.0F);
-		glRotatef(angley,0.0F,1.0F,0.0F);
-		glRotatef(anglez,0.0F,0.0F,1.0F);
-		
+        if (doActionClavierRotation != NULL)
+        {
+    		glRotatef(anglex,1.0F,0.0F,0.0F);
+    		glRotatef(angley,0.0F,1.0F,0.0F);
+    		glRotatef(anglez,0.0F,0.0F,1.0F);
+        }
         //cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
         /*gluLookAt   (
                         dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], 
@@ -1628,7 +1630,7 @@ void myinit(void) {
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_NORMALIZE);
-    //glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
     
 	//initialisation de la lumière normale
     //GLfloat direction[]={ 0, -1, 0};
@@ -1777,12 +1779,13 @@ void clavier(unsigned char touche,int x,int y)
 		sonnerCloche();
 		glutPostRedisplay();
 		break;  
+	//annimation soupape
 	case 't':
 		monte();
-		
 		PlaySound(TEXT("tchou tchou.wav"), NULL, SND_FILENAME|SND_ASYNC);
-		
-		descend();
+		break;
+	case 'r':
+        descend();
 		break;
 	//animation via idle
 	case 'I':
