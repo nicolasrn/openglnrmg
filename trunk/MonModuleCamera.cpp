@@ -109,7 +109,7 @@ void lookAt(Camera *cam, void (*trajectoire)(Camera*))
 
 void afficherCam(Camera cam)
 {
-    cout << "(" <<  cam.eyeX << ", " << cam.eyeY << ", " << cam.eyeZ << ", " <<
+    cout << "camera : (" <<  cam.eyeX << ", " << cam.eyeY << ", " << cam.eyeZ << ", " <<
                     cam.centerX << ", " << cam.centerY << ", " << cam.centerZ << ", " << 
                     cam.upX << ", " << cam.upY << ", " << cam.upZ << ")" << endl;
 }

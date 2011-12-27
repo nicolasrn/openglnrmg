@@ -180,6 +180,8 @@
         void activerDesactiverPhare();
         
         void activerDesactiverSoleil();
+        
+        void activerDesactiverSpot();
     
     void doActionClavier(int key);
 

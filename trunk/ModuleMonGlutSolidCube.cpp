@@ -36,6 +36,7 @@ void loadJpegImage(char *fichier, GLuint *numtex)
     jpeg_finish_decompress(&cinfo);
     jpeg_destroy_decompress(&cinfo);
     /* Paramétrage de la texture */
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     glGenTextures(1, &(*numtex));
     glBindTexture(GL_TEXTURE_2D, *numtex);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

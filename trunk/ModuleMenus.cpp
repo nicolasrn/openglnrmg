@@ -98,6 +98,9 @@ void selectLumiere(int selection)
         case 32:
             activerDesactiverPhare();
             break;
+        case 33:
+            activerDesactiverSpot();
+            break;
     }
     glutPostRedisplay();
 }  
@@ -144,6 +147,7 @@ void creationMenuBasique(void)
     int menuLumiere = glutCreateMenu(selectLumiere);
     glutAddMenuEntry("Soleil", 31);
     glutAddMenuEntry("Phare", 32);
+    glutAddMenuEntry("Spot", 33);
     
     int menuManipulation = glutCreateMenu(selectManipulation);
     glutAddMenuEntry("Scene",41);
@@ -367,6 +371,14 @@ void activerDesactiverPhare()
         glEnable(GL_LIGHT1);
         glEnable(GL_LIGHT2);
 	}
+}
+
+void activerDesactiverSpot()
+{
+    if (glIsEnabled(GL_LIGHT3))
+        glDisable(GL_LIGHT3);
+    else
+        glEnable(GL_LIGHT3);
 }
 
 void activerDesactiverSoleil()
