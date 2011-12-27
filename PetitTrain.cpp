@@ -20,6 +20,8 @@
 #include "MonModuleSouris.h"
 #include "MonModuleCamera.h"
 
+#define test 1
+
 using namespace std;
 
 //variables qui dépendent du train
@@ -343,7 +345,9 @@ void creerPhares()
     	
     	glPushMatrix();
             glPushMatrix();
+            #if defined(test) && test
                 glRotatef(180, 0, 1, 0);
+            #endif
                 glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
                 glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
                 glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
@@ -390,7 +394,9 @@ void creerPhares()
     	
     	glPushMatrix();
             glPushMatrix();
+            #if defined(test) && test
                 glRotatef(180, 0, 1, 0);
+            #endif
                 glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
                 glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
                 glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
@@ -1452,16 +1458,25 @@ void creerRail()
 void creerTerrain()
 {
 	glEnable(GL_TEXTURE_2D);
+    	GLfloat cDiffuse[] = {.8, .8, .8, 1};
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cDiffuse);
+        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 10);
+        
         glPushMatrix();
-            glColor3fv(couleurBlanc(0));
-            //glTranslatef(0, -1.78, 0);
+            glColor3fv(couleurBlanc(1));
             glTranslatef(0, -1.78, 0);
             glScalef(100, 1, 100);
             glBindTexture(GL_TEXTURE_2D, idTextureHerbe);
             monGlutSolidCube(1, 10);
         glPopMatrix();
         
-        /*glPushMatrix();
+
+//ici test == 1 donc on est dans le else 
+//utilisé juste pour voir la différence
+//bien sur selon les murs la lumière est différente
+#if defined(test) && !test
+        glPushMatrix();
             glColor3fv(couleurBlanc(0));
             glTranslatef(0, 26/2, 0);
             glBindTexture(GL_TEXTURE_2D, idTextureCiel);
@@ -1469,39 +1484,41 @@ void creerTerrain()
             //glScalef(1, 100, 100);
             //monGlutSolidCube(100, 5);
             solidCylindre(50, 30, 20, 1, true);
-        glPopMatrix();*/
-        
+        glPopMatrix();
+#else
         glPushMatrix();
-            glColor3fv(couleurBlanc(0));
-            //glTranslatef(0, 26/2, 0);
+            glColor3fv(couleurBlanc(1));
+            glTranslatef(0, (50-2.78)/2, 0);
             //glScalef(100, 100, 100);
             glBindTexture(GL_TEXTURE_2D, idTextureCiel);
             glPushMatrix();
                 glTranslatef(-50, 0, 0);
-                glScalef(1, 100, 100);
+                glScalef(1, 50, 100);
                 monGlutSolidCube(1, 1);
             glPopMatrix();
             
             glPushMatrix();
                 glTranslatef(50, 0, 0);
-                glScalef(1, 100, 100);
+                glScalef(1, 50, 100);
                 monGlutSolidCube(1, 1);
             glPopMatrix();
             
             glPushMatrix();
                 glRotatef(90, 0, 1, 0);
                 glTranslatef(-50, 0, 0);
-                glScalef(1, 100, 100);
+                glScalef(1, 50, 100);
                 monGlutSolidCube(1, 1);
             glPopMatrix();
             
             glPushMatrix();
                 glRotatef(90, 0, 1, 0);
                 glTranslatef(50, 0, 0);
-                glScalef(1, 100, 100);
+                glScalef(1, 50, 100);
                 monGlutSolidCube(1, 1);
             glPopMatrix();
         glPopMatrix();
+#endif
+	remiseZero();
 	glDisable(GL_TEXTURE_2D);
 }
 
@@ -1538,8 +1555,9 @@ void display(void)
         lookAt(cameraCourante, trajectoireCourante);
         
 		glPushMatrix();
+		    glTranslatef(1, 1, -10+.5);
     		glColor4fv(couleurRouge());
-            glutSolidCube(1);
+            glutSolidSphere(.5, 50, 50);
         glPopMatrix();
         
         glPushMatrix();
@@ -1632,24 +1650,30 @@ void myinit(void) {
     glEnable(GL_NORMALIZE);
     glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
     
-	//initialisation de la lumière normale
-    //GLfloat direction[]={ 0, -1, 0};
-    GLfloat L0pos[]={ 0, 20, 0, 1};
+	//initialisation de la lumière soleil directionnel
+    GLfloat L0pos[]={ 5, 5, 5, 1};
     GLfloat L0dif[]={ 1, 1, 1};
-    //GLfloat attenuation = 1;
-    //GLfloat langle = 180;
     
     //position et direction
     glLightfv(GL_LIGHT0, GL_POSITION, L0pos);
-    //glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, direction);
-    
-    //couleur
     glLightfv(GL_LIGHT0, GL_DIFFUSE, L0dif);
     glLightfv(GL_LIGHT0, GL_SPECULAR, L0dif);
     
-    //parametres avances
-    //glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, langle); 
-    //glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, attenuation);
+    //spot
+    GLfloat attenuation = 0;
+    GLfloat langle = 10;
+    GLfloat L3pos[]={ 1, 1, -10, 1};
+    GLfloat L3dif[]={ 1, 1, 1 };
+    GLfloat direction[]={ 0, 0, 1};
+    
+    glLightfv(GL_LIGHT3, GL_POSITION, L3pos);
+    glLightfv(GL_LIGHT3, GL_DIFFUSE, L3dif);
+    glLightfv(GL_LIGHT3, GL_SPECULAR, L3dif);
+    
+    //parametres avances 
+    //glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, direction);
+    //glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, langle); 
+    //glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, attenuation);
 	
     //initialisation des variables dépendant de la caméra
     resetDataLibre();
@@ -1661,9 +1685,6 @@ void myinit(void) {
     
     //pour la trajectoire de la caméra
     trajectoireCourante = &trajectoireLibre;
-    
-    //souris
-    //doActionSouris = &doAction;
 } 
 
 void special(int key,int x,int y) {
@@ -1676,6 +1697,10 @@ void clavier(unsigned char touche,int x,int y)
     //lumière
 	switch (touche)
 	{
+	case 'k':
+        activerDesactiverSpot();
+        glutPostRedisplay();
+		break;
 	case 'l':
 		activerDesactiverSoleil();
         glutPostRedisplay();
