@@ -53,6 +53,8 @@ void (*idleFunc)() = NULL;
 GLuint idTextureHerbe;
 GLuint idTextureCiel;
 
+void initLumiere();
+
 void monte()
 {
 	up = 0.03;
@@ -1471,7 +1473,6 @@ void creerTerrain()
             monGlutSolidCube(1, 10);
         glPopMatrix();
         
-
 //ici test == 1 donc on est dans le else 
 //utilisé juste pour voir la différence
 //bien sur selon les murs la lumière est différente
@@ -1546,6 +1547,7 @@ void display(void)
     		glRotatef(angley,0.0F,1.0F,0.0F);
     		glRotatef(anglez,0.0F,0.0F,1.0F);
         }
+        
         //cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
         /*gluLookAt   (
                         dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], 
@@ -1553,9 +1555,9 @@ void display(void)
                         0.0, 1.0, 0.0
                     );*/
         lookAt(cameraCourante, trajectoireCourante);
+        initLumiere();
         
 		glPushMatrix();
-		    glTranslatef(1, 1, -10+.5);
     		glColor4fv(couleurRouge());
             glutSolidSphere(.5, 50, 50);
         glPopMatrix();
@@ -1597,6 +1599,34 @@ void display(void)
 	
 	glFlush();
 	glutSwapBuffers();
+}
+
+void initLumiere()
+{
+	//initialisation de la lumière soleil directionnel
+    GLfloat L0pos[]={ 5, 5, 5, 1};
+    GLfloat L0dif[]={ 1, 1, 1};
+    
+    //position et direction
+    glLightfv(GL_LIGHT0, GL_POSITION, L0pos);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, L0dif);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, L0dif);
+    
+    //spot
+    GLfloat attenuation = 0;
+    GLfloat langle = 20;
+    GLfloat L3pos[]={ 0, 1, -10, 1};
+    GLfloat L3dif[]={ 1, 1, 1 };
+    GLfloat direction[]={1, 1, -1};
+    
+    glLightfv(GL_LIGHT3, GL_POSITION, L3pos);
+    glLightfv(GL_LIGHT3, GL_DIFFUSE, L3dif);
+    glLightfv(GL_LIGHT3, GL_SPECULAR, L3dif);
+    
+    //parametres avances 
+    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, direction);
+    glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, langle); 
+    glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, attenuation);
 }
 
 void idle()
@@ -1650,31 +1680,6 @@ void myinit(void) {
     glEnable(GL_NORMALIZE);
     glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
     
-	//initialisation de la lumière soleil directionnel
-    GLfloat L0pos[]={ 5, 5, 5, 1};
-    GLfloat L0dif[]={ 1, 1, 1};
-    
-    //position et direction
-    glLightfv(GL_LIGHT0, GL_POSITION, L0pos);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, L0dif);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, L0dif);
-    
-    //spot
-    GLfloat attenuation = 0;
-    GLfloat langle = 10;
-    GLfloat L3pos[]={ 1, 1, -10, 1};
-    GLfloat L3dif[]={ 1, 1, 1 };
-    GLfloat direction[]={ 0, 0, 1};
-    
-    glLightfv(GL_LIGHT3, GL_POSITION, L3pos);
-    glLightfv(GL_LIGHT3, GL_DIFFUSE, L3dif);
-    glLightfv(GL_LIGHT3, GL_SPECULAR, L3dif);
-    
-    //parametres avances 
-    //glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, direction);
-    //glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, langle); 
-    //glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, attenuation);
-	
     //initialisation des variables dépendant de la caméra
     resetDataLibre();
     
