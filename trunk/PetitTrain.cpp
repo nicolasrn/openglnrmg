@@ -1457,10 +1457,15 @@ void creerRail()
     glPopMatrix();
 }
 
+void monNormal(float nx, float ny, float nz)
+{
+    glNormal3f(nx, ny, nz);
+}
+
 void creerTerrain()
 {
 	glEnable(GL_TEXTURE_2D);
-    	GLfloat cDiffuse[] = {.8, .8, .8, 1};
+    	GLfloat cDiffuse[] = {.1, .1, .1, 0};
         glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
         glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cDiffuse);
         glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 10);
@@ -1468,9 +1473,12 @@ void creerTerrain()
         glPushMatrix();
             glColor3fv(couleurBlanc(1));
             glTranslatef(0, -1.78, 0);
-            glScalef(100, 1, 100);
+            glRotatef(90, 0, 0, 1);
+            glScalef(1, 100, 100);
+            
             glBindTexture(GL_TEXTURE_2D, idTextureHerbe);
-            monGlutSolidCube(1, 10);
+            normalf = &monNormal;
+            monGlutSolidCube(1, 10, normalf, 0, 0, 1);
         glPopMatrix();
         
 //ici test == 1 donc on est dans le else 
@@ -2419,6 +2427,7 @@ void creerMouton()
           
      glPopMatrix();
 }
+
 void display(void)
 { 
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -2450,6 +2459,7 @@ void display(void)
                         depCamX, depCamY, depCamZ, 
                         0.0, 1.0, 0.0
                     );*/
+        //glLoadIdentity();
         lookAt(cameraCourante, trajectoireCourante);
         initLumiere();
         
