@@ -1457,11 +1457,6 @@ void creerRail()
     glPopMatrix();
 }
 
-void monNormal(float nx, float ny, float nz)
-{
-    glNormal3f(nx, ny, nz);
-}
-
 void creerTerrain()
 {
 	glEnable(GL_TEXTURE_2D);
@@ -1473,12 +1468,11 @@ void creerTerrain()
         glPushMatrix();
             glColor3fv(couleurBlanc(1));
             glTranslatef(0, -1.78, 0);
-            glRotatef(90, 0, 0, 1);
-            glScalef(1, 100, 100);
+            //glRotatef(90, 0, 1, 0);
+            glScalef(100, 1, 100);
             
             glBindTexture(GL_TEXTURE_2D, idTextureHerbe);
-            normalf = &monNormal;
-            monGlutSolidCube(1, 10, normalf, 0, 0, 1);
+            monGlutSolidCube(1, 10, &NormalSol);
         glPopMatrix();
         
 //ici test == 1 donc on est dans le else 
@@ -2660,6 +2654,7 @@ void myinit(void) {
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE);
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_AUTO_NORMAL);
     glEnable(GL_NORMALIZE);
     glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
     

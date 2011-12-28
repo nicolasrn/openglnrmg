@@ -1,6 +1,35 @@
 #include "ModuleMonGlutSolidCube.h"
 
-void (*normalf)(GLfloat nx, GLfloat ny, GLfloat nz) = NULL;
+void Normal(int i, int j)
+{
+    static GLfloat n[6][3] =
+    {
+        {-1.0, 0.0, 0.0},
+        {0.0, 1.0, 0.0},
+        {1.0, 0.0, 0.0},
+        {0.0, -1.0, 0.0},
+        {0.0, 0.0, 1.0},
+        {0.0, 0.0, -1.0}
+    };
+    
+    glNormal3fv(&n[i][j]);
+}
+
+void NormalSol(int i, int j)
+{
+    static GLfloat n[6][3] =
+    {
+        {0.0, -1.0, 1.0},
+        {0.0, -1.0, 1.0},
+        {0.0, -1.0, 1.0},
+        {0.0, -1.0, 1.0},
+        {0.0, -1.0, 1.0},
+        {0.0, -1.0, 1.0}
+    };
+    
+    glNormal3fv(&n[i][j]);
+    //glNormal3f(0, -1, 1);
+}
 
 void loadJpegImage(char *fichier, GLuint *numtex)
 {
@@ -53,17 +82,8 @@ void loadJpegImage(char *fichier, GLuint *numtex)
     delete [] image;
 }
 
-static void drawBox(GLfloat size, GLenum type, int xTexture, int yTexture, void (*normalf)(GLfloat, GLfloat, GLfloat), GLfloat nx, GLfloat ny, GLfloat nz)
+static void drawBox(GLfloat size, GLenum type, int xTexture, int yTexture, void (*normalf)(int, int))
 {
-    static GLfloat n[6][3] =
-    {
-        {-1.0, 0.0, 0.0},
-        {0.0, 1.0, 0.0},
-        {1.0, 0.0, 0.0},
-        {0.0, -1.0, 0.0},
-        {0.0, 0.0, 1.0},
-        {0.0, 0.0, -1.0}
-    };
     static GLint faces[6][4] =
     {
         {0, 1, 2, 3},
@@ -86,28 +106,25 @@ static void drawBox(GLfloat size, GLenum type, int xTexture, int yTexture, void 
     for (i = 5; i >= 0; i--) 
     {
         glBegin(type);
-        if (normalf != NULL)
-            normalf(nx, ny, nz);
-        else
-            glNormal3fv(&n[i][0]);
-        glTexCoord2i(0, 0); 
-        glVertex3fv(&v[faces[i][0]][0]); 
-        glTexCoord2i(xTexture, 0); 
-        glVertex3fv(&v[faces[i][1]][0]); 
-        glTexCoord2i(xTexture, yTexture); 
-        glVertex3fv(&v[faces[i][2]][0]); 
-        glTexCoord2i(0, yTexture); 
-        glVertex3fv(&v[faces[i][3]][0]); 
+                                                normalf(i, 0);
+            
+            glTexCoord2i(0, 0);                 glVertex3fv(&v[faces[i][0]][0]); 
+            
+            glTexCoord2i(xTexture, 0);          glVertex3fv(&v[faces[i][1]][0]); 
+            
+            glTexCoord2i(xTexture, yTexture);   glVertex3fv(&v[faces[i][2]][0]); 
+            
+            glTexCoord2i(0, yTexture);          glVertex3fv(&v[faces[i][3]][0]); 
         glEnd();
     }
 }
 
-void monGlutSolidCube(GLdouble size, int xTexture, int yTexture, void (*normalf)(GLfloat, GLfloat, GLfloat), GLfloat nx, GLfloat ny, GLfloat nz) 
+void monGlutSolidCube(GLdouble size, int xTexture, int yTexture, void (*normalf)(int, int)) 
 {
-    drawBox(size, GL_QUADS, xTexture, yTexture, normalf, nx, ny, nz);
+    drawBox(size, GL_QUADS, xTexture, yTexture, normalf);
 }
 
-void monGlutSolidCube(GLdouble size, int xTexture, void (*normalf)(GLfloat, GLfloat, GLfloat), GLfloat nx, GLfloat ny, GLfloat nz)
+void monGlutSolidCube(GLdouble size, int xTexture, void (*normalf)(int, int))
 {
-    drawBox(size, GL_QUADS, xTexture, xTexture, normalf, nx, ny, nz);
+    drawBox(size, GL_QUADS, xTexture, xTexture, normalf);
 }
