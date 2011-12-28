@@ -307,6 +307,7 @@ void creerPhares()
     
     glLightfv(GL_LIGHT2,GL_DIFFUSE,L1dif);
     glLightfv(GL_LIGHT2,GL_SPECULAR,L1spec);
+    
     GLfloat direction[]={1, -.02, 0};
     
     float lpos2[] = {-1.93, -0.4, -0.672};
@@ -348,7 +349,7 @@ void creerPhares()
     	glPushMatrix();
             glPushMatrix();
             #if defined(test) && test
-                glRotatef(180, 0, 1, 0);
+                glRotatef(180 - angle, 0, 1, 0);
             #endif
                 glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
                 glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
@@ -397,7 +398,7 @@ void creerPhares()
     	glPushMatrix();
             glPushMatrix();
             #if defined(test) && test
-                glRotatef(180, 0, 1, 0);
+                glRotatef(180 - angle, 0, 1, 0);
             #endif
                 glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
                 glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
@@ -1460,7 +1461,7 @@ void creerRail()
 void creerTerrain()
 {
 	glEnable(GL_TEXTURE_2D);
-    	GLfloat cDiffuse[] = {.1, .1, .1, 0};
+    	GLfloat cDiffuse[] = {1, 1, 1, 0};
         glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
         glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cDiffuse);
         glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 10);
@@ -2650,8 +2651,8 @@ void sonnerCloche()
 
 void myinit(void) { 
 	glClearColor(1.0,1.0,1.0,1.0);
-	glShadeModel(GL_SMOOTH);
-	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE);
+	glShadeModel(GL_FLAT);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_AUTO_NORMAL);
