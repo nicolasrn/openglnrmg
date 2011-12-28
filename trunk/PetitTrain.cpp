@@ -2422,7 +2422,127 @@ void creerMouton()
           
      glPopMatrix();
 }
-
+ void creerMaison()
+ {
+      glPushMatrix();
+          glPushMatrix();
+            glColor4fv(newCouleur(1,0.9568,0.55294,1));
+    		glScalef(6,4,4);
+    		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          //le toit
+          glPushMatrix();
+            glColor4fv(newCouleur(0.6574,0.33464,0.00787,1));
+            glTranslatef(0,2,0);
+            glRotatef(45,1,0,0);
+    		glScalef(5.99,3,3);
+    		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          //la cheminée
+          glPushMatrix();
+            glColor4fv(newCouleur(1,0.9568,0.55294,1));
+            glTranslatef(2,3.2,0.5);
+    		glScalef(0.6,2.5,0.6);
+    		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          glPushMatrix();
+            glColor4fv(newCouleur(1,0.9568,0.55294,1));
+            glTranslatef(2,4.6,0.5);
+    		glScalef(0.8,0.2,0.8);
+    		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          glPushMatrix();
+            glColor4fv(couleurNoir());
+            glTranslatef(2,3.46,0.5);
+    		glScalef(0.5,2.5,0.5);
+    		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          //la porte
+          glPushMatrix();
+            glColor4fv(newCouleur(0.59055,0.51574,0.92913,1));
+            glTranslatef(0,0,1.91);
+    		glScalef(1.5,2.5,0.2);
+    		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          glPushMatrix();
+             glColor4fv(couleurNoir());
+             glTranslatef(-0.5, 0.2,1.91);
+             gluSphere(param,0.2,20,20);
+          glPopMatrix();
+          
+          //les fenetres
+          glPushMatrix();
+            glColor4fv(newCouleur(0.59055,0.51574,0.92913,1));
+            glTranslatef(2,0.5,1.91);
+    		glScalef(1.5,1.5,0.2);
+    		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          glPushMatrix();
+            glColor4fv(newCouleur(0.9843,0.98823,0.98039,1));
+            glTranslatef(2,0.5,1.92);
+    		glScalef(1.3,1.3,0.2);
+    		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          glPushMatrix();
+            glColor4fv(newCouleur(0.59055,0.51574,0.92913,1));
+            glTranslatef(-2,0.5,1.91);
+    		glScalef(1.5,1.5,0.2);
+    		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          glPushMatrix();
+            glColor4fv(newCouleur(0.9843,0.98823,0.98039,1));
+            glTranslatef(-2,0.5,1.92);
+    		glScalef(1.3,1.3,0.2);
+    		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          //un sapin devant
+          glPushMatrix();
+            glTranslatef(-3.2, 1.4, 3);
+           	glScalef(1.15,1.7,1.15);
+            creerSapin();
+        glPopMatrix();
+          
+      glPopMatrix();
+ }
+ 
+ 
+ void creerTunnel()
+ {
+      glPushMatrix();
+          glPushMatrix();
+                glColor4fv(newCouleur(1,0.9568,0.55294,1));
+                glTranslatef(0, 0.5, -2);
+        		glScalef(7,4,0.2);
+        		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          glPushMatrix();
+                glColor4fv(newCouleur(1,0.9568,0.55294,1));
+                glTranslatef(0, 0.5, 2);
+        		glScalef(7,4,0.2);
+        		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          glPushMatrix();
+                glColor4fv(newCouleur(1,0.9568,0.55294,1));
+                glTranslatef(0, 2.5, 0);
+        		glScalef(7,0.2,4.2);
+        		glutSolidCube(1.0);             
+          glPopMatrix();
+          
+          
+      glPopMatrix();
+}
 void display(void)
 { 
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -2467,7 +2587,7 @@ void display(void)
             creerTerrain();
         glPopMatrix();
         
-        //un peu de décor  des sapins
+        //décorations :  des sapins
         glPushMatrix();
             glTranslatef(-25, 1.4, 0);
            	glScalef(1.15,1.7,1.15);
@@ -2501,47 +2621,94 @@ void display(void)
             creerSapin();
         glPopMatrix();
         
-        //et des moutons
+        ///////////////////////////////////////////////////////////////
         glPushMatrix();
-             glTranslatef(0, 0.125, -5);
+            glTranslatef(23, 1.4, 20);
+           	glScalef(1.15,1.7,1.15);
+            creerSapin();
+        glPopMatrix();
+        
+        glPushMatrix();
+            glTranslatef(25, 0.5, 24);
+            creerSapin();
+        glPopMatrix();
+        
+        glPushMatrix();
+            glTranslatef(25, 1.4, 22);
+           	glScalef(1.15,1.7,1.15);
+            creerSapin();
+        glPopMatrix();
+        
+        glPushMatrix();
+            glTranslatef(27, 0.5, 25);
+            creerSapin();
+        glPopMatrix();
+        
+        glPushMatrix();
+            glTranslatef(28, 1.4, 22);
+           	glScalef(1.15,1.7,1.15);
+            creerSapin();
+        glPopMatrix();
+        
+        glPushMatrix();
+            glTranslatef(28, 0.5, 25);
+            creerSapin();
+        glPopMatrix();
+        
+        //décorations: des moutons
+        glPushMatrix();
+             glTranslatef(0, -0.7, -5);
              glRotatef(90,0,1,0);
              glScalef(0.25,0.25,0.25);
              creerMouton();
         glPopMatrix();
         
         glPushMatrix();
-             glTranslatef(-2, 0.125, -3);
+             glTranslatef(-2, -0.7, -3);
              glRotatef(33,0,1,0);
              glScalef(0.25,0.25,0.25);
              creerMouton();
         glPopMatrix();
         
         glPushMatrix();
-             glTranslatef(2, 0.125, -2);
+             glTranslatef(2, -0.7, -2);
              glRotatef(20,0,1,0);
              glScalef(0.25,0.25,0.25);
              creerMouton();
         glPopMatrix();
         
         glPushMatrix();
-             glTranslatef(7, 0.125, -5);
+             glTranslatef(7, -0.7, -5);
              glRotatef(-20,0,1,0);
              glScalef(0.25,0.25,0.25);
              creerMouton();
         glPopMatrix();
         
         glPushMatrix();
-             glTranslatef(7, 0.125, -8);
+             glTranslatef(7, -0.7, -8);
              glRotatef(-46,0,1,0);
              glScalef(0.25,0.25,0.25);
              creerMouton();
         glPopMatrix();
         
         glPushMatrix();
-             glTranslatef(-7, 0.125, -8);
+             glTranslatef(-7, -0.7, -8);
              glRotatef(33,0,1,0);
              glScalef(0.25,0.25,0.25);
              creerMouton();
+        glPopMatrix();
+        
+        //décoration : maison
+        glPushMatrix();
+            glTranslatef(19, 0, -19);
+            glRotatef(-45,0,1,0);
+            creerMaison();
+        glPopMatrix();
+        
+        //décoration : tunnel
+        glPushMatrix();
+            glTranslatef(0, 0, 19);
+            creerTunnel();
         glPopMatrix();
         
         //creation du train dans la scene au point 0, 0, 0
