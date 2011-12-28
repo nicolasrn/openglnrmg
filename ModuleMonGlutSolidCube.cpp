@@ -1,5 +1,7 @@
 #include "ModuleMonGlutSolidCube.h"
 
+void (*normalf)(GLfloat nx, GLfloat ny, GLfloat nz) = NULL;
+
 void loadJpegImage(char *fichier, GLuint *numtex)
 {
     struct jpeg_decompress_struct cinfo;
@@ -51,7 +53,7 @@ void loadJpegImage(char *fichier, GLuint *numtex)
     delete [] image;
 }
 
-static void drawBox(GLfloat size, GLenum type, int xTexture, int yTexture)
+static void drawBox(GLfloat size, GLenum type, int xTexture, int yTexture, void (*normalf)(GLfloat, GLfloat, GLfloat), GLfloat nx, GLfloat ny, GLfloat nz)
 {
     static GLfloat n[6][3] =
     {
@@ -84,7 +86,10 @@ static void drawBox(GLfloat size, GLenum type, int xTexture, int yTexture)
     for (i = 5; i >= 0; i--) 
     {
         glBegin(type);
-        glNormal3fv(&n[i][0]);
+        if (normalf != NULL)
+            normalf(nx, ny, nz);
+        else
+            glNormal3fv(&n[i][0]);
         glTexCoord2i(0, 0); 
         glVertex3fv(&v[faces[i][0]][0]); 
         glTexCoord2i(xTexture, 0); 
@@ -97,12 +102,12 @@ static void drawBox(GLfloat size, GLenum type, int xTexture, int yTexture)
     }
 }
 
-void monGlutSolidCube(GLdouble size, int xTexture, int yTexture) 
+void monGlutSolidCube(GLdouble size, int xTexture, int yTexture, void (*normalf)(GLfloat, GLfloat, GLfloat), GLfloat nx, GLfloat ny, GLfloat nz) 
 {
-    drawBox(size, GL_QUADS, xTexture, yTexture);
+    drawBox(size, GL_QUADS, xTexture, yTexture, normalf, nx, ny, nz);
 }
 
-void monGlutSolidCube(GLdouble size, int xTexture)
+void monGlutSolidCube(GLdouble size, int xTexture, void (*normalf)(GLfloat, GLfloat, GLfloat), GLfloat nx, GLfloat ny, GLfloat nz)
 {
-    drawBox(size, GL_QUADS, xTexture, xTexture);
+    drawBox(size, GL_QUADS, xTexture, xTexture, normalf, nx, ny, nz);
 }

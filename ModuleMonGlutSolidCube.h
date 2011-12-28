@@ -56,12 +56,14 @@ OpenGL(TM) is a trademark of Silicon Graphics, Inc.
 #include <jpeglib.h>
 #include <jerror.h>
 
+extern void (*normalf)(GLfloat nx, GLfloat ny, GLfloat nz);
+
 void loadJpegImage(char *fichier, GLuint *numtex);
 
-static void drawBox(GLfloat size, GLenum type, int xTexture, int yTexture);
+static void drawBox(GLfloat size, GLenum type, int xTexture, int yTexture, void (*normalf)(GLfloat, GLfloat, GLfloat), GLfloat nx = 0, GLfloat ny = 0, GLfloat nz = 0);
 
-void monGlutSolidCube(GLdouble size, int xTexture, int yTexture);
+void monGlutSolidCube(GLdouble size, int xTexture, int yTexture, void (*normalf)(GLfloat, GLfloat, GLfloat) = NULL, GLfloat nx = 0, GLfloat ny = 0, GLfloat nz = 0);
 
-void monGlutSolidCube(GLdouble size, int xTexture = 100);
+void monGlutSolidCube(GLdouble size, int xTexture = 100, void (*normalf)(GLfloat, GLfloat, GLfloat) = NULL, GLfloat nx = 0, GLfloat ny = 0, GLfloat nz = 0);
 
 #endif
