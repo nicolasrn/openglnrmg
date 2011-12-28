@@ -12,7 +12,7 @@ void Normal(int i, int j)
         {0.0, 0.0, -1.0}
     };
     
-    glNormal3fv(&n[i][j]);
+    glNormal3fv(&n[i][j]); 
 }
 
 void NormalSol(int i, int j)
@@ -28,7 +28,9 @@ void NormalSol(int i, int j)
     };
     
     glNormal3fv(&n[i][j]);
-    //glNormal3f(0, -1, 1);
+    //glNormal3f(0, 0, 1);
+    
+    //glNormal3fv(&n[i][j]);
 }
 
 void loadJpegImage(char *fichier, GLuint *numtex)
