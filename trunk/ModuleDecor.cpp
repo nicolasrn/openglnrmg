@@ -23,7 +23,71 @@ void creerRail()
         gluDisk(param, min, max, 100, 8);
     glPopMatrix();
 }
-
+/*
+void creerTerrain(GLuint *tabTexture)
+{
+    if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
+        glPushMatrix();
+            glColor3fv(couleurBlanc(1));
+            glTranslatef(0, -2.1, 0);
+            //glRotatef(90, 0, 0, 1);
+            glRotatef(90, 1, 0, 0);
+            //glScalef(100, 100, 100);
+            
+            glBindTexture(GL_TEXTURE_2D, tabTexture[0]);
+            //monGlutSolidCube(1, 10, &NormalSol);
+            creerSol(100);
+        glPopMatrix();
+        
+//ici test == 1 donc on est dans le else 
+//utilisé juste pour voir la différence
+//bien sur selon les murs la lumière est différente
+#if defined(testTerrain) && !testTerrain
+        glPushMatrix();
+            glColor3fv(couleurBlanc(0));
+            glTranslatef(0, 26/2, 0);
+            glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
+            //glTranslatef(50, 0, 0);
+            //glScalef(1, 100, 100);
+            //monGlutSolidCube(100, 5);
+            solidCylindre(50, 30, 20, 1, true);
+        glPopMatrix();
+#else
+        glPushMatrix();
+            glColor3fv(couleurBlanc(1));
+            glTranslatef(0, 22.5, 0);
+            //glScalef(100, 100, 100);
+            glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
+            glPushMatrix();
+                glTranslatef(-50, 0, 0);
+                glScalef(1, 50, 100);
+                monGlutSolidCube(1, 1); //Ouest
+            glPopMatrix();
+            
+            glPushMatrix();
+                glTranslatef(50, 0, 0);
+                glScalef(1, 50, 100);
+                monGlutSolidCube(1, 1); //Est
+            glPopMatrix();
+            
+            glPushMatrix();
+                glRotatef(90, 0, 1, 0);
+                glTranslatef(-50, 0, 0);
+                glScalef(1, 50, 100);
+                monGlutSolidCube(1, 1); //Sud
+            glPopMatrix();
+            
+            glPushMatrix();
+                glRotatef(90, 0, 1, 0);
+                glTranslatef(50, 0, 0);
+                glScalef(1, 50, 100);
+                monGlutSolidCube(1, 1); //Nord
+            glPopMatrix();
+        glPopMatrix();
+#endif
+	if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
+}
+*/
 void creerTerrain(GLuint *tabTexture)
 {
     if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
