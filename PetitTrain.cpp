@@ -19,8 +19,7 @@
 #include "ModuleMonGlutSolidCube.h"
 #include "MonModuleSouris.h"
 #include "MonModuleCamera.h"
-
-#define test 1
+#include "ModuleDecor.h"
 
 using namespace std;
 
@@ -35,7 +34,6 @@ float PI = 3.14;//159265;
 //static float monSinus[360];
 int angleCloche = 4;
 int tempcompt = 1;
-GLUquadric* param = gluNewQuadric(); 
 
 //dépend de lookAt
 //static int x=1, y=1, z=1;
@@ -50,10 +48,7 @@ Camera *cameraCourante;*/
 void (*idleFunc)() = NULL;
 
 //texture
-GLuint idTextureHerbe;
-GLuint idTextureCiel;
-
-void initLumiere();
+GLuint *tabTexture;
 
 void monte()
 {
@@ -348,7 +343,7 @@ void creerPhares()
     	
     	glPushMatrix();
             glPushMatrix();
-            #if defined(test) && test
+            #if defined(testTerrain) && testTerrain
                 glRotatef(180 - angle, 0, 1, 0);
             #endif
                 glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
@@ -397,7 +392,7 @@ void creerPhares()
     	
     	glPushMatrix();
             glPushMatrix();
-            #if defined(test) && test
+            #if defined(testTerrain) && testTerrain
                 glRotatef(180 - angle, 0, 1, 0);
             #endif
                 glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
@@ -1437,1315 +1432,6 @@ void creerWagon()
 	glPopMatrix();
 }
 
-void creerRail()
-{
-    double max = 20;
-    double min = max - 0.16;
-    glPushMatrix();
-        glColor3fv(couleurBlanc());
-        glTranslatef(0, -1.27, 19);
-        glRotatef(90, 1, 0, 0);
-        gluDisk(param, min, max, 100, 8);
-    glPopMatrix();
-    
-    max = 18 + .16;
-    min = max - 0.16;
-    glPushMatrix();
-        glColor3fv(couleurBlanc());
-        glTranslatef(0, -1.27, 19);
-        glRotatef(90, 1, 0, 0);
-        gluDisk(param, min, max, 100, 8);
-    glPopMatrix();
-}
-
-void creerTerrain()
-{
-	glEnable(GL_TEXTURE_2D);
-    	GLfloat cDiffuse[] = {1, 1, 1, 0};
-        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
-        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cDiffuse);
-        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 10);
-        
-        glPushMatrix();
-            glColor3fv(couleurBlanc(1));
-            glTranslatef(0, -1.78, 0);
-            //glRotatef(90, 0, 1, 0);
-            glScalef(100, 1, 100);
-            
-            glBindTexture(GL_TEXTURE_2D, idTextureHerbe);
-            monGlutSolidCube(1, 10, &NormalSol);
-        glPopMatrix();
-        
-//ici test == 1 donc on est dans le else 
-//utilisé juste pour voir la différence
-//bien sur selon les murs la lumière est différente
-#if defined(test) && !test
-        glPushMatrix();
-            glColor3fv(couleurBlanc(0));
-            glTranslatef(0, 26/2, 0);
-            glBindTexture(GL_TEXTURE_2D, idTextureCiel);
-            //glTranslatef(50, 0, 0);
-            //glScalef(1, 100, 100);
-            //monGlutSolidCube(100, 5);
-            solidCylindre(50, 30, 20, 1, true);
-        glPopMatrix();
-#else
-        glPushMatrix();
-            glColor3fv(couleurBlanc(1));
-            glTranslatef(0, (50-2.78)/2, 0);
-            //glScalef(100, 100, 100);
-            glBindTexture(GL_TEXTURE_2D, idTextureCiel);
-            glPushMatrix();
-                glTranslatef(-50, 0, 0);
-                glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1);
-            glPopMatrix();
-            
-            glPushMatrix();
-                glTranslatef(50, 0, 0);
-                glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1);
-            glPopMatrix();
-            
-            glPushMatrix();
-                glRotatef(90, 0, 1, 0);
-                glTranslatef(-50, 0, 0);
-                glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1);
-            glPopMatrix();
-            
-            glPushMatrix();
-                glRotatef(90, 0, 1, 0);
-                glTranslatef(50, 0, 0);
-                glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1);
-            glPopMatrix();
-        glPopMatrix();
-#endif
-	remiseZero();
-	glDisable(GL_TEXTURE_2D);
-}
-
-void creerSapin()
-{
-     glPushMatrix();
-         glPushMatrix();
-        		glColor4fv(newCouleur(0.03543,0.322834,0.15748,1));
-        		glRotatef(90, 1, 0, 0);  
-        		gluCylinder(param,0.5,1,1,20,1);
-     	 glPopMatrix();
-     	 
-     	 glPushMatrix();
-        		glColor4fv(newCouleur(0.03543,0.322834,0.15748,1));
-        		glTranslatef(0, 1, 0); 
-                glRotatef(90, 1, 0, 0);
-                gluCylinder(param,0.3,0.7,1,20,1);
-     	 glPopMatrix();
-     	 
-     	 glPushMatrix();
-        		glColor4fv(newCouleur(0.03543,0.322834,0.15748,1));
-        		glTranslatef(0, 2, 0); 
-                glRotatef(90, 1, 0, 0);
-                gluCylinder(param,0,0.5,1,20,1);
-     	 glPopMatrix();
-     	 
-     	 glPushMatrix();
-        		glColor4fv(newCouleur(0.34645,0.1614,0,1));
-        		glTranslatef(0, -0.5, 0); 
-                glRotatef(90, 1, 0, 0);
-                gluCylinder(param,0.2,0.2,1,20,1);
-     	 glPopMatrix();
-     	 
-     	 glPushMatrix();
-        		glColor4fv(newCouleur(0.34645,0.1614,0,1));
-        		glTranslatef(0, -1.5, 0); 
-                glRotatef(90, 1, 0, 0);
-                gluCylinder(param,0.18,0.6,0.1,20,1);
-     	 glPopMatrix();
-   	 glPopMatrix();
-}
-
-
-void creerMouton()
-{
-     glPushMatrix();
-     
-         glPushMatrix();
-             glColor4fv(couleurRose());
-             glScalef(1.6,1.1,1);
-             //glTranslatef(0, 0.4, 0.6);
-             gluSphere(param,1,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0, 1, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0, -1, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.4, 0.95, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.4, -0.95, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.4, 0.95, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.4, -0.95, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.2, 0.9, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.2, -0.9, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.2, 0.9, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.2, -0.9, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.2, 0.9, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.2, -0.9, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.2, 0.9, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.2, -0.9, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.6, 0.85, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.6, -0.85, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.6, 0.85, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.6, -0.85, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.6, 0.85, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.6, -0.85, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.6, 0.85, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.6, -0.85, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1, 0.75, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1, -0.75, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1, 0.75, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1, -0.75, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1, 0.75, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1, -0.75, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1, 0.75, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1, -0.75, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.4, 0.6, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.4, -0.6, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.4, 0.6, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.4, -0.6, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.4, 0.6, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.4, -0.6, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.4, 0.6, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.4, -0.6, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-     
-     glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.8, 0.4, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.8, -0.4, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.8, 0.4, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.8, -0.4, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.8, 0.4, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.8, -0.4, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.8, 0.4, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.8, -0.4, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.8, 0.85, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.8, -0.85, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.8, 0.85, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.8, -0.85, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.2, 0.7, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.2, -0.7, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.2, 0.7, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.2, -0.7, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.6, 0.55, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.6, -0.55, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.6, 0.55, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.6, -0.55, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(2, 0, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-2, 0, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.9, 0, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.9, 0, 0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.9, 0, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.9, 0, -0.4);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0, -0.8, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0, 0.8, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0, -0.8, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0, 0.8, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.4, -0.7, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.4, 0.7, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.4, -0.7, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.4, 0.7, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.4, -0.7, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.4, 0.7, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.4, -0.7, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.4, 0.7, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.8, -0.7, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.8, 0.7, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.8, -0.7, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.8, 0.7, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.8, -0.7, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.8, 0.7, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.8, -0.7, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.8, 0.7, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          
-           glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.2, -0.6, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.2, 0.6, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.2, -0.6, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.2, 0.6, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.2, -0.6, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.2, 0.6, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.2, -0.6, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.2, 0.6, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          
-          
-           glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.6, -0.5, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.6, 0.5, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.6, -0.5, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.6, 0.5, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.6, -0.5, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.6, 0.5, 0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.6, -0.5, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.6, 0.5, -0.6);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.4, 0, 0.7);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.4, 0, 0.7);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.4, 0, -0.7);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1.4, 0, -0.7);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-           glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1, 0.2, 0.8);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1, 0.2, 0.8);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1, 0.2, -0.8);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1, 0.2, -0.8);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-           glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1, -0.2, 0.8);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1, -0.2, 0.8);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1, -0.2, -0.8);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-1, -0.2, -0.8);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          
-           glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.6, 0.2, 0.9);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.6, 0.2, 0.9);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.6, 0.2, -0.9);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.6, 0.2, -0.9);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-           glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.6, -0.2, 0.9);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.6, -0.2, 0.9);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0.6, -0.2, -0.9);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(-0.6, -0.2, -0.9);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0, 0.2, 1);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0, -0.2, 1);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0, 0.2, -1);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(0, -0.2, -1);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          
-          //tête
-          
-          glPushMatrix();
-             glColor4fv(couleurRose());
-             glScalef(1.6,1.1,1);
-             glTranslatef(1.3, 1.1, 0);
-             gluSphere(param,0.6,20,20);
-          glPopMatrix();
-          
-          //oreilles
-          
-          glPushMatrix();
-             glColor4fv(couleurRose());
-             glTranslatef(1.7, 1.6, 0.5);
-             glRotatef(45, 1,0,0);
-             glScalef(0.7,2,1);             
-             gluSphere(param,0.2,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurRose());
-             glTranslatef(1.7, 1.6, -0.5);
-             glRotatef(-45, 1,0,0);
-             glScalef(0.7,2,1);             
-             gluSphere(param,0.2,20,20);
-          glPopMatrix();
-          
-          //yeux
-          glPushMatrix();
-             glColor4fv(couleurNoir());
-             glTranslatef(2.2, 1.5, 0.5);
-             gluSphere(param,0.1,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurNoir());
-             glTranslatef(2.2, 1.5, -0.5);           
-             gluSphere(param,0.1,20,20);
-          glPopMatrix();
-          
-          //cheveux
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.7, 1.6, 0);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.4, 1.3, 0.2);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurBlanc());
-             glTranslatef(1.4, 1.3, -0.2);
-             gluSphere(param,0.4,20,20);
-          glPopMatrix();
-          
-          //jambes
-          glPushMatrix();
-        		glColor4fv(couleurRose());
-        		glTranslatef(1, -0.9, 0.6); 
-                glRotatef(90, 1, 0, 0);
-                gluCylinder(param,0.2,0.2,1.5,20,1);
-     	 glPopMatrix();
-     	 
-     	 glPushMatrix();
-        		glColor4fv(couleurRose());
-        		glTranslatef(1, -0.9, -0.6); 
-                glRotatef(90, 1, 0, 0);
-                gluCylinder(param,0.2,0.2,1.5,20,1);
-     	 glPopMatrix();
-     	 
-     	 glPushMatrix();
-        		glColor4fv(couleurRose());
-        		glTranslatef(-1, -0.9, 0.6); 
-                glRotatef(90, 1, 0, 0);
-                gluCylinder(param,0.2,0.2,1.5,20,1);
-     	 glPopMatrix();
-     	 
-     	 glPushMatrix();
-        		glColor4fv(couleurRose());
-        		glTranslatef(-1, -0.9, -0.6); 
-                glRotatef(90, 1, 0, 0);
-                gluCylinder(param,0.2,0.2,1.5,20,1);
-     	 glPopMatrix();
-          
-          
-     glPopMatrix();
-}
- void creerMaison()
- {
-      glPushMatrix();
-          glPushMatrix();
-            glColor4fv(newCouleur(1,0.9568,0.55294,1));
-    		glScalef(6,4,4);
-    		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          //le toit
-          glPushMatrix();
-            glColor4fv(newCouleur(0.6574,0.33464,0.00787,1));
-            glTranslatef(0,2,0);
-            glRotatef(45,1,0,0);
-    		glScalef(5.99,3,3);
-    		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          //la cheminée
-          glPushMatrix();
-            glColor4fv(newCouleur(1,0.9568,0.55294,1));
-            glTranslatef(2,3.2,0.5);
-    		glScalef(0.6,2.5,0.6);
-    		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          glPushMatrix();
-            glColor4fv(newCouleur(1,0.9568,0.55294,1));
-            glTranslatef(2,4.6,0.5);
-    		glScalef(0.8,0.2,0.8);
-    		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          glPushMatrix();
-            glColor4fv(couleurNoir());
-            glTranslatef(2,3.46,0.5);
-    		glScalef(0.5,2.5,0.5);
-    		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          //la porte
-          glPushMatrix();
-            glColor4fv(newCouleur(0.59055,0.51574,0.92913,1));
-            glTranslatef(0,0,1.91);
-    		glScalef(1.5,2.5,0.2);
-    		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          glPushMatrix();
-             glColor4fv(couleurNoir());
-             glTranslatef(-0.5, 0.2,1.91);
-             gluSphere(param,0.2,20,20);
-          glPopMatrix();
-          
-          //les fenetres
-          glPushMatrix();
-            glColor4fv(newCouleur(0.59055,0.51574,0.92913,1));
-            glTranslatef(2,0.5,1.91);
-    		glScalef(1.5,1.5,0.2);
-    		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          glPushMatrix();
-            glColor4fv(newCouleur(0.9843,0.98823,0.98039,1));
-            glTranslatef(2,0.5,1.92);
-    		glScalef(1.3,1.3,0.2);
-    		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          glPushMatrix();
-            glColor4fv(newCouleur(0.59055,0.51574,0.92913,1));
-            glTranslatef(-2,0.5,1.91);
-    		glScalef(1.5,1.5,0.2);
-    		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          glPushMatrix();
-            glColor4fv(newCouleur(0.9843,0.98823,0.98039,1));
-            glTranslatef(-2,0.5,1.92);
-    		glScalef(1.3,1.3,0.2);
-    		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          //un sapin devant
-          glPushMatrix();
-            glTranslatef(-3.2, 1.4, 3);
-           	glScalef(1.15,1.7,1.15);
-            creerSapin();
-        glPopMatrix();
-          
-      glPopMatrix();
- }
- 
- 
- void creerTunnel()
- {
-      glPushMatrix();
-          glPushMatrix();
-                glColor4fv(newCouleur(1,0.9568,0.55294,1));
-                glTranslatef(0, 0.5, -2);
-        		glScalef(7,4,0.2);
-        		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          glPushMatrix();
-                glColor4fv(newCouleur(1,0.9568,0.55294,1));
-                glTranslatef(0, 0.5, 2);
-        		glScalef(7,4,0.2);
-        		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          glPushMatrix();
-                glColor4fv(newCouleur(1,0.9568,0.55294,1));
-                glTranslatef(0, 2.5, 0);
-        		glScalef(7,0.2,4.2);
-        		glutSolidCube(1.0);             
-          glPopMatrix();
-          
-          
-      glPopMatrix();
-}
-void display(void)
-{ 
-	glClear(GL_COLOR_BUFFER_BIT);
-	glColor4fv(couleurNoir());
-	
-	//pour le recpouvremment: dessine ce qu'il faut
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) ;
-	
-	//Matrice de la scene
-	glPushMatrix();
-        manipulateurSouris();
-		manipulateurClavier();
-        
-        //via la souris
-        if (doActionSourisRotation != NULL)
-            doActionSourisRotation();
-        
-        //rotation de toute la scene via le clavier
-        if (doActionClavierRotation != NULL)
-        {
-    		glRotatef(anglex,1.0F,0.0F,0.0F);
-    		glRotatef(angley,0.0F,1.0F,0.0F);
-    		glRotatef(anglez,0.0F,0.0F,1.0F);
-        }
-        
-        //cout << couleurCylindre[0] << " " << couleurCylindre[1] << " " << couleurCylindre[2] << " " << endl;
-        /*gluLookAt   (
-                        dist * monCosinus[angle], hauteurCam, dist * monSinus[angle], 
-                        depCamX, depCamY, depCamZ, 
-                        0.0, 1.0, 0.0
-                    );*/
-        //glLoadIdentity();
-        lookAt(cameraCourante, trajectoireCourante);
-        initLumiere();
-        
-		glPushMatrix();
-    		glColor4fv(couleurRouge());
-            glutSolidSphere(.5, 50, 50);
-        glPopMatrix();
-        
-        glPushMatrix();
-            creerTerrain();
-        glPopMatrix();
-        
-        //décorations :  des sapins
-        glPushMatrix();
-            glTranslatef(-25, 1.4, 0);
-           	glScalef(1.15,1.7,1.15);
-            creerSapin();
-        glPopMatrix();
-        
-        glPushMatrix();
-            glTranslatef(-27, 0.5, 4);
-            creerSapin();
-        glPopMatrix();
-        
-        glPushMatrix();
-            glTranslatef(-27, 1.4, 2);
-           	glScalef(1.15,1.7,1.15);
-            creerSapin();
-        glPopMatrix();
-        
-        glPushMatrix();
-            glTranslatef(-29, 0.5, 5);
-            creerSapin();
-        glPopMatrix();
-        
-        glPushMatrix();
-            glTranslatef(-30, 1.4, 2);
-           	glScalef(1.15,1.7,1.15);
-            creerSapin();
-        glPopMatrix();
-        
-        glPushMatrix();
-            glTranslatef(-30, 0.5, 5);
-            creerSapin();
-        glPopMatrix();
-        
-        ///////////////////////////////////////////////////////////////
-        glPushMatrix();
-            glTranslatef(23, 1.4, 20);
-           	glScalef(1.15,1.7,1.15);
-            creerSapin();
-        glPopMatrix();
-        
-        glPushMatrix();
-            glTranslatef(25, 0.5, 24);
-            creerSapin();
-        glPopMatrix();
-        
-        glPushMatrix();
-            glTranslatef(25, 1.4, 22);
-           	glScalef(1.15,1.7,1.15);
-            creerSapin();
-        glPopMatrix();
-        
-        glPushMatrix();
-            glTranslatef(27, 0.5, 25);
-            creerSapin();
-        glPopMatrix();
-        
-        glPushMatrix();
-            glTranslatef(28, 1.4, 22);
-           	glScalef(1.15,1.7,1.15);
-            creerSapin();
-        glPopMatrix();
-        
-        glPushMatrix();
-            glTranslatef(28, 0.5, 25);
-            creerSapin();
-        glPopMatrix();
-        
-        //décorations: des moutons
-        glPushMatrix();
-             glTranslatef(0, -0.7, -5);
-             glRotatef(90,0,1,0);
-             glScalef(0.25,0.25,0.25);
-             creerMouton();
-        glPopMatrix();
-        
-        glPushMatrix();
-             glTranslatef(-2, -0.7, -3);
-             glRotatef(33,0,1,0);
-             glScalef(0.25,0.25,0.25);
-             creerMouton();
-        glPopMatrix();
-        
-        glPushMatrix();
-             glTranslatef(2, -0.7, -2);
-             glRotatef(20,0,1,0);
-             glScalef(0.25,0.25,0.25);
-             creerMouton();
-        glPopMatrix();
-        
-        glPushMatrix();
-             glTranslatef(7, -0.7, -5);
-             glRotatef(-20,0,1,0);
-             glScalef(0.25,0.25,0.25);
-             creerMouton();
-        glPopMatrix();
-        
-        glPushMatrix();
-             glTranslatef(7, -0.7, -8);
-             glRotatef(-46,0,1,0);
-             glScalef(0.25,0.25,0.25);
-             creerMouton();
-        glPopMatrix();
-        
-        glPushMatrix();
-             glTranslatef(-7, -0.7, -8);
-             glRotatef(33,0,1,0);
-             glScalef(0.25,0.25,0.25);
-             creerMouton();
-        glPopMatrix();
-        
-        //décoration : maison
-        glPushMatrix();
-            glTranslatef(19, 0, -19);
-            glRotatef(-45,0,1,0);
-            creerMaison();
-        glPopMatrix();
-        
-        //décoration : tunnel
-        glPushMatrix();
-            glTranslatef(0, 0, 19);
-            creerTunnel();
-        glPopMatrix();
-        
-        //creation du train dans la scene au point 0, 0, 0
-        glPushMatrix();
-            
-            glRotatef(angleTrain, 0, 1, 0);
-            glTranslatef(0, 0, -19);
-            creerRail();
-            
-            //glTranslatef(0, 0, -18);
-            //glTranslatef(-18*monCosinus[1], 0, 18*monSinus[1]);
-            //deplacement du train il faut aussi une rotation progressive pour mettre le train dans le bon sens ...
-            //ca aurait était trop facile sinon X|
-            //glTranslatef(18*monCosinus[angleTrain], 0, -18*monSinus[angleTrain]);
-            //pas terrible la rotation
-            //ici déplacement du train sur les rails
-            
-            glPushMatrix();
-                glTranslatef(-2.2, 0, 0.125);
-                glRotatef(5, 0, 1, 0);
-                creerTrain();
-            glPopMatrix();
-            
-            //creation du wagon au point x, y, z
-            glPushMatrix();
-                glRotatef(-4, 0, 1, 0);
-                glTranslatef(2.2, 0, 0);
-                creerWagon();
-            glPopMatrix();
-        glPopMatrix();
-        
-	glPopMatrix();
-	
-	glFlush();
-	glutSwapBuffers();
-}
-
 void initLumiere()
 {
 	//initialisation de la lumière soleil directionnel
@@ -2772,6 +1458,88 @@ void initLumiere()
     glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, direction);
     glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, langle); 
     glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, attenuation);
+}
+
+void display(void)
+{ 
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor4fv(couleurNoir());
+	
+	//pour le recpouvremment: dessine ce qu'il faut
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) ;
+	
+	//Matrice de la scene
+	glPushMatrix();
+        manipulateurSouris();
+		manipulateurClavier();
+        
+        //via la souris
+        if (doActionSourisRotation != NULL)
+            doActionSourisRotation();
+        
+        //rotation de toute la scene via le clavier
+        if (doActionClavierRotation != NULL)
+        {
+    		glRotatef(anglex,1.0F,0.0F,0.0F);
+    		glRotatef(angley,0.0F,1.0F,0.0F);
+    		glRotatef(anglez,0.0F,0.0F,1.0F);
+        }
+        
+        lookAt(cameraCourante, trajectoireCourante);
+        initLumiere();
+        
+		glPushMatrix();
+    		glColor4fv(couleurRouge());
+            glutSolidSphere(.5, 50, 50);
+        glPopMatrix();
+        
+        glPushMatrix();
+            creerTerrain(tabTexture);
+        glPopMatrix();
+        
+        //décorations :  des sapins
+        decoSapin();
+        
+        //décorations: des moutons
+        decoMouton();
+        
+        //décoration : maison
+        glPushMatrix();
+            glTranslatef(19, 0, -19);
+            glRotatef(-45,0,1,0);
+            creerMaison();
+        glPopMatrix();
+        
+        //décoration : tunnel
+        glPushMatrix();
+            glTranslatef(0, 0, 19);
+            creerTunnel();
+        glPopMatrix();
+        
+        //creation du train dans la scene
+        glPushMatrix();
+            glRotatef(angleTrain, 0, 1, 0);
+            glTranslatef(0, 0, -19);
+            creerRail();
+            
+            glPushMatrix();
+                glTranslatef(-2.2, 0, 0.125);
+                glRotatef(5, 0, 1, 0);
+                creerTrain();
+            glPopMatrix();
+            
+            //creation du wagon
+            glPushMatrix();
+                glRotatef(-4, 0, 1, 0);
+                glTranslatef(2.2, 0, 0);
+                creerWagon();
+            glPopMatrix();
+        glPopMatrix();
+        
+	glPopMatrix();
+	
+	glFlush();
+	glutSwapBuffers();
 }
 
 void idle()
@@ -2817,14 +1585,14 @@ void sonnerCloche()
 }
 
 void myinit(void) { 
-	glClearColor(1.0,1.0,1.0,1.0);
+	glClearColor(1.0 ,1.0, 1.0, 1.0);
 	glShadeModel(GL_FLAT);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_AUTO_NORMAL);
-    glEnable(GL_NORMALIZE);
-    glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
+    //glEnable(GL_AUTO_NORMAL);
+    //glEnable(GL_NORMALIZE);
+    //glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
     
     //initialisation des variables dépendant de la caméra
     resetDataLibre();
@@ -2992,9 +1760,11 @@ int main(int argc,char **argv) {
     //cout << "herbe : " << idTextureHerbe << endl;
     //cout << "ciel : " << idTextureCiel << endl;
     
+    tabTexture = (GLuint*)malloc(sizeof(GLuint) * 2);
+    
     //glEnable(GL_TEXTURE_2D);
-    loadJpegImage("herbe2.jpg", &idTextureHerbe);
-    loadJpegImage("ciel03.jpg", &idTextureCiel);
+    loadJpegImage("herbe2.jpg", &tabTexture[1]);
+    loadJpegImage("ciel03.jpg", &tabTexture[2]);
     //glDisable(GL_TEXTURE_2D);
     
     //cout << "herbe : " << idTextureHerbe << endl;
