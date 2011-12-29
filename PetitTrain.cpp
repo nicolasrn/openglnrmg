@@ -1787,7 +1787,7 @@ int main(int argc,char **argv) {
 	//glutMouseFunc(sourisBasique);
 	
 	glutDisplayFunc(display);
-
+    
 	//pour interagir avec la loco
 	glutKeyboardFunc(clavier);
 

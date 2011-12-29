@@ -76,4 +76,6 @@ void monGlutSolidCube(GLdouble size, int xTexture, int yTexture, void (*normalf)
 
 void monGlutSolidCube(GLdouble size, int xTexture = 100, void (*normalf)(int, int) = &Normal);
 
+void creerSol(GLint size);
+
 #endif
