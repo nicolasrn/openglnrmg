@@ -48,7 +48,7 @@ Camera *cameraCourante;*/
 void (*idleFunc)() = NULL;
 
 //texture
-GLuint *tabTexture;
+GLuint tabTexture[2];
 
 void monte()
 {
@@ -306,7 +306,7 @@ void creerPhares()
     GLfloat direction[]={1, -.02, 0};
     
     float lpos2[] = {-1.93, -0.4, -0.672};
-    float lpos1[] = {-1.93, -0.4, 0.672};
+    float lpos1[] = {-1.93, -0.4,  0.672};
     
     float angle = 30., attenuation = .01;
 	//phares
@@ -1586,7 +1586,7 @@ void sonnerCloche()
 
 void myinit(void) { 
 	glClearColor(1.0 ,1.0, 1.0, 1.0);
-	glShadeModel(GL_FLAT);
+	glShadeModel(GL_SMOOTH);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
@@ -1760,11 +1760,9 @@ int main(int argc,char **argv) {
     //cout << "herbe : " << idTextureHerbe << endl;
     //cout << "ciel : " << idTextureCiel << endl;
     
-    tabTexture = (GLuint*)malloc(sizeof(GLuint) * 2);
-    
     //glEnable(GL_TEXTURE_2D);
-    loadJpegImage("herbe2.jpg", &tabTexture[1]);
-    loadJpegImage("ciel03.jpg", &tabTexture[2]);
+    loadJpegImage("herbe2.jpg", &tabTexture[0]);
+    loadJpegImage("ciel03.jpg", &tabTexture[1]);
     //glDisable(GL_TEXTURE_2D);
     
     //cout << "herbe : " << idTextureHerbe << endl;

@@ -30,10 +30,10 @@ void creerTerrain(GLuint *tabTexture)
         glPushMatrix();
             glColor3fv(couleurBlanc(1));
             glTranslatef(0, -1.78, 0);
-            //glRotatef(90, 0, 1, 0);
-            glScalef(100, 1, 100);
+            glRotatef(90, 0, 0, 1);
+            glScalef(1, 100, 100);
             
-            glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
+            glBindTexture(GL_TEXTURE_2D, tabTexture[0]);
             monGlutSolidCube(1, 10, &NormalSol);
         glPopMatrix();
         
@@ -44,7 +44,7 @@ void creerTerrain(GLuint *tabTexture)
         glPushMatrix();
             glColor3fv(couleurBlanc(0));
             glTranslatef(0, 26/2, 0);
-            glBindTexture(GL_TEXTURE_2D, tabTexture[2]);
+            glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
             //glTranslatef(50, 0, 0);
             //glScalef(1, 100, 100);
             //monGlutSolidCube(100, 5);
@@ -55,31 +55,31 @@ void creerTerrain(GLuint *tabTexture)
             glColor3fv(couleurBlanc(1));
             glTranslatef(0, (50-2.78)/2, 0);
             //glScalef(100, 100, 100);
-            glBindTexture(GL_TEXTURE_2D, tabTexture[2]);
+            glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
             glPushMatrix();
                 glTranslatef(-50, 0, 0);
                 glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1);
+                monGlutSolidCube(1, 1); //Ouest
             glPopMatrix();
             
             glPushMatrix();
                 glTranslatef(50, 0, 0);
                 glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1);
+                monGlutSolidCube(1, 1); //Est
             glPopMatrix();
             
             glPushMatrix();
                 glRotatef(90, 0, 1, 0);
                 glTranslatef(-50, 0, 0);
                 glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1);
+                monGlutSolidCube(1, 1); //Sud
             glPopMatrix();
             
             glPushMatrix();
                 glRotatef(90, 0, 1, 0);
                 glTranslatef(50, 0, 0);
                 glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1);
+                monGlutSolidCube(1, 1); //Nord
             glPopMatrix();
         glPopMatrix();
 #endif

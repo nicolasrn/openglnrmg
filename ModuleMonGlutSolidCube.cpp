@@ -17,20 +17,27 @@ void Normal(int i, int j)
 
 void NormalSol(int i, int j)
 {
-    static GLfloat n[6][3] =
-    {
-        {0.0, -1.0, 1.0},
-        {0.0, -1.0, 1.0},
-        {0.0, -1.0, 1.0},
-        {0.0, -1.0, 1.0},
-        {0.0, -1.0, 1.0},
-        {0.0, -1.0, 1.0}
-    };
-    
-    glNormal3fv(&n[i][j]);
-    //glNormal3f(0, 0, 1);
-    
-    //glNormal3fv(&n[i][j]);
+    glNormal3f(0, 1, 0);
+}
+
+void NormalOuest(int i, int j)
+{
+    glNormal3f(0, -1, 0);
+}
+
+void NormalEst(int i, int j)
+{
+    glNormal3f(0, -1, 0);
+}
+
+void NormalNord(int i, int j)
+{
+    glNormal3f(1, 0, 0);
+}
+
+void NormalSud(int i, int j)
+{
+    glNormal3f(-1, 0, 0);
 }
 
 void loadJpegImage(char *fichier, GLuint *numtex)
