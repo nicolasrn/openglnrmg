@@ -8,7 +8,7 @@
     #include "MonModuleCamera.h"
     #include "MonModuleSouris.h"
     
-    #define debug_menu 1
+    #define debug_menu 0
     
     extern float *couleurCylindre;
     extern float *couleurAvant;

@@ -60,6 +60,14 @@ void Normal(int i, int j);
 
 void NormalSol(int i, int j);
 
+void NormalOuest(int i, int j);
+
+void NormalEst(int i, int j);
+
+void NormalNord(int i, int j);
+
+void NormalSud(int i, int j);
+
 void loadJpegImage(char *fichier, GLuint *numtex);
 
 static void drawBox(GLfloat size, GLenum type, int xTexture, int yTexture, void (*normalf)(int, int));

@@ -6,7 +6,7 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 
-#define debug_camera 1
+#define debug_camera 0
 
 typedef struct camera
 {
