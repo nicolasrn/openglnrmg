@@ -141,19 +141,19 @@ void monGlutSolidCube(GLdouble size, int xTexture, void (*normalf)(int, int))
 void creerSol(GLint size)
 {
     glNormal3i(0,0,1); 	//Définit la normale commune à tous les sommets
-    for (int i = -size/2; i < size/2; i++)
+    for (double i = -size/2; i < size/2; i+=.5)
     {	
         glBegin(GL_QUAD_STRIP);
             //cout << "(" << i << ", -1)" << endl;
-            glVertex2i(i,-1);glTexCoord2i(0, 0);
+            glVertex2f(i,-1);glTexCoord2i(0, i+1);
             //cout << "(" << i+1 << ", -1)" << endl;
-            glVertex2i(i+1,-1);glTexCoord2i(1, 0);
+            glVertex2f(i+1,-1);glTexCoord2i(i+1, 0);
             for (int j = -size/2; j < size/2; j++)
             {	
                 //cout << "(" << i << ", " << j+1 << ")" << endl;
-                glVertex2i(i,j+1); glTexCoord2i(1, 1);
+                glVertex2f(i,j+1); glTexCoord2i(i, j+1);
                 //cout << "(" << i+1 << ", " << j+1 << ")" << endl;
-                glVertex2i(i+1,j+1);glTexCoord2i(0, 1);	 
+                glVertex2f(i+1,j+1);glTexCoord2i(i+1, j+1);	 
             }	
         glEnd();
     }	

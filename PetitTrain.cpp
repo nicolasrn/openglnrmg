@@ -1444,20 +1444,20 @@ void initLumiere()
     glLightfv(GL_LIGHT0, GL_SPECULAR, L0dif);
     
     //spot
-    GLfloat attenuation = 0;
+    GLfloat attenuation = 10;
     GLfloat langle = 20;
-    GLfloat L3pos[]={ 0, 1, -10, 1};
-    GLfloat L3dif[]={ 1, 1, 1 };
-    GLfloat direction[]={1, 1, -1};
+    GLfloat L3pos[]={ 0, 1, 0, 1};
+    GLfloat L3dif[]={ .8, .8, .8 };
+    GLfloat direction[]={0, -.02, -1};
     
     glLightfv(GL_LIGHT3, GL_POSITION, L3pos);
     glLightfv(GL_LIGHT3, GL_DIFFUSE, L3dif);
     glLightfv(GL_LIGHT3, GL_SPECULAR, L3dif);
     
     //parametres avances 
-    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, direction);
-    glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, langle); 
-    glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, attenuation);
+    glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, direction);
+    glLightf (GL_LIGHT3, GL_SPOT_CUTOFF, langle); 
+    glLightf (GL_LIGHT3, GL_SPOT_EXPONENT, attenuation);
 }
 
 void display(void)
