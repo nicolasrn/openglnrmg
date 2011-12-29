@@ -23,7 +23,7 @@ void creerRail()
         gluDisk(param, min, max, 100, 8);
     glPopMatrix();
 }
-/*
+
 void creerTerrain(GLuint *tabTexture)
 {
     if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
@@ -87,8 +87,8 @@ void creerTerrain(GLuint *tabTexture)
 #endif
 	if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
 }
-*/
-void creerTerrain(GLuint *tabTexture)
+//*/
+/*void creerTerrain(GLuint *tabTexture)
 {
     if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
         glPushMatrix();
@@ -149,7 +149,7 @@ void creerTerrain(GLuint *tabTexture)
 #endif
 	if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
 }
-
+//*/
 void creerSapin()
 {
      glPushMatrix();
