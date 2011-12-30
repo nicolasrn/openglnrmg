@@ -6,21 +6,21 @@ LeftChar=1
 Open=0
 Top=0
 [Editors]
-Focused=20
+Focused=0
 <<<<<<< .mine
-Order=20,13,14,0
+Order=20,13,14,0,19,4,5
 =======
 Order=0,6,5,4,10,2,8,11,12,1
 >>>>>>> .r27
 [Editor_0]
 Open=1
-Top=0
+Top=1
 <<<<<<< .mine
 <<<<<<< .mine
 <<<<<<< .mine
 CursorCol=22
-CursorRow=1771
-TopLine=1755
+CursorRow=416
+TopLine=400
 =======
 CursorCol=1
 CursorRow=1560
@@ -59,18 +59,18 @@ CursorRow=6
 TopLine=2
 LeftChar=1
 [Editor_4]
-Open=0
+Open=1
 Top=0
-CursorCol=35
-CursorRow=17
-TopLine=1
+CursorCol=18
+CursorRow=59
+TopLine=33
 LeftChar=1
 [Editor_5]
-Open=0
+Open=1
 Top=0
 <<<<<<< .mine
-CursorCol=9
-CursorRow=367
+CursorCol=20
+CursorRow=364
 TopLine=355
 =======
 CursorCol=58
@@ -180,18 +180,18 @@ CursorRow=16
 TopLine=1
 LeftChar=1
 [Editor_19]
-Open=0
+Open=1
 Top=0
 CursorCol=1
-CursorRow=12
+CursorRow=14
 TopLine=1
 LeftChar=1
 [Editor_20]
 Open=1
-Top=1
-CursorCol=27
-CursorRow=113
-TopLine=105
+Top=0
+CursorCol=13
+CursorRow=179
+TopLine=172
 LeftChar=1
 [Editor_21]
 Open=1
