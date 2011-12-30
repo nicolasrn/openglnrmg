@@ -1489,8 +1489,7 @@ void display(void)
         
         lookAt(cameraCourante, trajectoireCourante);
         initLumiere();
-        
-                       
+            
 		glPushMatrix();
     		glColor4fv(couleurRouge());
             glutSolidSphere(.5, 50, 50);
@@ -1774,7 +1773,7 @@ int initList()
                     //*/
                     
                     //phare
-                    //*
+                    /*
                     if (i - j > 0)
                         monGlutSolidCube(1, 1, &NormalSolPos);
                     else
@@ -1808,7 +1807,7 @@ int main(int argc,char **argv) {
     loadJpegImage("ciel03.jpg", &tabTexture[1]);
     //glDisable(GL_TEXTURE_2D);
     
-    indexList = initList();
+    //indexList = initList();
     
     //cout << "herbe : " << idTextureHerbe << endl;
     //cout << "ciel : " << idTextureCiel << endl;
