@@ -358,8 +358,12 @@ void creerPhares()
             glPopMatrix();
             
     		glColor4fv(couleurPhare);
+    		if (glIsEnabled(GL_LIGHT1))
+    		  glMaterialfv(GL_FRONT,GL_EMISSION, couleurBlanc());
     		glTranslatef(-1.93, -0.4, 0.672);
     		gluSphere(param,0.21,20,20);
+    		if (glIsEnabled(GL_LIGHT1))
+    		  glMaterialfv(GL_FRONT,GL_EMISSION, newCouleur(0, 0, 0, 1));
     	glPopMatrix();
 	glPopMatrix();
 	
@@ -405,8 +409,12 @@ void creerPhares()
             glPopMatrix();
             
     		glColor4fv(couleurPhare);
+    		if (glIsEnabled(GL_LIGHT2))
+    		  glMaterialfv(GL_FRONT,GL_EMISSION, couleurBlanc());
     		glTranslatef(-1.93, -0.4, -0.672);
             gluSphere(param,0.21,20,20);
+    		if (glIsEnabled(GL_LIGHT2))
+    		  glMaterialfv(GL_FRONT,GL_EMISSION, newCouleur(0, 0, 0, 1));
     	glPopMatrix();
     glPopMatrix();
 }
