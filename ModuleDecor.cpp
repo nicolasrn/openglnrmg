@@ -176,10 +176,16 @@ void creerTerrain(GLuint *tabTexture, int index)
             glPopMatrix();
             
             glPushMatrix();
-                /*glRotatef(90, 0, 1, 0);
-                glTranslatef(50, 0, 0);
-                glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1);*/ //Nord
+            
+                GLfloat mat_ambient_color[]= {0.8,0.8,0.2,0.5};
+                glEnable(GL_TEXTURE_2D);
+                glPushMatrix();
+                    glRotatef(90, 0, 1, 0);
+                    glTranslatef(50, 0, 0);
+                    glScalef(1, 50, 100);
+                    monGlutSolidCube(1, 1); //Nord
+                glPopMatrix();
+                glDisable(GL_TEXTURE_2D);
                 
                 glRotatef(90, 0, 1, 0);
                 glTranslatef(50, 0, 0);
@@ -191,6 +197,7 @@ void creerTerrain(GLuint *tabTexture, int index)
                     for(double j = -my; j <= my; j++)
                     {
                         glPushMatrix();
+                            glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,mat_ambient_color) ;
                             glTranslatef(i, 0, j);
                             monGlutSolidCube(1, .05);
                         glPopMatrix();
