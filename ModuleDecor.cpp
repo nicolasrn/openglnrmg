@@ -155,23 +155,24 @@ void creerTerrain(GLuint *tabTexture, int index)
                 /*glRotatef(90, 0, 1, 0);
                 glTranslatef(50, 0, 0);
                 glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1); //Nord
-                */
+                monGlutSolidCube(1, 1);*/ //Nord
+                
                 glRotatef(90, 0, 1, 0);
                 glTranslatef(50, 0, 0);
                 glRotatef(90, 0, 0, 1);
                 
-                for(int i = -49/2-1; i <= 49/2-1; i++)
+                double mx = 49/2+1, my = 49;
+                for(double i = -mx; i <= mx; i++)
                 {
-                    for(int j = -49; j <= 49; j++)
+                    for(double j = -my; j <= my; j++)
                     {
                         glPushMatrix();
                             glTranslatef(i, 0, j);
-                            monGlutSolidCube(1, 1);
-                            //attention selon que l'on se trouve dans la partie z > 0 => 1 sinon -1 
+                            monGlutSolidCube(1, .05);
                         glPopMatrix();
                     }
                 }
+                //creerPlan(100);
             glPopMatrix();
         glPopMatrix();
 	if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
