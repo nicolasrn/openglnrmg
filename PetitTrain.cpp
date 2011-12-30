@@ -50,6 +50,8 @@ void (*idleFunc)() = NULL;
 //texture
 GLuint tabTexture[2];
 
+int indexList;
+
 void monte()
 {
 	up = 0.03;
@@ -305,8 +307,8 @@ void creerPhares()
     
     GLfloat direction[]={1, -.02, 0};
     
-    float lpos2[] = {-1.93, -0.4, -0.672};
-    float lpos1[] = {-1.93, -0.4,  0.672};
+    float lpos2[] = {-1.93, -0.4, -0.672, 1};
+    float lpos1[] = {-1.93, -0.4,  0.672, 1};
     
     float angle = 30., attenuation = .01;
 	//phares
@@ -343,9 +345,7 @@ void creerPhares()
     	
     	glPushMatrix();
             glPushMatrix();
-            #if defined(testTerrain) && testTerrain
                 glRotatef(180 - angle, 0, 1, 0);
-            #endif
                 glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
                 glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
                 glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
@@ -392,9 +392,7 @@ void creerPhares()
     	
     	glPushMatrix();
             glPushMatrix();
-            #if defined(testTerrain) && testTerrain
                 glRotatef(180 - angle, 0, 1, 0);
-            #endif
                 glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
                 glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
                 glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
@@ -1435,7 +1433,7 @@ void creerWagon()
 void initLumiere()
 {
 	//initialisation de la lumière soleil directionnel
-    GLfloat L0pos[]={ 5, 5, 5, 1};
+    GLfloat L0pos[]={ 0, 10, 0, 1};
     GLfloat L0dif[]={ 1, 1, 1};
     
     //position et direction
@@ -1494,7 +1492,7 @@ void display(void)
         glPopMatrix();
         
         glPushMatrix();
-            creerTerrain(tabTexture);
+            creerTerrain(tabTexture, indexList);
         glPopMatrix();
         
         //décorations :  des sapins
@@ -1549,6 +1547,7 @@ void idle()
 	a = a+5;
 	angleTrain = (angleTrain + 1) % 360;
 	angleTrainCamera = (angleTrainCamera + 1) % 360;
+	cout << angleTrain << endl;
 	
 	//raffichage
     glutPostRedisplay();
@@ -1590,9 +1589,9 @@ void myinit(void) {
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
-    //glEnable(GL_AUTO_NORMAL);
-    //glEnable(GL_NORMALIZE);
-    //glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
+    glEnable(GL_AUTO_NORMAL);
+    glEnable(GL_NORMALIZE);
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
     
     //initialisation des variables dépendant de la caméra
     resetDataLibre();
@@ -1746,6 +1745,41 @@ void clavier(unsigned char touche,int x,int y)
 	}
 }
 
+int initList()
+{
+    // create one display list
+    GLuint index = glGenLists(1);
+    
+    // compile the display list
+    glNewList(index, GL_COMPILE);
+        for(int i = -49; i <= 49; i++)
+        {
+            for(int j = -49; j <= 49; j++)
+            {
+                glPushMatrix();
+                    glTranslatef(i, 0, j);
+                    
+                    //soleil
+                    /*
+                    monGlutSolidCube(1, 1);
+                    //*/
+                    
+                    //phare
+                    //*
+                    if (i - j > 0)
+                        monGlutSolidCube(1, 1, &NormalSolPos);
+                    else
+                        monGlutSolidCube(1, 1, &NormalSolNeg);
+                    //*/
+                    
+                glPopMatrix();
+            }
+        }
+    glEndList();
+    
+    return index;
+}
+
 int main(int argc,char **argv) {
 	trigo();
 	themeCourse();
@@ -1764,6 +1798,8 @@ int main(int argc,char **argv) {
     loadJpegImage("herbe2.jpg", &tabTexture[0]);
     loadJpegImage("ciel03.jpg", &tabTexture[1]);
     //glDisable(GL_TEXTURE_2D);
+    
+    indexList = initList();
     
     //cout << "herbe : " << idTextureHerbe << endl;
     //cout << "ciel : " << idTextureCiel << endl;
