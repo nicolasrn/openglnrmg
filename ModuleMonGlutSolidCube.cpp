@@ -25,11 +25,13 @@ void NormalSol(int i, int j)
 void NormalSolPos(int i, int j)
 {
     glNormal3f(0, 0, 1);
+    //glNormal3f(-monCosinus[angleTrain], 0, monSinus[angleTrain]);
 }
 
 void NormalSolNeg(int i, int j)
 {
     glNormal3f(0, 0, -1);
+    //glNormal3f(monCosinus[angleTrain], 0, -monSinus[angleTrain]);
 }
 
 void NormalOuest(int i, int j)

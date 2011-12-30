@@ -305,12 +305,16 @@ void creerPhares()
     glLightfv(GL_LIGHT2,GL_DIFFUSE,L1dif);
     glLightfv(GL_LIGHT2,GL_SPECULAR,L1spec);
     
-    GLfloat direction[]={1, -.02, 0};
+    GLfloat direction2[]={-10, -.02, -1.6};
+    GLfloat direction1[]={-10, -.02, 1.6};
     
-    float lpos2[] = {-1.93, -0.4, -0.672, 1};
-    float lpos1[] = {-1.93, -0.4,  0.672, 1};
+    //float lpos2[] = {-1.93, -0.4, -0.672, 1}; //phare gauche
+    //float lpos1[] = {-1.93, -0.4,  0.672, 1}; //phare droit
     
-    float angle = 30., attenuation = .01;
+    float lpos2[] = {0.52, -0.4, -0.672, 1}; //phare gauche
+    float lpos1[] = {0.52, -0.4,  0.672, 1}; //phare droit
+    
+    float angle = 10., attenuation = .01;
 	//phares
 	//droit
     glPushMatrix();
@@ -345,16 +349,16 @@ void creerPhares()
     	
     	glPushMatrix();
             glPushMatrix();
-                glRotatef(180 - angle, 0, 1, 0);
-                glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
-                glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
-                glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
-                glLightfv(GL_LIGHT2,GL_POSITION,lpos1);
+                //glRotatef(180 - angle, 0, 1, 0);
+                glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
+                glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction1);
+                glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
+                glLightfv(GL_LIGHT1,GL_POSITION,lpos1);
                 //glRotatef(-90, 0, 1, 0);
             glPopMatrix();
             
     		glColor4fv(couleurPhare);
-    		glTranslatef(-1.92, -0.4, 0.672);
+    		glTranslatef(-1.93, -0.4, 0.672);
     		gluSphere(param,0.21,20,20);
     	glPopMatrix();
 	glPopMatrix();
@@ -392,16 +396,16 @@ void creerPhares()
     	
     	glPushMatrix();
             glPushMatrix();
-                glRotatef(180 - angle, 0, 1, 0);
+                //glRotatef(180 - angle, 0, 1, 0);
                 glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, angle); // ce spot ?clairera jusqu'? 45? autour de son axe 
-                glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction);
+                glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, direction2);
                 glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, attenuation);// coefficient d'att?nuation angulaire
                 glLightfv(GL_LIGHT2,GL_POSITION,lpos2);
                 //glRotatef(-90, 0, 1, 0);
             glPopMatrix();
             
     		glColor4fv(couleurPhare);
-    		glTranslatef(-1.92, -0.4, -0.672);
+    		glTranslatef(-1.93, -0.4, -0.672);
             gluSphere(param,0.21,20,20);
     	glPopMatrix();
     glPopMatrix();
@@ -1486,6 +1490,7 @@ void display(void)
         lookAt(cameraCourante, trajectoireCourante);
         initLumiere();
         
+                       
 		glPushMatrix();
     		glColor4fv(couleurRouge());
             glutSolidSphere(.5, 50, 50);
@@ -1536,6 +1541,7 @@ void display(void)
         
 	glPopMatrix();
 	
+
 	glFlush();
 	glutSwapBuffers();
 }
