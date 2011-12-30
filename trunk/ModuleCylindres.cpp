@@ -20,6 +20,7 @@ void solidCylindre(float r,float h,int n,int m, bool texture) {
     glTranslatef(0.0F,0.0F,-h/2);
     GLUquadricObj *qobj = gluNewQuadric();
     gluQuadricDrawStyle(qobj,GLU_FILL);
+    gluQuadricNormals(qobj, GLU_SMOOTH);
     if (texture)
         gluQuadricTexture(qobj, GL_TRUE);
     gluCylinder(qobj,r,r,h,n,m);

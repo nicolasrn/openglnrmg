@@ -1,6 +1,8 @@
 #include "ModuleDecor.h"
 #include "ModuleCylindres.h"
 
+using namespace std;
+
 GLUquadric* param = gluNewQuadric(); 
   
 void creerRail()
@@ -23,7 +25,7 @@ void creerRail()
         gluDisk(param, min, max, 100, 8);
     glPopMatrix();
 }
-
+/*
 void creerTerrain(GLuint *tabTexture)
 {
     if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
@@ -88,33 +90,43 @@ void creerTerrain(GLuint *tabTexture)
 	if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
 }
 //*/
-/*void creerTerrain(GLuint *tabTexture)
+void creerTerrain(GLuint *tabTexture, int index)
 {
     if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
         glPushMatrix();
             glColor3fv(couleurBlanc(1));
             glTranslatef(0, -1.78, 0);
-            glRotatef(90, 0, 0, 1);
-            glScalef(1, 100, 100);
-            
-            glBindTexture(GL_TEXTURE_2D, tabTexture[0]);
-            monGlutSolidCube(1, 10, &NormalSol);
-        glPopMatrix();
-        
-//ici test == 1 donc on est dans le else 
-//utilisé juste pour voir la différence
-//bien sur selon les murs la lumière est différente
-#if defined(testTerrain) && !testTerrain
-        glPushMatrix();
-            glColor3fv(couleurBlanc(0));
-            glTranslatef(0, 26/2, 0);
-            glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
-            //glTranslatef(50, 0, 0);
+            //glRotatef(90, 0, 0, 1);
             //glScalef(1, 100, 100);
-            //monGlutSolidCube(100, 5);
-            solidCylindre(50, 30, 20, 1, true);
+             
+            glBindTexture(GL_TEXTURE_2D, tabTexture[0]);
+            glCallList(index);
+            
+            /*for(int i = -49; i <= 49; i++)
+            {
+                for(int j = -49; j <= 49; j++)
+                {
+                    glPushMatrix();
+                        glTranslatef(i, 0, j);
+                        if (0 < angleTrain && angleTrain < 90)
+                            monGlutSolidCube(1, 1, &NormalSolNeg);
+                        else if (90 < angleTrain && angleTrain < 180)
+                            monGlutSolidCube(1, 1, &NormalSolNeg);
+                            
+                        else if (180 < angleTrain && angleTrain < 270)
+                            monGlutSolidCube(1, 1, &NormalSolPos);
+                        else if (270 < angleTrain && (angleTrain < 360 || angleTrain > 0))
+                            monGlutSolidCube(1, 1, &NormalSolPos);
+                        else
+                            monGlutSolidCube(1, 1);
+                        
+                            //attention selon que l'on se trouve dans la partie z > 0 => 1 sinon -1 
+                    glPopMatrix();
+                }
+            }*/
+            
         glPopMatrix();
-#else
+
         glPushMatrix();
             glColor3fv(couleurBlanc(1));
             glTranslatef(0, (50-2.78)/2, 0);
@@ -140,13 +152,28 @@ void creerTerrain(GLuint *tabTexture)
             glPopMatrix();
             
             glPushMatrix();
-                glRotatef(90, 0, 1, 0);
+                /*glRotatef(90, 0, 1, 0);
                 glTranslatef(50, 0, 0);
                 glScalef(1, 50, 100);
                 monGlutSolidCube(1, 1); //Nord
+                */
+                glRotatef(90, 0, 1, 0);
+                glTranslatef(50, 0, 0);
+                glRotatef(90, 0, 0, 1);
+                
+                for(int i = -49/2-1; i <= 49/2-1; i++)
+                {
+                    for(int j = -49; j <= 49; j++)
+                    {
+                        glPushMatrix();
+                            glTranslatef(i, 0, j);
+                            monGlutSolidCube(1, 1);
+                            //attention selon que l'on se trouve dans la partie z > 0 => 1 sinon -1 
+                        glPopMatrix();
+                    }
+                }
             glPopMatrix();
         glPopMatrix();
-#endif
 	if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
 }
 //*/

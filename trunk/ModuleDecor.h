@@ -1,18 +1,18 @@
 #ifndef __DECOR__
 #define __DECOR__
 
+#include <iostream>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
 
 #include "ModuleCouleurs.h"
 #include "ModuleMonGlutSolidCube.h"
-
-#define testTerrain 1
+#include "MonModuleCamera.h"
 
 extern GLUquadric* param; 
 
-void creerTerrain(GLuint *tabTexture);
+void creerTerrain(GLuint *tabTexture, int index);
 
 void creerRail();
 
