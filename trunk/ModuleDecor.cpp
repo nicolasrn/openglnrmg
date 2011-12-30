@@ -103,28 +103,28 @@ void creerTerrain(GLuint *tabTexture, int index)
             //glCallList(index);
             
             for(int i = -49; i <= 49; i++)
-        {
-            for(int j = -49; j <= 49; j++)
             {
-                glPushMatrix();
-                    glTranslatef(i, 0, j);
-                    
-                    //soleil
-                    /*
-                    monGlutSolidCube(1, 1);
-                    //*/
-                    
-                    //phare
-                    //*
-                    if (i - j > 0)
-                        monGlutSolidCube(1, 1, &NormalSolPos);
-                    else
-                        monGlutSolidCube(1, 1, &NormalSolNeg);
-                    //*/
-                    
-                glPopMatrix();
+                for(int j = -49; j <= 49; j++)
+                {
+                    glPushMatrix();
+                        glTranslatef(i, 0, j);
+                        
+                        //soleil
+                        //*
+                        monGlutSolidCube(1, 1);
+                        //*/
+                        
+                        //phare
+                        /*
+                        if (i - j > 0)
+                            monGlutSolidCube(1, 1, &NormalSolPos);
+                        else
+                            monGlutSolidCube(1, 1, &NormalSolNeg);
+                        //*/
+                        
+                    glPopMatrix();
+                }
             }
-        }
             
             /*for(int i = -49; i <= 49; i++)
             {
