@@ -19,7 +19,7 @@ void Normal(int i, int j)
 
 void NormalSol(int i, int j)
 {
-    glNormal3f(0, 0, 0.5);
+    glNormal3f(0.0, 0.0, -1.0);
 }
 
 void NormalSolPos(int i, int j)
@@ -39,7 +39,7 @@ void NormalOuest(int i, int j)
 
 void NormalEst(int i, int j)
 {
-    glNormal3f(0, -1, 0);
+    glNormal3f(0, 1, 0);
 }
 
 void NormalNord(int i, int j)
@@ -88,7 +88,7 @@ void loadJpegImage(char *fichier, GLuint *numtex)
     jpeg_finish_decompress(&cinfo);
     jpeg_destroy_decompress(&cinfo);
     /* Paramétrage de la texture */
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+    //glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     glGenTextures(1, &(*numtex));
     glBindTexture(GL_TEXTURE_2D, *numtex);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -170,4 +170,32 @@ void creerSol(GLint size)
             }	
         glEnd();
     }	
+}
+
+void creerPlan(GLdouble size, void (*fct)(int, int))
+{
+    double taille = size/2;
+    //fct(0, 0);
+    glBegin(GL_QUADS);
+        glTexCoord2f(-1, 1);glVertex2f(-taille, taille);
+        glTexCoord2f(1, 1);glVertex2f(taille, taille);	
+        glTexCoord2f(1, -1);glVertex2f(taille, -taille);
+        glTexCoord2f(-1, -1);glVertex2f(-taille, -taille);
+    glEnd();
+}
+
+void creerWall(GLdouble size, int rx, int ry, void (*fct)(int, int))
+{
+    for(double i = -rx; i <= rx; i++)
+    {
+        for(double j = -ry; j <= ry; j++)
+        {
+            glPushMatrix();
+            glTranslatef(i*size, j*size, 0);
+            //creerPlan(size, fct);
+            monGlutSolidCube(size, 1, fct);
+            //attention selon que l'on se trouve dans la partie z > 0 => 1 sinon -1 
+            glPopMatrix();
+        }
+    }
 }

@@ -1593,6 +1593,9 @@ void myinit(void) {
     glEnable(GL_NORMALIZE);
     glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
     
+	//pour le recouvrement
+	glEnable(GL_DEPTH_TEST) ;
+
     //initialisation des variables dépendant de la caméra
     resetDataLibre();
     
@@ -1804,10 +1807,6 @@ int main(int argc,char **argv) {
     //cout << "herbe : " << idTextureHerbe << endl;
     //cout << "ciel : " << idTextureCiel << endl;
     
-    glEnable(GL_NORMALIZE);
-	//pour le recouvrement
-	glEnable(GL_DEPTH_TEST) ;
-
 	creationMenuBasique();
 	//                             angle, ratio, clipping min, max , dx  , dy   , dz
 	setParametresPerspectiveBasique(65.0F, 1.0F, .1F       , 200.0F, 0.0F, 0.0F, -5.0F);
