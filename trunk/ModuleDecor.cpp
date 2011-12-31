@@ -92,14 +92,15 @@ void creerTerrain(GLuint *tabTexture)
 //*/
 void creerTerrain(GLuint *tabTexture, int index)
 {
-    if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
         glPushMatrix();
+            if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
             glColor3fv(couleurBlanc(1));
             glTranslatef(0, -1.78, 0);
             //glRotatef(90, 0, 0, 1);
             //glScalef(1, 100, 100);
-             
-            glBindTexture(GL_TEXTURE_2D, tabTexture[0]);
+            
+            if (tabTexture != NULL)
+                glBindTexture(GL_TEXTURE_2D, tabTexture[0]);
             //glCallList(index);
             
             for(int i = -49; i <= 49; i++)
@@ -147,50 +148,59 @@ void creerTerrain(GLuint *tabTexture, int index)
                             //attention selon que l'on se trouve dans la partie z > 0 => 1 sinon -1 
                     glPopMatrix();
                 }
-            }*/
-            
+            }*/ 
+	       if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
         glPopMatrix();
 
         glPushMatrix();
             glColor3fv(couleurBlanc(1));
             glTranslatef(0, (50-2.78)/2, 0);
             //glScalef(100, 100, 100);
-            glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
             glPushMatrix();
+    	        if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
+                if (tabTexture != NULL) glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
                 glTranslatef(-50, 0, 0);
                 glScalef(1, 50, 100);
                 monGlutSolidCube(1, 1); //Ouest
+    	        if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
             glPopMatrix();
             
             glPushMatrix();
+    	        if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
+                if (tabTexture != NULL) glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
                 glTranslatef(50, 0, 0);
                 glScalef(1, 50, 100);
                 monGlutSolidCube(1, 1); //Est
+    	        if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
             glPopMatrix();
             
             glPushMatrix();
+    	        if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
+                if (tabTexture != NULL) glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
                 glRotatef(90, 0, 1, 0);
                 glTranslatef(-50, 0, 0);
                 glScalef(1, 50, 100);
                 monGlutSolidCube(1, 1); //Sud
+    	        if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
             glPopMatrix();
             
             glPushMatrix();
-            
+                glEnable(GL_CULL_FACE);
+                glEnable(GL_BLEND);
                 GLfloat mat_ambient_color[]= {0.8,0.8,0.2,0.5};
-                glEnable(GL_TEXTURE_2D);
                 glPushMatrix();
+        	        if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
+                    if (tabTexture != NULL) glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
                     glRotatef(90, 0, 1, 0);
-                    glTranslatef(50, 0, 0);
+                    glTranslatef(51, 0, 0);
                     glScalef(1, 50, 100);
                     monGlutSolidCube(1, 1); //Nord
+    	           if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
                 glPopMatrix();
-                glDisable(GL_TEXTURE_2D);
                 
                 glRotatef(90, 0, 1, 0);
-                glTranslatef(50, 0, 0);
+                glTranslatef(49, 0, 0);
                 glRotatef(90, 0, 0, 1);
-                
                 double mx = 49/2+1, my = 49;
                 for(double i = -mx; i <= mx; i++)
                 {
@@ -204,9 +214,10 @@ void creerTerrain(GLuint *tabTexture, int index)
                     }
                 }
                 //creerPlan(100);
+                glDisable(GL_CULL_FACE);
+                glDisable(GL_BLEND);
             glPopMatrix();
         glPopMatrix();
-	if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
 }
 //*/
 void creerSapin()
