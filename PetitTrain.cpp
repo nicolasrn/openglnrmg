@@ -1606,6 +1606,9 @@ void myinit(void) {
     glEnable(GL_NORMALIZE);
     glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
     
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    glDepthFunc(GL_LESS);
+    
 	//pour le recouvrement
 	glEnable(GL_DEPTH_TEST) ;
 
