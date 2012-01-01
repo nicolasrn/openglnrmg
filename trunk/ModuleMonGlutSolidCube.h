@@ -58,34 +58,10 @@ OpenGL(TM) is a trademark of Silicon Graphics, Inc.
 
 #include "MonModuleCamera.h"
 
-void Normal(int i, int j);
-
-void NormalSol(int i, int j);
-
-void NormalSolPos(int i, int j);
-
-void NormalSolNeg(int i, int j);
-
-void NormalOuest(int i, int j);
-
-void NormalEst(int i, int j);
-
-void NormalNord(int i, int j);
-
-void NormalSud(int i, int j);
-
 void loadJpegImage(char *fichier, GLuint *numtex);
 
-static void drawBox(GLfloat size, GLenum type, double xTexture, double yTexture, void (*normalf)(int, int));
+static void drawBox(GLfloat size, GLenum type, int tailleTexture, int posx, int posy);
 
-void monGlutSolidCube(GLdouble size, double xTexture, double yTexture, void (*normalf)(int, int) = &Normal);
-
-void monGlutSolidCube(GLdouble size, double xTexture = 100, void (*normalf)(int, int) = &Normal);
-
-void creerSol(GLint size);
-
-void creerPlan(GLdouble size, void (*)(int, int) = &Normal);
-
-void creerWall(GLdouble size, int rx, int ry, void (*fct)(int, int) = &Normal);
+void monGlutSolidCube(GLdouble size, int tailleTexture = 1, int posx = -1, int posy = -1);
 
 #endif
