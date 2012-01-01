@@ -108,11 +108,11 @@ void creerTerrain(GLuint *tabTexture, int index)
                 for(int j = -49; j <= 49; j++)
                 {
                     glPushMatrix();
-                        glTranslatef(i, 0, j);
+                        glTranslatef(i*1, 0, j*1);
                         
                         //soleil
                         //*
-                        monGlutSolidCube(1, 1);
+                        monGlutSolidCube(1, 1, i*1, j*1);
                         //*/
                         
                         //phare
@@ -161,7 +161,7 @@ void creerTerrain(GLuint *tabTexture, int index)
                 if (tabTexture != NULL) glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
                 glTranslatef(-50, 0, 0);
                 glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1); //Ouest
+                monGlutSolidCube(1); //Ouest
     	        if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
             glPopMatrix();
             
@@ -170,7 +170,7 @@ void creerTerrain(GLuint *tabTexture, int index)
                 if (tabTexture != NULL) glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
                 glTranslatef(50, 0, 0);
                 glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1); //Est
+                monGlutSolidCube(1); //Est
     	        if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
             glPopMatrix();
             
@@ -180,46 +180,80 @@ void creerTerrain(GLuint *tabTexture, int index)
                 glRotatef(90, 0, 1, 0);
                 glTranslatef(-50, 0, 0);
                 glScalef(1, 50, 100);
-                monGlutSolidCube(1, 1); //Sud
+                monGlutSolidCube(1); //Sud
     	        if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
             glPopMatrix();
             
             glPushMatrix();
-                glEnable(GL_CULL_FACE);
                 glEnable(GL_BLEND);
-                GLfloat mat_ambient_color[]= {0.8,0.8,0.2,0.5};
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                glPushMatrix() ;
+                    glRotatef(90, 0, 1, 0);
+                    glTranslatef(50, 0, 0);
+                    glPushMatrix();
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, couleurBlanc(0)) ;
+                        if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
+                        if (tabTexture != NULL) glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
+                        glScalef(1, 50, 100);
+                        monGlutSolidCube(1, 1); //Nord
+        	            if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
+                    glPopMatrix();
+                    
+                    //zone transparente
+                    glPushMatrix();
+                        glDisable(GL_COLOR_MATERIAL);
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, couleurBlanc(0.1)) ;
+                        glRotatef(90, 0, 0, 1);
+                        glTranslatef(0, 1.1, 0);
+                        //glScalef(0.1, 1, 0.1);
+                        creerMur(25, 50, 1, 5);
+                    glPopMatrix();
+                    glEnable(GL_COLOR_MATERIAL);
+                    remiseZero();
+                    glDisable(GL_BLEND);
+                glPopMatrix() ;
+                /*
                 glPushMatrix();
         	        if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
                     if (tabTexture != NULL) glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
                     glRotatef(90, 0, 1, 0);
-                    glTranslatef(51, 0, 0);
-                    glScalef(1, 50, 100);
-                    monGlutSolidCube(1, 1); //Nord
-    	           if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
+                    glTranslatef(50, 0, 0);
+                    glRotatef(90, 0, 0, 1);
+                    double mx = 49/2+1, my = 49;
+                    creerMur(mx, my, 1, 5);
+    	            if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
                 glPopMatrix();
                 
-                glRotatef(90, 0, 1, 0);
-                glTranslatef(49, 0, 0);
-                glRotatef(90, 0, 0, 1);
-                double mx = 49/2+1, my = 49;
-                for(double i = -mx; i <= mx; i++)
-                {
-                    for(double j = -my; j <= my; j++)
-                    {
-                        glPushMatrix();
-                            glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,mat_ambient_color) ;
-                            glTranslatef(i, 0, j);
-                            monGlutSolidCube(1, .05);
-                        glPopMatrix();
-                    }
-                }
-                //creerPlan(100);
-                glDisable(GL_CULL_FACE);
-                glDisable(GL_BLEND);
+                glPushMatrix();
+        	        if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
+                    if (tabTexture != NULL) glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
+                    glRotatef(90, 0, 1, 0);
+                    glTranslatef(50, 0, 0);
+                    glScalef(1, 50, 100);
+                    monGlutSolidCube(1, 1); //Nord
+    	            if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
+                glPopMatrix();
+                //*/
             glPopMatrix();
         glPopMatrix();
 }
 //*/
+
+void creerMur(int mx, int my, int taille, int tailleTexture)
+{ 
+    for(int i = -mx; i <= mx; i++) // il faut aussi le i*taille et j*taille
+    {
+        for(int j = -my; j <= my; j++)
+        {
+            glPushMatrix();
+                int posx = i*taille, posy = j*taille;
+                glTranslatef(posx, 0, posy);
+                monGlutSolidCube(taille, tailleTexture, posx, posy);
+            glPopMatrix();
+        }
+    }
+}
+
 void creerSapin()
 {
      glPushMatrix();

@@ -85,18 +85,6 @@ void tournerRoue()
 	}    
 }
 
-void remiseZero()
-{
-     GLfloat cAmbient[] = {0,0,0,1.0};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, cAmbient);
-     GLfloat cDiffuse[] = {1,1,1,1.0};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, cDiffuse);
-     GLfloat cSpec[] = {0,0,0,1.0};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, cSpec);
-     GLfloat cShin = 51.2;
-     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, cShin);
-}
-
 void creerAvantLoco()
 {
 	//création de l'avant de la loco
@@ -1473,7 +1461,7 @@ void initLumiere()
 void display(void)
 { 
 	glClear(GL_COLOR_BUFFER_BIT);
-	glColor4fv(couleurNoir());
+	//glColor4fv(couleurNoir());
 	
 	//pour le recpouvremment: dessine ce qu'il faut
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) ;
@@ -1495,9 +1483,37 @@ void display(void)
     		glRotatef(anglez,0.0F,0.0F,1.0F);
         }
         
+        //*/
         lookAt(cameraCourante, trajectoireCourante);
         initLumiere();
+        //*/
+        
+        /*
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+        glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
+        glPushMatrix() ;
+            glPushMatrix();
+                glEnable(GL_COLOR_MATERIAL);
+                remiseZero();
+                if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
+                if (tabTexture != NULL) glBindTexture(GL_TEXTURE_2D, tabTexture[1]);
+                creerMur(2, 2, 1, 5);
+	            if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
+            glPopMatrix();
             
+            glPushMatrix();
+                glDisable(GL_COLOR_MATERIAL);
+                glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, couleurBlanc(0.5)) ;
+                glPushMatrix();
+                    glTranslatef(0, 0.5, 0);
+                    glutSolidCube(1.0) ;
+                glPopMatrix();
+            glPopMatrix();
+        glPopMatrix() ;
+    	//*/
+        
+        //*
 		glPushMatrix();
     		glColor4fv(couleurRouge());
             glutSolidSphere(.5, 50, 50);
@@ -1545,7 +1561,7 @@ void display(void)
                 creerWagon();
             glPopMatrix();
         glPopMatrix();
-        
+        //*/
 	glPopMatrix();
 	
 
@@ -1597,19 +1613,19 @@ void sonnerCloche()
 }
 
 void myinit(void) { 
-	glClearColor(1.0 ,1.0, 1.0, 1.0);
+	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glShadeModel(GL_SMOOTH);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_AUTO_NORMAL);
     glEnable(GL_NORMALIZE);
     glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
     
-    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
     glDepthFunc(GL_LESS);
     
-	//pour le recouvrement
+    //pour le recouvrement
 	glEnable(GL_DEPTH_TEST) ;
 
     //initialisation des variables dépendant de la caméra
