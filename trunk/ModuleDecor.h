@@ -13,7 +13,7 @@
 
 extern GLUquadric* param; 
 
-void creerTerrain(GLuint *tabTexture, int index);
+void creerTerrain(GLuint *tabTexture);
 
 void creerMur(int mx, int my, int taille, int tailleTexture);
 

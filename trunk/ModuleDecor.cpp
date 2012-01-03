@@ -90,7 +90,7 @@ void creerTerrain(GLuint *tabTexture)
 	if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
 }
 //*/
-void creerTerrain(GLuint *tabTexture, int index)
+void creerTerrain(GLuint *tabTexture)
 {
         glPushMatrix();
             if (tabTexture != NULL) glEnable(GL_TEXTURE_2D);
