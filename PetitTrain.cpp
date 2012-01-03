@@ -1513,14 +1513,16 @@ void display(void)
         glPopMatrix() ;
     	//*/
         
-        //*
 		glPushMatrix();
     		glColor4fv(couleurRouge());
             glutSolidSphere(.5, 50, 50);
         glPopMatrix();
         
+        glCallList(indexList);
+        
+        /*
         glPushMatrix();
-            creerTerrain(tabTexture, indexList);
+            creerTerrain(tabTexture);
         glPopMatrix();
         
         //décorations :  des sapins
@@ -1541,6 +1543,7 @@ void display(void)
             glTranslatef(0, 0, 19);
             creerTunnel();
         glPopMatrix();
+        //*/
         
         //creation du train dans la scene
         glPushMatrix();
@@ -1561,7 +1564,6 @@ void display(void)
                 creerWagon();
             glPopMatrix();
         glPopMatrix();
-        //*/
 	glPopMatrix();
 	
 
@@ -1787,29 +1789,28 @@ int initList()
     
     // compile the display list
     glNewList(index, GL_COMPILE);
-        for(int i = -49; i <= 49; i++)
-        {
-            for(int j = -49; j <= 49; j++)
-            {
-                glPushMatrix();
-                    glTranslatef(i, 0, j);
-                    
-                    //soleil
-                    /*
-                    monGlutSolidCube(1, 1);
-                    //*/
-                    
-                    //phare
-                    /*
-                    if (i - j > 0)
-                        monGlutSolidCube(1, 1, &NormalSolPos);
-                    else
-                        monGlutSolidCube(1, 1, &NormalSolNeg);
-                    //*/
-                    
-                glPopMatrix();
-            }
-        }
+        glPushMatrix();
+            creerTerrain(tabTexture);
+        glPopMatrix();
+        
+        //décorations :  des sapins
+        decoSapin();
+        
+        //décorations: des moutons
+        decoMouton();
+        
+        //décoration : maison
+        glPushMatrix();
+            glTranslatef(19, 0, -19);
+            glRotatef(-45,0,1,0);
+            creerMaison();
+        glPopMatrix();
+        
+        //décoration : tunnel
+        glPushMatrix();
+            glTranslatef(0, 0, 19);
+            creerTunnel();
+        glPopMatrix();
     glEndList();
     
     return index;
@@ -1825,34 +1826,22 @@ int main(int argc,char **argv) {
 	glutInitWindowPosition(100,100); 
 	glutCreateWindow("Petit train");
 	myinit();
-    
-    //cout << "herbe : " << idTextureHerbe << endl;
-    //cout << "ciel : " << idTextureCiel << endl;
-    
-    //glEnable(GL_TEXTURE_2D);
+	
     loadJpegImage("herbe2.jpg", &tabTexture[0]);
     loadJpegImage("ciel03.jpg", &tabTexture[1]);
-    //glDisable(GL_TEXTURE_2D);
     
-    //indexList = initList();
-    
-    //cout << "herbe : " << idTextureHerbe << endl;
-    //cout << "ciel : " << idTextureCiel << endl;
+    indexList = initList();
     
 	creationMenuBasique();
 	//                             angle, ratio, clipping min, max , dx  , dy   , dz
 	setParametresPerspectiveBasique(65.0F, 1.0F, .1F       , 200.0F, 0.0F, 0.0F, -5.0F);
 	
-    //setParametresPerspectiveBasique(90.0F,1.0F,1.0F,20.0F,0.0F,0.0F,-5.0F);
-	setManipulateurDistance(10.0F);
+    setManipulateurDistance(10.0F);
 	glutReshapeFunc(reshapePerspectiveBasique);
 	
     glutKeyboardFunc(keyBasique);
 	glutSpecialFunc(special);
     
-	//glutMotionFunc(motionBasique);
-	//glutMouseFunc(sourisBasique);
-	
 	glutDisplayFunc(display);
     
 	//pour interagir avec la loco
