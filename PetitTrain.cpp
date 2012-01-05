@@ -1825,9 +1825,10 @@ int main(int argc,char **argv) {
 	glutInitWindowSize(500,500); 
 	glutInitWindowPosition(100,100); 
 	glutCreateWindow("Petit train");
+	glutFullScreen();
 	myinit();
 	
-    loadJpegImage("herbe2.jpg", &tabTexture[0]);
+    loadJpegImage("herbe3.jpg", &tabTexture[0]);
     loadJpegImage("ciel03.jpg", &tabTexture[1]);
     
     indexList = initList();
