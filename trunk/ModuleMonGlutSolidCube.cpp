@@ -90,7 +90,7 @@ void loadJpegImage(char *fichier, GLuint *numtex)
     }
 }*/
 
-static void drawBox(GLfloat size, GLenum type, int tailleTexture, int posx, int posy)
+void Normal(int i, int j)
 {
     static GLfloat n[6][3] =
     {
@@ -102,6 +102,16 @@ static void drawBox(GLfloat size, GLenum type, int tailleTexture, int posx, int 
         {0.0, 0.0, -1.0}
     };
     
+    glNormal3fv(&n[i][j]); 
+}
+
+void SansNormal(int i, int j)
+{
+    glNormal3f(0, 0, 0);
+}
+
+static void drawBox(GLfloat size, GLenum type, int tailleTexture, int posx, int posy, void (*normal)(int, int))
+{
     static GLint faces[6][4] =
     {
         {0, 1, 2, 3},
@@ -124,7 +134,7 @@ static void drawBox(GLfloat size, GLenum type, int tailleTexture, int posx, int 
     for (i = 5; i >= 0; i--) 
     {
         glBegin(type);
-            glNormal3fv(&n[i][0]); 
+            normal(i, 0);
             
             glTexCoord2f(0, 0);
             glVertex3fv(&v[faces[i][0]][0]);
@@ -141,7 +151,7 @@ static void drawBox(GLfloat size, GLenum type, int tailleTexture, int posx, int 
     }
 }
 
-void monGlutSolidCube(GLdouble size, int tailleTexture, int posx, int posy) 
+void monGlutSolidCube(GLdouble size, int tailleTexture, int posx, int posy, void (*normal)(int, int)) 
 {
-    drawBox(size, GL_QUADS, tailleTexture, posx, posy);
+    drawBox(size, GL_QUADS, tailleTexture, posx, posy, normal);
 }
