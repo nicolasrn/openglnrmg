@@ -1830,7 +1830,22 @@ int initList()
 void InfoConsole()
 {
     cout << "Bonjour, Bienvenue dans le projet OpenGL de Marine Guffroy et Nicolas Reitz" << endl;
-    
+    cout << endl<< endl<< endl;
+    cout << "\
+                      .---._\n\
+              .--(. '  .).--.      . .-.\n\
+           . ( ' _) .)` (   .)-. ( ) '-'\n\
+          ( ,  ).        `(' . _)\n\
+        (')  _________      '-'\n\
+        ____[_________]                            ________\n\
+        \\__/ | _ \\  ||    ,;,;,,                  [________]\n\
+        _][__|(\")/__||  ,;;;;;;;;,   __________   _| LILI |_\n\
+       /             | |          | |____      | |     \\|   |\n\
+      (| .--.    .--.| |   ----   | |     ___  | |   |\\     |\n\
+      /|/ .. \\~~/ .. \\_|_.-.__.-._|_|_.-.__.-._|_|_.-:_\\.-._|\n\
+ ==+=/_|\\ '' /~~\\ '' /=+( o )( o )+==( o )( o )=+=( o )( o )+=\n\
+jgs='=='='--'==+='--'===+'-'=='-'==+=='-'+='-'===+='-'=='-'==+=\n\
+                                                               "<<endl;
     cout << "Quelques commandes clavier : " << endl;
     cout << "\tLumieres : " << endl;
     cout << "\t\tl : activation lumiere soleil" << endl;
@@ -1855,6 +1870,7 @@ void InfoConsole()
     cout << "\t\tfaire tourner le train : 'a'" << endl;
     cout << "\t\tfaire tchoutchou : 't' et 'r'" << endl;
     cout << "\t\tfaire sonner : 'b'" << endl;
+    cout << "\t\tanimation principale : 'I' (pour lancer et arreter)" << endl;
     
     cout << "\tQuitter : 'q'" << endl << endl;
     
