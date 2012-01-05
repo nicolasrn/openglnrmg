@@ -60,8 +60,12 @@ OpenGL(TM) is a trademark of Silicon Graphics, Inc.
 
 void loadJpegImage(char *fichier, GLuint *numtex);
 
-static void drawBox(GLfloat size, GLenum type, int tailleTexture, int posx, int posy);
+void Normal(int i, int j);
 
-void monGlutSolidCube(GLdouble size, int tailleTexture = 1, int posx = -1, int posy = -1);
+void SansNormal(int i, int j);
+
+static void drawBox(GLfloat size, GLenum type, int tailleTexture, int posx, int posy, void (*normal)(int, int));
+
+void monGlutSolidCube(GLdouble size, int tailleTexture = 1, int posx = -1, int posy = -1, void (*normal)(int, int) = &Normal);
 
 #endif
