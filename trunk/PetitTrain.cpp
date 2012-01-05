@@ -1442,11 +1442,11 @@ void initLumiere()
     glLightfv(GL_LIGHT0, GL_SPECULAR, L0dif);
     
     //spot
-    GLfloat attenuation = 10;
+    GLfloat attenuation = 0;
     GLfloat langle = 20;
-    GLfloat L3pos[]={ 0, 1, 0, 1};
-    GLfloat L3dif[]={ .8, .8, .8 };
-    GLfloat direction[]={0, -.02, -1};
+    GLfloat L3pos[]={ 0, .5, 0, 1};
+    GLfloat L3dif[]={ 1, 1, 1 };
+    GLfloat direction[]={0, 0, -1};
     
     glLightfv(GL_LIGHT3, GL_POSITION, L3pos);
     glLightfv(GL_LIGHT3, GL_DIFFUSE, L3dif);
@@ -1582,7 +1582,6 @@ void idle()
 	a = a+5;
 	angleTrain = (angleTrain + 1) % 360;
 	angleTrainCamera = (angleTrainCamera + 1) % 360;
-	cout << angleTrain << endl;
 	
 	//raffichage
     glutPostRedisplay();
@@ -1794,6 +1793,8 @@ int initList()
     // compile the display list
     glNewList(index, GL_COMPILE);
         glPushMatrix();
+            //glScalef(.5, .5, .5);
+            //glTranslatef(0, -2, 0);
             creerTerrain(tabTexture);
         glPopMatrix();
         
@@ -1826,16 +1827,63 @@ int initList()
     return index;
 }
 
+void InfoConsole()
+{
+    cout << "Bonjour, Bienvenue dans le projet OpenGL de Marine Guffroy et Nicolas Reitz" << endl;
+    
+    cout << "Quelques commandes clavier : " << endl;
+    cout << "\tLumieres : " << endl;
+    cout << "\t\tl : activation lumiere soleil" << endl;
+    cout << "\t\tk : activation lumiere lampadaire" << endl;
+    cout << "\t\tm : activation lumiere des phares" << endl;
+    
+    cout << "\tCamera : " << endl;
+    cout << "\t\tse rapprocher et s'eloigner du centre sur les z : '+' et '-'" << endl;
+    cout << "\t\ttourner autour du centre : 'o' et 'p'" << endl;
+    cout << "\t\tse rapprocher et s'eloigner du centre sur les y : 'u' et 'i'" << endl;
+    cout << "\t\tchanger le centre sur z : '1' et '9'" << endl;
+    cout << "\t\tchanger le centre sur y : '2' et '8'" << endl;
+    cout << "\t\tchanger le centre sur x : '4' et '6'" << endl;
+    
+    cout << "\tScene (par defaut desactiver utilisez le clic droit) : " << endl;
+    cout << "\t\tmanipulation souris sur les x et y" << endl;
+    cout << "\t\tfleches directionnelles gauche, droite sur les x" << endl;
+    cout << "\t\tfleches directionnelles haut, bas sur les y" << endl;
+    cout << "\t\ttouche 'z', 'Z' sur les z" << endl;
+    
+    cout << "\tAnimation : " << endl;
+    cout << "\t\tfaire tourner le train : 'a'" << endl;
+    cout << "\t\tfaire tchoutchou : 't' et 'r'" << endl;
+    cout << "\t\tfaire sonner : 'b'" << endl;
+    
+    cout << "\tQuitter : 'q'" << endl << endl;
+    
+    cout << "Quelques options du clic droit : " << endl;
+    cout << "\tmodes" << endl;
+    cout << "\t\tcourse" << endl;
+    cout << "\t\tfille" << endl;
+    cout << "\t\tgarcon" << endl;
+    cout << "\t\tvieux" << endl;
+    cout << "\ttrajectoire" << endl;
+    cout << "\t\tlibre" << endl;
+    cout << "\t\tvue cabine 1" << endl;
+    cout << "\t\tvue cabine 2" << endl;
+    cout << "\tactivation desactivation de lumiere" << endl;
+    cout << "\tactivation desactivation de la manipulation de la scene" << endl;
+    cout << "\tquitter" << endl;
+}
+
 int main(int argc,char **argv) {
 	trigo();
 	themeCourse();
-    
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH);
-	glutInitWindowSize(500,500); 
+	glutInitWindowSize(1000, 800); 
 	glutInitWindowPosition(100,100); 
 	glutCreateWindow("Petit train");
-	glutFullScreen();
+	//glutFullScreen();
+	
+    InfoConsole();
 	myinit();
 	
     loadJpegImage("herbe3.jpg", &tabTexture[0]);
