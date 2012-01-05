@@ -1514,8 +1514,12 @@ void display(void)
     	//*/
         
 		glPushMatrix();
-    		glColor4fv(couleurRouge());
-            glutSolidSphere(.5, 50, 50);
+    		glColor4fv(couleurBlanc());
+    		if(glIsEnabled(GL_LIGHT3))
+                 glMaterialfv(GL_FRONT, GL_EMISSION, couleurBlanc());
+            glutSolidSphere(.2, 50, 50);
+            if(glIsEnabled(GL_LIGHT3))
+                 glMaterialfv(GL_FRONT, GL_EMISSION, newCouleur(0,0,0,1));
         glPopMatrix();
         
         glCallList(indexList);
@@ -1811,6 +1815,12 @@ int initList()
             glTranslatef(0, 0, 19);
             creerTunnel();
         glPopMatrix();
+        
+        //décoration : lampadaire
+        glPushMatrix();
+            creerLampadaire();
+        glPopMatrix();
+        
     glEndList();
     
     return index;
