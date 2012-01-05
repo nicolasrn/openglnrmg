@@ -27,6 +27,8 @@ void creerMaison();
  
 void creerTunnel();
 
+void creerLampadaire();
+
 void decoSapin();
 
 void decoMouton();

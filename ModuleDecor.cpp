@@ -113,42 +113,12 @@ void creerTerrain(GLuint *tabTexture)
                         //soleil
                         //*
                         monGlutSolidCube(1, 1, i*1, j*1);
-                        //*/
-                        
-                        //phare
-                        /*
-                        if (i - j > 0)
-                            monGlutSolidCube(1, 1, &NormalSolPos);
-                        else
-                            monGlutSolidCube(1, 1, &NormalSolNeg);
-                        //*/
+                      
                         
                     glPopMatrix();
                 }
             }
             
-            /*for(int i = -49; i <= 49; i++)
-            {
-                for(int j = -49; j <= 49; j++)
-                {
-                    glPushMatrix();
-                        glTranslatef(i, 0, j);
-                        if (0 < angleTrain && angleTrain < 90)
-                            monGlutSolidCube(1, 1, &NormalSolNeg);
-                        else if (90 < angleTrain && angleTrain < 180)
-                            monGlutSolidCube(1, 1, &NormalSolNeg);
-                            
-                        else if (180 < angleTrain && angleTrain < 270)
-                            monGlutSolidCube(1, 1, &NormalSolPos);
-                        else if (270 < angleTrain && (angleTrain < 360 || angleTrain > 0))
-                            monGlutSolidCube(1, 1, &NormalSolPos);
-                        else
-                            monGlutSolidCube(1, 1);
-                        
-                            //attention selon que l'on se trouve dans la partie z > 0 => 1 sinon -1 
-                    glPopMatrix();
-                }
-            }*/ 
 	       if (tabTexture != NULL) glDisable(GL_TEXTURE_2D);
         glPopMatrix();
 
@@ -246,7 +216,6 @@ void creerTerrain(GLuint *tabTexture)
                         glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, couleurBlanc(0.1)) ;
                         glRotatef(90, 0, 0, 1);
                         glTranslatef(0, -1.1, 0);
-                        //glScalef(0.1, 1, 0.1);
                         creerMur(25, 36, 1, 5);
                     glPopMatrix();
                     glEnable(GL_COLOR_MATERIAL);
@@ -279,7 +248,6 @@ void creerTerrain(GLuint *tabTexture)
                         glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, couleurBlanc(0.1)) ;
                         glRotatef(90, 0, 0, 1);
                         glTranslatef(0, 1.1, 0);
-                        //glScalef(0.1, 1, 0.1);
                         creerMur(25, 36, 1, 5);
                     glPopMatrix();
                     glEnable(GL_COLOR_MATERIAL);
@@ -1436,4 +1404,29 @@ void decoMouton()
          glScalef(0.25,0.25,0.25);
          creerMouton();
     glPopMatrix();
+}
+
+void creerLampadaire()
+{
+     glPushMatrix();
+         glPushMatrix();
+             glColor4fv(couleurGrisFonce());
+             glTranslatef(0, -0.1, 0.4); 
+             glRotatef(90, 1, 0, 0);
+             gluCylinder(param,0.2,0.2,1.4,20,1);
+         glPopMatrix();
+         
+         glPushMatrix();
+             glColor4fv(couleurGrisFonce());
+             glTranslatef(0, 0, 0.4);
+             gluSphere(param,0.2,20,20);
+         glPopMatrix();
+         
+         glPushMatrix();
+             glColor4fv(couleurGrisFonce());
+             glTranslatef(0, 0, 0); 
+             glRotatef(90,0,0,1);             
+             gluCylinder(param,0.3,0,0.6,20,1);
+         glPopMatrix();
+     glPopMatrix();
 }
