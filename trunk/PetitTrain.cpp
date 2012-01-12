@@ -1445,7 +1445,7 @@ void initLumiere()
     GLfloat attenuation = 0;
     GLfloat langle = 20;
     GLfloat L3pos[]={ 0, .5, 0, 1};
-    GLfloat L3dif[]={ 1, 1, 1 };
+    GLfloat L3dif[]={ 0.521568, 0.023529, 0.023529 };
     GLfloat direction[]={0, 0, -1};
     
     glLightfv(GL_LIGHT3, GL_POSITION, L3pos);
@@ -1516,7 +1516,7 @@ void display(void)
 		glPushMatrix();
     		glColor4fv(couleurBlanc());
     		if(glIsEnabled(GL_LIGHT3))
-                 glMaterialfv(GL_FRONT, GL_EMISSION, couleurBlanc());
+                 glMaterialfv(GL_FRONT, GL_EMISSION, newCouleur(0.521568, 0.023529, 0.023529,1 ));
             glutSolidSphere(.2, 50, 50);
             if(glIsEnabled(GL_LIGHT3))
                  glMaterialfv(GL_FRONT, GL_EMISSION, newCouleur(0,0,0,1));
