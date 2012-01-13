@@ -1,0 +1,5 @@
+Projet openGl de Nicolas Reitz et Guffroy Marine
+
+Le détail des commandes pour interagir avec le jouet sont décrites dans la console.
+
+Amusez-vous bien. Et n'oubliez pas d'activer le son de votre ordinateur.
